@@ -9,7 +9,8 @@ export default async function handler(req, res) {
   }
 
   const { accountEmail, password } = req.body;
-
+  console.log("MONGO_URI:", process.env.MONGO_URI);
+  console.log("JWT_SECRET:", process.env.JWT_SECRET);
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = await User.create({

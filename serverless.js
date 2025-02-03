@@ -1,20 +1,12 @@
-import express from "express";
+import { createRouter } from "next-connect";
 import cors from "cors";
 import authRoutes from "./api/auth/index.js";
+import dotenv from "dotenv";
+dotenv.config();
+const router = createRouter();
 
-const app = express();
+router.use(cors());
 
-app.use(
-  cors({
-    origin: process.env.FRONTEND_URL || "*" || "http://localhost:3000",
-    methods: ["GET", "POST", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-  })
-);
+router.use(authRoutes);
 
-app.use(express.json());
-app.use("/api/auth", authRoutes);
-
-const handler = (req, res) => app(req, res);
-
-export default handler;
+export default router.handler();
