@@ -1,8 +1,8 @@
 import express from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import User from "../../../model/User";
-import sendVerificationEmail from "../../../utils/emailSender";
+import User from "../../model/User";
+import sendVerificationEmail from "../../utils/emailSender";
 import cors from "cors";
 
 const router = express.Router();
