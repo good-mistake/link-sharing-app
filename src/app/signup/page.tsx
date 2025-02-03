@@ -40,7 +40,7 @@ export default function Signup() {
       console.log("Sending request with data:", formData);
 
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/auth/signup`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/auth/signup`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
