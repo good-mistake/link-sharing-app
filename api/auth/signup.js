@@ -1,11 +1,13 @@
-import express from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import User from "../../model/User";
 import sendVerificationEmail from "../../utils/emailSender";
-const router = express.Router();
 
-router.post("/", async (req, res) => {
+export default async function handler(req, res) {
+  if (req.method !== "POST") {
+    return res.status(405).json({ message: "Method Not Allowed" });
+  }
+
   const { accountEmail, password } = req.body;
 
   try {
@@ -20,6 +22,7 @@ router.post("/", async (req, res) => {
       process.env.JWT_SECRET,
       { expiresIn: "1h" }
     );
+
     await sendVerificationEmail(newUser.accountEmail, token);
     res
       .status(201)
@@ -28,6 +31,4 @@ router.post("/", async (req, res) => {
     console.error(err);
     res.status(500).json({ error: "Failed to register user." });
   }
-});
-
-export default router;
+}
