@@ -22,7 +22,12 @@ export default async function handler(req, res) {
       accountEmail,
       password: hashedPassword,
     });
-
+    console.log("MONGO_URI:", process.env.MONGO_URI ? "Loaded" : "Not Found");
+    console.log("JWT_SECRET:", process.env.JWT_SECRET ? "Loaded" : "Not Found");
+    console.log(
+      "FRONTEND_URL:",
+      process.env.FRONTEND_URL ? "Loaded" : "Not Found"
+    );
     const token = jwt.sign(
       { id: newUser._id, email: newUser.accountEmail },
       process.env.JWT_SECRET,
@@ -36,5 +41,14 @@ export default async function handler(req, res) {
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Failed to register user." });
+    console.log("MONGO_URI:", process.env.MONGO_URI ? "Loaded" : "Not Found");
+    console.log("JWT_SECRET:", process.env.JWT_SECRET ? "Loaded" : "Not Found");
+    console.log(
+      "FRONTEND_URL:",
+      process.env.FRONTEND_URL ? "Loaded" : "Not Found"
+    );
   }
 }
+console.log("MONGO_URI:", process.env.MONGO_URI ? "Loaded" : "Not Found");
+console.log("JWT_SECRET:", process.env.JWT_SECRET ? "Loaded" : "Not Found");
+console.log("FRONTEND_URL:", process.env.FRONTEND_URL ? "Loaded" : "Not Found");
