@@ -9,12 +9,6 @@ export default async function handler(req, res) {
   }
 
   const { accountEmail, password } = req.body;
-  console.log("MONGO_URI:", process.env.MONGO_URI ? "Loaded" : "Not Found");
-  console.log("JWT_SECRET:", process.env.JWT_SECRET ? "Loaded" : "Not Found");
-  console.log(
-    "FRONTEND_URL:",
-    process.env.FRONTEND_URL ? "Loaded" : "Not Found"
-  );
 
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
