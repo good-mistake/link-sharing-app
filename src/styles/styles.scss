@@ -1,0 +1,61 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap");
+@import "./mixins.scss";
+@import "./variables.scss";
+body {
+  font-family: "Instrument Sans", serif;
+  font-optical-sizing: auto;
+  background-color: $color-white-primary;
+}
+.loginContainer {
+  margin-top: 5rem;
+
+  form {
+    background-color: $color-white-secondary;
+    padding: 40px;
+    margin: 50px 0;
+    .pass {
+      @include body-s;
+    }
+    p {
+      @include body-m;
+      color: $color-gray-dark;
+      margin-bottom: 40px;
+      margin-top: 8px;
+      &:last-child {
+        text-align: center;
+      }
+    }
+    label {
+      @include body-s;
+      color: $color-gray-dark;
+      margin-bottom: 5px;
+    }
+    h1 {
+      text-align: left;
+      @include heading-m;
+    }
+    .header {
+      font-family: "Instrument Sans", serif;
+    }
+    .loginBtn {
+      @include buttonPrimary;
+      margin-bottom: 24px;
+    }
+    .signupBtn {
+      border: none;
+      color: #633cff;
+      padding: 0;
+      width: auto;
+      height: a;
+      margin-left: 4px;
+    }
+    .input {
+      @include inputs;
+      margin-bottom: 24px;
+      padding-left: 45px;
+    }
+  }
+}
