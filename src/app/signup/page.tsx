@@ -20,6 +20,10 @@ export default function Signup() {
       [id]: value,
     }));
   };
+  const url =
+    process.env.NEXT_PUBLIC_API_URL ||
+    "https://link-sharing-app-pink.vercel.app";
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const { email, password, confirmPassword } = formData;
@@ -39,17 +43,14 @@ export default function Signup() {
     try {
       console.log("Sending request with data:", formData);
 
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/auth/signup`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            accountEmail: formData.email,
-            password: formData.password,
-          }),
-        }
-      );
+      const res = await fetch(`${url}/api/auth/signup`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          accountEmail: formData.email,
+          password: formData.password,
+        }),
+      });
       console.log("Response status:", res.status);
 
       const data = await res.json();
