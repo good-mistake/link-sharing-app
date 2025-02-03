@@ -2,26 +2,36 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import User from "../../model/User";
 import sendVerificationEmail from "../../utils/emailSender";
-
+import connectDB from "../../utils/connectDB";
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({ message: "Method Not Allowed" });
   }
 
-  const { accountEmail, password } = req.body;
+  await connectDB();
+
+  const { accountEmail, password, firstName, lastName } = req.body;
+
+  if (!accountEmail || !password || !firstName || !lastName) {
+    return res.status(400).json({ error: "All fields are required." });
+  }
 
   try {
+    const existingUser = await User.findOne({ accountEmail });
+    if (existingUser) {
+      return res.status(400).json({ error: "Email already registered." });
+    }
+
     const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = await User.create({
+    const newUser = new User({
       accountEmail,
       password: hashedPassword,
+      firstName,
+      lastName,
     });
-    console.log("MONGO_URI:", process.env.MONGO_URI ? "Loaded" : "Not Found");
-    console.log("JWT_SECRET:", process.env.JWT_SECRET ? "Loaded" : "Not Found");
-    console.log(
-      "FRONTEND_URL:",
-      process.env.FRONTEND_URL ? "Loaded" : "Not Found"
-    );
+
+    await newUser.save();
+
     const token = jwt.sign(
       { id: newUser._id, email: newUser.accountEmail },
       process.env.JWT_SECRET,
@@ -35,14 +45,5 @@ export default async function handler(req, res) {
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Failed to register user." });
-    console.log("MONGO_URI:", process.env.MONGO_URI ? "Loaded" : "Not Found");
-    console.log("JWT_SECRET:", process.env.JWT_SECRET ? "Loaded" : "Not Found");
-    console.log(
-      "FRONTEND_URL:",
-      process.env.FRONTEND_URL ? "Loaded" : "Not Found"
-    );
   }
 }
-console.log("MONGO_URI:", process.env.MONGO_URI ? "Loaded" : "Not Found");
-console.log("JWT_SECRET:", process.env.JWT_SECRET ? "Loaded" : "Not Found");
-console.log("FRONTEND_URL:", process.env.FRONTEND_URL ? "Loaded" : "Not Found");

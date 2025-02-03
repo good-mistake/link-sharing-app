@@ -10,35 +10,45 @@ import sendVerificationEmail from "../../utils/emailSender";
 const authHandler = async (req, res) => {
   await connectDB();
 
-  if (req.method === "POST") {
-    try {
-      const { accountEmail, password } = req.body;
-
-      const hashedPassword = await bcrypt.hash(password, 10);
-      const newUser = await User.create({
-        accountEmail,
-        password: hashedPassword,
-      });
-
-      const accessToken = generateAccessToken(newUser);
-      const refreshToken = generateRefreshToken(newUser);
-      newUser.refreshToken = refreshToken;
-
-      await sendVerificationEmail(accountEmail, accessToken);
-      console.log("Request Body:", req.body);
-
-      return res.status(201).json({
-        message: "User registered. Please verify your email!",
-        accessToken,
-        refreshToken,
-      });
-    } catch (err) {
-      console.error(err);
-      return res.status(500).json({ error: "Failed to register user." });
-    }
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Method not allowed" });
   }
 
-  return res.status(405).json({ error: "Method not allowed" });
+  try {
+    const { accountEmail, password } = req.body;
+
+    if (!accountEmail || !password) {
+      return res.status(400).json({ error: "All fields are required." });
+    }
+
+    const existingUser = await User.findOne({ accountEmail });
+    if (existingUser) {
+      return res.status(400).json({ error: "Email is already registered." });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newUser = await User.create({
+      accountEmail,
+      password: hashedPassword,
+    });
+
+    const accessToken = generateAccessToken(newUser);
+    const refreshToken = generateRefreshToken(newUser);
+    newUser.refreshToken = refreshToken;
+    await newUser.save();
+
+    await sendVerificationEmail(accountEmail, accessToken);
+    console.log("Request Body:", req.body);
+
+    return res.status(201).json({
+      message: "User registered. Please verify your email!",
+      accessToken,
+      refreshToken,
+    });
+  } catch (err) {
+    console.error("Signup Error:", err);
+    return res.status(500).json({ error: "Failed to register user." });
+  }
 };
 
 export default authHandler;
