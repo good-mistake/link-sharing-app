@@ -25,6 +25,7 @@ const authHandler = async (req, res) => {
       newUser.refreshToken = refreshToken;
 
       await sendVerificationEmail(accountEmail, accessToken);
+      console.log("Request Body:", req.body);
 
       return res.status(201).json({
         message: "User registered. Please verify your email!",

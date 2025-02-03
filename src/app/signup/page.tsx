@@ -37,6 +37,8 @@ export default function Signup() {
       return;
     }
     try {
+      console.log("Sending request with data:", formData);
+
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/auth/signup`,
         {
@@ -48,8 +50,10 @@ export default function Signup() {
           }),
         }
       );
+      console.log("Response status:", res.status);
 
       const data = await res.json();
+      console.log("Response data:", data);
       if (!res.ok) throw new Error(data.message || "Signup failed");
       setSuccess(
         "Signup successful! Please check your email for verification."
@@ -59,6 +63,8 @@ export default function Signup() {
         router.push("/login");
       }, 500);
     } catch (err: unknown) {
+      console.error("Signup error:", err);
+
       if (err instanceof Error) {
         setError(err.message);
       } else {
