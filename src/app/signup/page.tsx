@@ -20,9 +20,6 @@ export default function Signup() {
       [id]: value,
     }));
   };
-  const url =
-    process.env.NEXT_PUBLIC_API_URL ||
-    "https://link-sharing-app-pink.vercel.app";
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -43,7 +40,7 @@ export default function Signup() {
     try {
       console.log("Sending request with data:", formData);
 
-      const res = await fetch(`${url}/api/auth/signup`, {
+      const res = await fetch(`/api/auth/signup`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
