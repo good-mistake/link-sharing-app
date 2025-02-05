@@ -1,11 +1,11 @@
-import connectDB from "../../../utils/connectDB";
+import connectDB from "../../utils/connectDB";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import User from "../../../models/User";
-import sendVerificationEmail from "../../../utils/emailSender";
+import User from "../../model/User";
+import sendVerificationEmail from "../../utils/emailSender";
 
 export default async function handler(req, res) {
-  console.log("🔄 Received request:", req.method, req.url);
+  console.log("🚀 API Route hit with method:", req.method);
 
   if (req.method !== "POST") {
     console.log("❌ Invalid request method:", req.method);
@@ -13,11 +13,17 @@ export default async function handler(req, res) {
   }
 
   console.log("🔄 Connecting to DB...");
-  await connectDB();
-  console.log("✅ Database connected.");
+  try {
+    await connectDB();
+    console.log("✅ Database connected.");
+  } catch (error) {
+    console.error("❌ Database connection failed:", error);
+    return res.status(500).json({ error: "Database connection failed" });
+  }
+
+  console.log("📩 Received request body:", req.body);
 
   const { accountEmail, password } = req.body;
-  console.log("📩 Received request body:", { accountEmail });
 
   if (!accountEmail || !password) {
     console.error("❌ Missing required fields");
@@ -29,7 +35,7 @@ export default async function handler(req, res) {
     const existingUser = await User.findOne({ accountEmail });
 
     if (existingUser) {
-      console.error("❌ User already exists:", accountEmail);
+      console.log("❌ User already exists.");
       return res.status(400).json({ error: "User already exists" });
     }
 
@@ -44,9 +50,9 @@ export default async function handler(req, res) {
     });
 
     await newUser.save();
-    console.log("✅ User created successfully:", newUser._id);
+    console.log("✅ User saved to DB");
 
-    console.log("📩 Sending verification email...");
+    console.log("📧 Sending verification email...");
     const token = jwt.sign(
       { id: newUser._id, email: newUser.accountEmail },
       process.env.JWT_SECRET,
@@ -54,7 +60,7 @@ export default async function handler(req, res) {
     );
 
     await sendVerificationEmail(newUser.accountEmail, token);
-    console.log("✅ Verification email sent to:", newUser.accountEmail);
+    console.log("✅ Verification email sent");
 
     return res
       .status(201)
