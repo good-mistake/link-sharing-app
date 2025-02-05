@@ -9,6 +9,10 @@ import sendVerificationEmail from "../../utils/emailSender";
 
 const authHandler = async (req, res) => {
   await connectDB();
+  console.log("Request received:", req.method, req.url);
+  console.log("Request headers:", req.headers);
+  console.log("Request body:", req.body);
+  console.log("MONGO_URL:", process.env.MONGO_URL ? "Loaded" : "Not Defined");
 
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
