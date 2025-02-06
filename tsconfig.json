@@ -27,9 +27,9 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "api/links.js",
-    "api/auth/index.js",
-    "api/auth.js"
+    "pages/api/links.js",
+    "pages/api/auth/index.js",
+    "pages/api/auth.js"
   ],
   "exclude": ["node_modules"]
 }

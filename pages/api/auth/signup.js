@@ -1,8 +1,8 @@
-import connectDB from "../../utils/connectDB";
+import connectDB from "../../../utils/connectDB.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import User from "../../model/User";
-import sendVerificationEmail from "../../utils/emailSender";
+import User from "../../../model/User.js";
+import sendVerificationEmail from "../../../utils/emailSender";
 console.log("🛠 MONGO_URI:", process.env.MONGO_URI);
 
 export default async function handler(req, res) {

@@ -1,11 +1,11 @@
-import connectDB from "../../utils/connectDB";
-import User from "../../model/User";
+import connectDB from "../../../utils/connectDB.js";
+import User from "../../../model/User";
 import bcrypt from "bcrypt";
 import {
   generateAccessToken,
   generateRefreshToken,
-} from "../../utils/generateTokens";
-import sendVerificationEmail from "../../utils/emailSender";
+} from "../../../utils/generateTokens";
+import sendVerificationEmail from "../../utils/emailSender.js";
 
 const authHandler = async (req, res) => {
   await connectDB();
