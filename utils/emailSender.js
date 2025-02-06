@@ -4,11 +4,14 @@ const sendVerificationEmail = async (email, token) => {
   console.log("📧 Setting up email transporter...");
   const transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST,
-    port: Number(process.env.SMTP_PORT),
-    secure: process.env.SMTP_PORT == "465",
+    port: process.env.SMTP_PORT,
+    secure: false,
     auth: {
       user: process.env.SMTP_USER,
       pass: process.env.SMTP_PASS,
+    },
+    tls: {
+      ciphers: "SSLv3",
     },
   });
 
