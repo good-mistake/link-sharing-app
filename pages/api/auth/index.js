@@ -5,7 +5,7 @@ import {
   generateAccessToken,
   generateRefreshToken,
 } from "../../../utils/generateTokens";
-import sendVerificationEmail from "../../utils/emailSender.js";
+import sendVerificationEmail from "../../../utils/emailSender";
 
 const authHandler = async (req, res) => {
   await connectDB();
