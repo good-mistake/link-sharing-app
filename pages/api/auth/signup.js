@@ -59,7 +59,7 @@ export default async function handler(req, res) {
       process.env.JWT_SECRET,
       { expiresIn: "1h" }
     );
-    console.log("✅ User created successfully in database:", user);
+    console.log("✅ User created successfully in database:", newUser);
     await sendVerificationEmail(newUser.accountEmail, token);
     console.log("✅ Verification email sent");
 
