@@ -1,10 +1,14 @@
-import express from "express";
 import jwt from "jsonwebtoken";
-import User from "../../../../model/User.js";
+import User from "../../../model/User.js";
+import connectDB from "../../../utils/connectDB.js";
 
-const router = express.Router();
+export default async function handler(req, res) {
+  await connectDB();
 
-router.get("/verify", async (req, res) => {
+  if (req.method !== "GET") {
+    return res.status(405).json({ error: "Method Not Allowed" });
+  }
+
   const { token } = req.query;
 
   if (!token) {
@@ -31,6 +35,4 @@ router.get("/verify", async (req, res) => {
     console.error("Verification Error:", err);
     return res.status(400).json({ error: "Invalid or expired token." });
   }
-});
-
-export default router;
+}
