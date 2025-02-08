@@ -13,7 +13,7 @@ export default async function handler(req, res) {
 
     const { accountEmail, password } = req.body;
     const user = await User.findOne({ accountEmail });
-
+    console.log("User found:", user);
     if (!user) {
       return res.status(400).json({ error: "Invalid email or password" });
     }
