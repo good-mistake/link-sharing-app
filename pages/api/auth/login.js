@@ -20,7 +20,7 @@ export default async function handler(req, res) {
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(400).json({ error: "Invalid credentials" });
+      return res.status(400).json({ error: "Invalid email or password" });
     }
     console.log("User verification status:", user.isVerified);
     if (!user.isVerified) {

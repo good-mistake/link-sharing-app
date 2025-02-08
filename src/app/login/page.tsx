@@ -56,8 +56,11 @@ const Login = () => {
         setLoading(false);
         return;
       }
+      console.log(data);
       if (!data?.isVerified) {
-        setError("Account not verified. Please verify your email.");
+        setError(
+          `${data.isVerified} Account not verified. Please verify your email.`
+        );
         return;
       }
 
