@@ -3,6 +3,8 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import "../../styles/styles.scss";
 import { useState } from "react";
+import { motion } from "framer-motion";
+
 export default function Signup() {
   const router = useRouter();
 
@@ -13,28 +15,35 @@ export default function Signup() {
   });
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
-      [id]: value,
+      [id]: value.trim(),
     }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
     const { email, password, confirmPassword } = formData;
 
     if (!email.includes("@")) {
       setError("Please enter a valid email.");
+      setLoading(false);
       return;
     }
     if (password.length < 8) {
       setError("Password must be at least 8 characters long.");
+      setLoading(false);
       return;
     }
     if (password !== confirmPassword) {
       setError("Passwords do not match.");
+      setLoading(false);
       return;
     }
     try {
@@ -59,7 +68,7 @@ export default function Signup() {
       setError("");
       setTimeout(() => {
         router.push("/login");
-      }, 500);
+      }, 1000);
     } catch (err: unknown) {
       console.error("Signup error:", err);
 
@@ -68,10 +77,17 @@ export default function Signup() {
       } else {
         setError("An unexpected error occurred");
       }
+    } finally {
+      setLoading(false);
     }
   };
   return (
-    <div className="w-full flex justify-center flex-col loginContainer items-center">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+      className="w-full flex justify-center flex-col loginContainer items-center"
+    >
       <div className="">
         <Image
           src="/images/logo-devlinks-large.svg"
@@ -81,10 +97,12 @@ export default function Signup() {
           priority
         />
       </div>
-
-      <form
+      <motion.form
         onSubmit={handleSubmit}
-        className=" bg-white p-6 rounded-lg shadow-lg space-y-4"
+        className="bg-white p-6 rounded-lg shadow-lg space-y-4 w-[350px]"
+        initial={{ scale: 0.95, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 0.4 }}
       >
         <h1 className="header">Create account</h1>
         <p>Let’s get you started sharing your links!</p>
@@ -110,6 +128,7 @@ export default function Signup() {
             placeholder="e.g. alex@email.com"
             className="input "
             onChange={handleChange}
+            autoFocus
           />
         </div>
         <div className="relative w-full">
@@ -126,15 +145,22 @@ export default function Signup() {
             htmlFor="password"
             className="block text-sm font-medium text-gray-700"
           >
-            Create password{" "}
+            Create password
           </label>
           <input
-            type="password"
+            type={showPassword ? "text" : "password"}
             id="password"
             placeholder="At least 8 characters"
             className="input"
             onChange={handleChange}
+            autoFocus
           />
+          <span
+            onClick={() => setShowPassword(!showPassword)}
+            className="absolute top-1/2 transform -translate-y-[60%] right-2 flex items-center"
+          >
+            {showPassword ? "Hide" : "Show"}
+          </span>
         </div>
         <div className="relative w-full">
           <span className="absolute top-1/2 transform -translate-y-[60%] left-4 flex items-center">
@@ -153,16 +179,32 @@ export default function Signup() {
             Confirm password
           </label>
           <input
-            type="password"
+            type={showPassword ? "text" : "password"}
             id="confirmPassword"
             placeholder="At least 8 characters"
             className="input"
             onChange={handleChange}
-          />
+            autoFocus
+          />{" "}
+          <span
+            onClick={() => setShowPassword(!showPassword)}
+            className="absolute top-1/2 transform -translate-y-[60%] right-2 flex items-center"
+          >
+            {showPassword ? "Hide" : "Show"}
+          </span>
         </div>
-        <button type="submit" className="loginBtn w-full">
-          Create new account
-        </button>{" "}
+        <motion.button
+          type="submit"
+          whileTap={{ scale: 0.95 }}
+          disabled={loading}
+          className="loginBtn w-full flex justify-center items-center gap-2"
+        >
+          {loading ? (
+            <span className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+          ) : (
+            "Create new account"
+          )}
+        </motion.button>
         {success && <div>{success}</div>}
         {error && <div className="text-red-500 text-sm">{error}</div>}
         <p>
@@ -175,7 +217,7 @@ export default function Signup() {
             Login
           </button>
         </p>
-      </form>
-    </div>
+      </motion.form>
+    </motion.div>
   );
 }
