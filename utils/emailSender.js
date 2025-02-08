@@ -3,9 +3,9 @@ import nodemailer from "nodemailer";
 const sendVerificationEmail = async (email, token) => {
   console.log("📧 Setting up email transporter...");
   const transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: process.env.SMTP_PORT,
-    secure: true,
+    host: "smtp.office365.com",
+    port: 587,
+    secure: false,
     auth: {
       user: process.env.SMTP_USER,
       pass: process.env.SMTP_PASS,
