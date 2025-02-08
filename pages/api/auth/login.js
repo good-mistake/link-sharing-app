@@ -10,13 +10,17 @@ router.post("/login", async (req, res) => {
 
   try {
     const user = await User.findOne({ accountEmail });
-    if (!user) return res.status(404).json({ error: "User not found" });
+    if (!user) {
+      return res.status(400).json({ error: "Invalid email or password" });
+    }
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(400).json({ error: "Invalid credentials" });
 
     if (!user.isVerified) {
-      return res.status(400).json({ error: "Please verify your email first" });
+      return res
+        .status(403)
+        .json({ error: "Account not verified. Please verify your email." });
     }
 
     const token = jwt.sign(

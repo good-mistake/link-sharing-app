@@ -76,7 +76,7 @@
 }
 @mixin inputs {
   padding: 12px 16px;
-  width: 460px;
+  width: 100%;
   color: $color-gray-dark;
   @include body-m();
   border-radius: 8px;

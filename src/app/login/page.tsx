@@ -38,9 +38,16 @@ const Login = () => {
         },
         body: JSON.stringify({ accountEmail, password }),
       });
-      const data = await res.json();
+
+      let data;
+      const contentType = res.headers.get("content-type");
+      if (contentType && contentType.includes("application/json")) {
+        data = await res.json();
+      } else {
+        data = null;
+      }
       if (!res.ok) {
-        if (data.error) {
+        if (data?.error) {
           setError(data.error);
         } else {
           setError("An error occurred during login. Please try again.");
@@ -48,10 +55,11 @@ const Login = () => {
         setLoading(false);
         return;
       }
-      if (!data.isVerified) {
+      if (!data?.isVerified) {
         setError("Account not verified. Please verify your email.");
         return;
       }
+
       localStorage.setItem("token", data.token);
       setSuccess("Login successful! We are going Home now");
       setTimeout(() => {
