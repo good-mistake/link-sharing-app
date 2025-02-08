@@ -7,7 +7,7 @@ export default function VerificationFailed() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const error =
-    searchParams.get("error") || "Something went wrong Try again later!";
+    searchParams?.get("error") || "Something went wrong Try again later!";
   const [fadeOut, setFadeOut] = useState(false);
 
   useEffect(() => {
