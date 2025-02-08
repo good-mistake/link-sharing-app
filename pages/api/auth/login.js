@@ -24,9 +24,9 @@ export default async function handler(req, res) {
     }
     console.log("User verification status:", user.isVerified);
     if (!user.isVerified) {
-      return res
-        .status(403)
-        .json({ error: "Account not verified. Please verify your email." });
+      return res.status(403).json({
+        error: `${user.isVerified} Account not verified. Please verify your email.`,
+      });
     }
 
     const token = jwt.sign(
