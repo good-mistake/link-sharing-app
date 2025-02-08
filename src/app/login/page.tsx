@@ -167,10 +167,7 @@ const Login = () => {
             )}
           </span>
         </div>
-        <AnimatedButton
-          onClick={() => router.push("/home")}
-          className="loginBtn w-full"
-        >
+        <AnimatedButton className="loginBtn w-full flex justify-center items-center gap-2">
           {loading ? (
             <span className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
           ) : (
