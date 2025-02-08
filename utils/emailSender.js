@@ -13,10 +13,8 @@ const sendVerificationEmail = async (email, token) => {
   });
 
   const verificationUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/verify?token=${token}`;
-  console.log("🔗 Verification URL:", verificationUrl);
 
   try {
-    console.log("📨 Sending verification email...");
     await transporter.sendMail({
       from: `"Link Sharing App" <${process.env.SMTP_USER}>`,
       to: email,

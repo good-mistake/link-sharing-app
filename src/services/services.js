@@ -1,43 +1,61 @@
 const API_BASE_URL = "/api/profile";
 
-export const getProfile = async (userId) => {
-  const response = await fetch(`${API_BASE_URL}?userId=${userId}`);
+export const getProfile = async () => {
+  const token = localStorage.getItem("token");
+  const response = await fetch(API_BASE_URL, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
   if (!response.ok) throw new Error("Failed to fetch profile");
   return await response.json();
 };
 
-export const updateProfile = async (userId, linkData) => {
-  const response = await fetch(`${API_BASE_URL}?userId=${userId}`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(linkData),
+export const updateProfile = async (profileData) => {
+  const token = localStorage.getItem("token");
+  const response = await fetch(API_BASE_URL, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(profileData),
   });
-  if (!response.ok) throw new Error("ّFailed to add link");
+  if (!response.ok) throw new Error("Failed to update profile");
   return await response.json();
 };
 
-export const addLink = async (userId, linkData) => {
-  const response = await fetch(`${API_BASE_URL}?userId=${userId}`, {
+export const addLink = async (linkData) => {
+  const token = localStorage.getItem("token");
+  const response = await fetch(API_BASE_URL, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
     body: JSON.stringify(linkData),
   });
   if (!response.ok) throw new Error("Failed to add link");
   return await response.json();
 };
 
-export const deleteLink = async (userId, linkId) => {
-  const response = await fetch(`${API_BASE_URL}?userId=${userId}`, {
+export const deleteLink = async (linkId) => {
+  const token = localStorage.getItem("token");
+  const response = await fetch(API_BASE_URL, {
     method: "DELETE",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
     body: JSON.stringify({ linkId }),
   });
   if (!response.ok) throw new Error("Failed to delete link");
   return await response.json();
 };
-export const deleteProfile = async (userId) => {
-  const response = await fetch(`${API_BASE_URL}?userId=${userId}`, {
+
+export const deleteProfile = async () => {
+  const token = localStorage.getItem("token");
+  const response = await fetch(API_BASE_URL, {
     method: "DELETE",
+    headers: { Authorization: `Bearer ${token}` },
   });
   if (!response.ok) throw new Error("Failed to delete profile");
   return await response.json();
