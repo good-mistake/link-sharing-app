@@ -1,9 +1,9 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 
-export default function VerificationFailed() {
+function VerificationFailedContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const error =
@@ -34,5 +34,14 @@ export default function VerificationFailed() {
         <p className="text-sm text-gray-500 mt-1">Redirecting to login...</p>
       </motion.div>
     </div>
+  );
+}
+export default function VerificationFailedPage() {
+  return (
+    <Suspense
+      fallback={<p className="text-center mt-20 text-gray-500">Loading...</p>}
+    >
+      <VerificationFailedContent />
+    </Suspense>
   );
 }
