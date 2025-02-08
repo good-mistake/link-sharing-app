@@ -17,12 +17,12 @@ export default function VerifiedSuccess() {
   }, [router]);
 
   return (
-    <div className="h-screen flex items-center justify-center bg-gray-100">
+    <div className="h-screen flex items-center justify-center bg-gray-100 bg-[rgb(250,250,250)]">
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: fadeOut ? 0 : 1, scale: 1 }}
         transition={{ duration: 0.5 }}
-        className="bg-white shadow-lg rounded-lg p-6 text-center max-w-md"
+        className="bg-[rgb(255,255,255)] shadow-lg rounded-lg p-6 text-center max-w-md"
       >
         <h1 className="text-2xl font-bold text-green-600">
           Email Verified Successfully!

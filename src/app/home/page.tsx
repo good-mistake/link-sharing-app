@@ -7,6 +7,7 @@ type UserType = {
   firstName: string;
   lastName: string;
   profileEmail: string;
+  accountEmail: string;
   profilePicture?: string;
   links: { _id: string; url: string; platform: string }[];
 };
@@ -41,7 +42,7 @@ export default function Home() {
       {user ? (
         <>
           <h1 className="text-xl font-bold">Welcome, {user?.firstName}!</h1>
-          <p className="text-gray-600">Your email: {user?.profileEmail}</p>
+          <p className="text-gray-600">Your email: {user?.accountEmail}</p>
         </>
       ) : (
         <p>Loading...</p>

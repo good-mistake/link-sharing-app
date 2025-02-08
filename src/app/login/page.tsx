@@ -146,7 +146,7 @@ const Login = () => {
           />
           <span
             onClick={() => setShowPassword(!showPassword)}
-            className="cursor-pointer absolute top-1/2 transform -translate-y-[60%] right-2 flex items-center"
+            className="cursor-pointer absolute top-1/2 transform -translate-y-[50%] right-2 flex items-center"
           >
             {showPassword ? (
               <svg
