@@ -99,7 +99,7 @@ export default function Signup() {
       </div>
       <motion.form
         onSubmit={handleSubmit}
-        className="bg-white p-6 rounded-lg shadow-lg space-y-4 w-[350px]"
+        className="bg-white p-6 rounded-lg shadow-lg space-y-4 "
         initial={{ scale: 0.95, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.4 }}
