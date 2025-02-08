@@ -46,6 +46,7 @@ const Login = () => {
       } else {
         data = null;
       }
+      console.log("Response data:", data);
       if (!res.ok) {
         if (data?.error) {
           setError(data.error);

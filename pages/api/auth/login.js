@@ -22,7 +22,7 @@ export default async function handler(req, res) {
     if (!isMatch) {
       return res.status(400).json({ error: "Invalid credentials" });
     }
-
+    console.log("User verification status:", user.isVerified);
     if (!user.isVerified) {
       return res
         .status(403)
