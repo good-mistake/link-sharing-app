@@ -46,7 +46,6 @@ const Login = () => {
       } else {
         data = null;
       }
-      console.log("Response data:", data);
       if (!res.ok) {
         if (data?.error) {
           setError(data.error);
@@ -54,13 +53,6 @@ const Login = () => {
           setError("An error occurred during login. Please try again.");
         }
         setLoading(false);
-        return;
-      }
-      console.log(data);
-      if (!data?.isVerified) {
-        setError(
-          `${data.isVerified} Account not verified. Please verify your email.`
-        );
         return;
       }
 
