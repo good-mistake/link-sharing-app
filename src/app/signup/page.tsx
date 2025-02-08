@@ -35,7 +35,11 @@ export default function Signup() {
     e.preventDefault();
     setLoading(true);
     const { email, password, confirmPassword } = formData;
-
+    if (!email || !password || !confirmPassword) {
+      setError("Please fill in all fields.");
+      setLoading(false);
+      return;
+    }
     if (!email.includes("@")) {
       setError("Please enter a valid email.");
       setLoading(false);
@@ -52,8 +56,6 @@ export default function Signup() {
       return;
     }
     try {
-      console.log("Sending request with data:", formData);
-
       const res = await fetch(`/api/auth/signup`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -62,11 +64,17 @@ export default function Signup() {
           password: formData.password,
         }),
       });
-      console.log("Response status:", res.status);
 
       const data = await res.json();
-      console.log("Response data:", data);
-      if (!res.ok) throw new Error(data.message || "Signup failed");
+      if (!res.ok) {
+        if (data.error) {
+          setError(data.error);
+        } else {
+          setError("An error occurred during Signup. Please try again.");
+        }
+        setLoading(false);
+        return;
+      }
       setSuccess(
         "Signup successful! Please check your email for verification."
       );
@@ -163,7 +171,7 @@ export default function Signup() {
           />
           <span
             onClick={() => setShowPassword(!showPassword)}
-            className="absolute top-1/2 transform -translate-y-[60%] right-2 flex items-center"
+            className="cursor-pointer absolute top-1/2 transform -translate-y-[60%] right-2 flex items-center"
           >
             {showPassword ? (
               <svg
@@ -214,7 +222,7 @@ export default function Signup() {
           />{" "}
           <span
             onClick={() => setShowPassword(!showPassword)}
-            className="absolute top-1/2 transform -translate-y-[60%] right-2 flex items-center"
+            className="cursor-pointer absolute top-1/2 transform -translate-y-[60%] right-2 flex items-center"
           >
             {showPassword ? (
               <svg
@@ -240,7 +248,6 @@ export default function Signup() {
           </span>
         </div>
         <AnimatedButton className="loginBtn w-full flex justify-center items-center gap-2">
-          {" "}
           {loading ? (
             <span className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
           ) : (

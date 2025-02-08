@@ -25,7 +25,11 @@ const Login = () => {
     e.preventDefault();
     setError("");
     setLoading(true);
-
+    if (!accountEmail || !password) {
+      setError("Please fill in both email and password.");
+      setLoading(false);
+      return;
+    }
     try {
       const res = await fetch("/api/auth/login", {
         method: "POST",
@@ -35,7 +39,19 @@ const Login = () => {
         body: JSON.stringify({ accountEmail, password }),
       });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Login Failed");
+      if (!res.ok) {
+        if (data.error) {
+          setError(data.error);
+        } else {
+          setError("An error occurred during login. Please try again.");
+        }
+        setLoading(false);
+        return;
+      }
+      if (!data.isVerified) {
+        setError("Account not verified. Please verify your email.");
+        return;
+      }
       localStorage.setItem("token", data.token);
       setSuccess("Login successful! We are going Home now");
       setTimeout(() => {
@@ -98,7 +114,6 @@ const Login = () => {
             className="input"
             value={accountEmail}
             onChange={(e) => setAccountEmail(e.target.value)}
-            required
           />
         </div>
         <div className="relative w-full">
@@ -124,11 +139,10 @@ const Login = () => {
             className="input"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            required
           />
           <span
             onClick={() => setShowPassword(!showPassword)}
-            className="absolute top-1/2 transform -translate-y-[60%] right-2 flex items-center"
+            className="cursor-pointer absolute top-1/2 transform -translate-y-[60%] right-2 flex items-center"
           >
             {showPassword ? (
               <svg
@@ -157,7 +171,11 @@ const Login = () => {
           onClick={() => router.push("/home")}
           className="loginBtn w-full"
         >
-          {loading ? "Logging in..." : "Login"}
+          {loading ? (
+            <span className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+          ) : (
+            "Login"
+          )}
         </AnimatedButton>
         {success && (
           <motion.div
