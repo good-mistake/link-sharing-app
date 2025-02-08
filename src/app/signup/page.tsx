@@ -238,7 +238,8 @@ export default function Signup() {
           disabled={loading}
           className="loginBtn w-full flex justify-center items-center gap-2"
           whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95, rotate: [0, -5, 5, 0] }}
+          whileTap={{ scale: 0.9 }}
+          transition={{ type: "spring", stiffness: 300, damping: 10 }}
         >
           {loading ? (
             <span className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
@@ -256,7 +257,16 @@ export default function Signup() {
             {success}
           </motion.div>
         )}
-        {error && <div className="text-red-500 text-sm">{error}</div>}
+        {error && (
+          <motion.div
+            className="w-full bg-red-100 border border-red-500 text-red-700 px-4 py-2 rounded-lg flex items-center gap-2"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            {error}
+          </motion.div>
+        )}
         <p>
           Already have an account?
           <button

@@ -12,7 +12,7 @@ const sendVerificationEmail = async (email, token) => {
     },
   });
 
-  const verificationUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/verify?token=${token}`;
+  const verificationUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/verify?token=${token}`;
   console.log("🔗 Verification URL:", verificationUrl);
 
   try {
