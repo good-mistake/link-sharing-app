@@ -1,21 +1,27 @@
-import express from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import User from "../../../model/User.js";
+import connectDB from "../../../utils/connectDB.js";
 
-const router = express.Router();
-
-router.post("/login", async (req, res) => {
-  const { accountEmail, password } = req.body;
+export default async function handler(req, res) {
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: `Method ${req.method} Not Allowed` });
+  }
 
   try {
+    await connectDB();
+
+    const { accountEmail, password } = req.body;
     const user = await User.findOne({ accountEmail });
+
     if (!user) {
       return res.status(400).json({ error: "Invalid email or password" });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) return res.status(400).json({ error: "Invalid credentials" });
+    if (!isMatch) {
+      return res.status(400).json({ error: "Invalid credentials" });
+    }
 
     if (!user.isVerified) {
       return res
@@ -34,6 +40,4 @@ router.post("/login", async (req, res) => {
     console.error("Login Error:", err);
     res.status(500).json({ error: "Server error" });
   }
-});
-
-export default router;
+}
