@@ -1,0 +1,12 @@
+.animatedBtn {
+  background: linear-gradient(90deg, #ff7eb3, #ff758c, #ff4e50, #f9d423);
+  background-size: 300% 100%;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: 0.3s ease-in-out;
+}

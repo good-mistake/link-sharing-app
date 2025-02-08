@@ -1,7 +1,7 @@
 import express from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import User from "../../../../model/User";
+import User from "../../../model/User.js";
 
 const router = express.Router();
 
@@ -14,6 +14,7 @@ router.post("/login", async (req, res) => {
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(400).json({ error: "Invalid credentials" });
+
     if (!user.isVerified) {
       return res.status(400).json({ error: "Please verify your email first" });
     }
@@ -23,10 +24,12 @@ router.post("/login", async (req, res) => {
       process.env.JWT_SECRET,
       { expiresIn: "1h" }
     );
+
     res.status(200).json({ message: "Login successful", token });
   } catch (err) {
-    console.error(err);
+    console.error("Login Error:", err);
     res.status(500).json({ error: "Server error" });
   }
 });
+
 export default router;

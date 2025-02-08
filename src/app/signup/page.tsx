@@ -4,7 +4,12 @@ import Image from "next/image";
 import "../../styles/styles.scss";
 import { useState } from "react";
 import { motion } from "framer-motion";
-
+import AnimatedButton from "../animationBtn/AnimatedBtn";
+const pageVariants = {
+  initial: { opacity: 0, y: 50 },
+  animate: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+  exit: { opacity: 0, y: -50, transition: { duration: 0.3 } },
+};
 export default function Signup() {
   const router = useRouter();
 
@@ -86,6 +91,7 @@ export default function Signup() {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
+      variants={pageVariants}
       className="w-full flex justify-center flex-col loginContainer items-center"
     >
       <div className="">
@@ -233,20 +239,15 @@ export default function Signup() {
             )}
           </span>
         </div>
-        <motion.button
-          type="submit"
-          disabled={loading}
-          className="loginBtn w-full flex justify-center items-center gap-2"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.9 }}
-          transition={{ type: "spring", stiffness: 300, damping: 10 }}
-        >
+        <AnimatedButton className="loginBtn w-full flex justify-center items-center gap-2">
+          {" "}
           {loading ? (
             <span className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
           ) : (
             "Create new account"
           )}
-        </motion.button>
+        </AnimatedButton>
+
         {success && (
           <motion.div
             className="w-full bg-green-100 border border-green-400 text-green-700 px-4 py-2 rounded-lg flex items-center gap-2"
@@ -268,14 +269,13 @@ export default function Signup() {
           </motion.div>
         )}
         <p>
-          Already have an account?
-          <button
-            type="button"
+          Already have an account?{" "}
+          <AnimatedButton
             onClick={() => router.push("/login")}
             className="signupBtn"
           >
             Login
-          </button>
+          </AnimatedButton>
         </p>
       </motion.form>
     </motion.div>

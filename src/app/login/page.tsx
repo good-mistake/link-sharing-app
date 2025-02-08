@@ -1,11 +1,64 @@
 "use client";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { useState } from "react";
 import "../../styles/styles.scss";
+import { motion } from "framer-motion";
+import AnimatedButton from "../animationBtn/AnimatedBtn";
+
+const pageVariants = {
+  initial: { opacity: 0, x: -50 },
+  animate: { opacity: 1, x: 0, transition: { duration: 0.5 } },
+  exit: { opacity: 0, x: 50, transition: { duration: 0.3 } },
+};
+
 const Login = () => {
   const router = useRouter();
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [accountEmail, setAccountEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [success, setSuccess] = useState("");
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError("");
+    setLoading(true);
+
+    try {
+      const res = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ accountEmail, password }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Login Failed");
+      localStorage.setItem("token", data.token);
+      setSuccess("Login successful! We are going Home now");
+      setTimeout(() => {
+        router.push("/home");
+      }, 1000);
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        setError(e.message);
+      } else {
+        setError("An unexpected error occurred");
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
-    <div className="w-full flex justify-center flex-col loginContainer items-center">
+    <motion.div
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      variants={pageVariants}
+      className="w-full flex justify-center flex-col loginContainer items-center"
+    >
       <div className="">
         <Image
           src="/images/logo-devlinks-large.svg"
@@ -16,7 +69,10 @@ const Login = () => {
         />
       </div>
 
-      <form className=" bg-white p-6 rounded-lg shadow-lg space-y-4">
+      <form
+        className=" bg-white p-6 rounded-lg shadow-lg space-y-4"
+        onSubmit={handleLogin}
+      >
         <h1 className="header">Login</h1>
         <p>Add your details below to get back into the app</p>
         <div className="relative w-full">
@@ -39,7 +95,10 @@ const Login = () => {
             type="email"
             id="email"
             placeholder="e.g. alex@email.com"
-            className="input "
+            className="input"
+            value={accountEmail}
+            onChange={(e) => setAccountEmail(e.target.value)}
+            required
           />
         </div>
         <div className="relative w-full">
@@ -59,30 +118,78 @@ const Login = () => {
             Password
           </label>
           <input
-            type="password"
+            type={showPassword ? "text" : "password"}
             id="password"
             placeholder="Enter your password"
             className="input"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
           />
+          <span
+            onClick={() => setShowPassword(!showPassword)}
+            className="absolute top-1/2 transform -translate-y-[60%] right-2 flex items-center"
+          >
+            {showPassword ? (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                width="24"
+                height="24"
+                fill="currentColor"
+              >
+                <path d="M12 4C6 4 2 12 2 12s4 8 10 8 10-8 10-8-4-8-10-8zm0 14c-3.3 0-6-2.7-6-6 0-1.1.3-2.2.9-3.2L5 8.1C4.3 9.4 4 10.7 4 12c0 3.3 2.7 6 6 6 1.3 0 2.6-.4 3.6-1.2l-1.5-1.5c-.5.2-1 .3-1.5.3-2.2 0-4-1.8-4-4 0-.5.1-1 .3-1.5l-1.5-1.5C4.4 9.4 4 10.7 4 12c0 3.3 2.7 6 6 6 1.3 0 2.6-.4 3.6-1.2l-1.5-1.5c-.5.2-1 .3-1.5.3-2.2 0-4-1.8-4-4 0-.5.1-1 .3-1.5l-1.5-1.5C4.4 9.4 4 10.7 4 12c0 3.3 2.7 6 6 6 1.3 0 2.6-.4 3.6-1.2l-1.5-1.5c-.5.2-1 .3-1.5.3-2.2 0-4-1.8-4-4 0-.5.1-1 .3-1.5l-1.5-1.5C4.4 9.4 4 10.7 4 12c0 3.3 2.7 6 6 6 1.3 0 2.6-.4 3.6-1.2l-1.5-1.5c-.5.2-1 .3-1.5.3-2.2 0-4-1.8-4-4 0-.5.1-1 .3-1.5l-1.5-1.5C4.4 9.4 4 10.7 4 12c0 3.3 2.7 6 6 6 1.3 0 2.6-.4 3.6-1.2l-1.5-1.5c-.5.2-1 .3-1.5.3-2.2 0-4-1.8-4-4 0-.5.1-1 .3-1.5l-1.5-1.5C4.4 9.4 4 10.7 4 12c0 3.3 2.7 6 6 6 1.3 0 2.6-.4 3.6-1.2l-1.5-1.5c-.5.2-1 .3-1.5.3-2.2 0-4-1.8-4-4 0-.5.1-1 .3-1.5l-1.5-1.5C4.4 9.4 4 10.7 4 12c0 3.3 2.7 6 6 6 1.3 0 2.6-.4 3.6-1.2l-1.5-1.5c-.5.2-1 .3-1.5.3-2.2 0-4-1.8-4-4 0-.5.1-1 .3-1.5l-1.5-1.5C4.4 9.4 4 10.7 4 12c0 3.3 2.7 6 6 6 1.3 0 2.6-.4 3.6-1.2l-1.5-1.5c-.5.2-1 .3-1.5.3-2.2 0-4-1.8-4-4 0-.5.1-1 .3-1.5l-1.5-1.5C4.4 9.4 4 10.7 4 12c0 3.3 2.7 6 6 6 1.3 0 2.6-.4 3.6-1.2l-1.5-1.5c-.5.2-1 .3-1.5.3-2.2 0-4-1.8-4-4 0-.5.1-1 .3-1.5l-1.5-1.5C4.4 9.4 4 10.7 4 12c0 3.3 2.7 6 6 6 1.3 0 2.6-.4 3.6-1.2l-1.5-1.5c-.5.2-1 .3-1.5.3-2.2 0-4-1.8-4-4 0-.5.1-1 .3-1.5l-1.5-1.5C4.4 9.4 4 10.7 4 12c0 3.3 2.7 6 6 6z" />
+              </svg>
+            ) : (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                width="24"
+                height="24"
+                fill="currentColor"
+              >
+                <path d="M12 4C6 4 2 12 2 12s4 8 10 8 10-8 10-8-4-8-10-8zm0 14c-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6-2.7 6-6 6zm0-10a4 4 0 100 8 4 4 0 000-8z" />
+              </svg>
+            )}
+          </span>
         </div>
-        <button
+        <AnimatedButton
           onClick={() => router.push("/home")}
           className="loginBtn w-full"
         >
-          Login
-        </button>
+          {loading ? "Logging in..." : "Login"}
+        </AnimatedButton>
+        {success && (
+          <motion.div
+            className="w-full bg-green-100 border border-green-400 text-green-700 px-4 py-2 rounded-lg flex items-center gap-2"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            {success}
+          </motion.div>
+        )}
+        {error && (
+          <motion.div
+            className="w-full bg-red-100 border border-red-500 text-red-700 px-4 py-2 rounded-lg flex items-center gap-2"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            {error}
+          </motion.div>
+        )}
         <p>
           Don’t have an account?
-          <button
-            type="button"
+          <AnimatedButton
             onClick={() => router.push("/signup")}
             className="signupBtn"
           >
             Create account
-          </button>
+          </AnimatedButton>
         </p>
       </form>
-    </div>
+    </motion.div>
   );
 };
 
