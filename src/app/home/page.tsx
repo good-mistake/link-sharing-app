@@ -1,11 +1,10 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { getProfile } from "../../services/services";
 import Image from "next/image";
 import CustomSelect from "../customselect/Customselect";
 import { motion, AnimatePresence } from "framer-motion";
-import { updateProfile } from "../../services/services.js";
+import { updateProfile, getProfile } from "../../services/services.js";
 type UserType = {
   _id: string;
   firstName: string;
@@ -47,7 +46,7 @@ export default function Home() {
       } catch (error) {
         console.error(error);
         localStorage.removeItem("token");
-        router.push("/home"); //add /login after changes in UI
+        router.push("/login"); //add /login after changes in UI
       }
     };
 
