@@ -1,4 +1,4 @@
-const API_BASE_URL = "/api/profile";
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL + "/api/profile";
 
 export const getProfile = async () => {
   const token = localStorage.getItem("token");
@@ -39,13 +39,9 @@ export const addLink = async (linkData) => {
 
 export const deleteLink = async (linkId) => {
   const token = localStorage.getItem("token");
-  const response = await fetch(API_BASE_URL, {
+  const response = await fetch(`${API_BASE_URL}?linkId=${linkId}`, {
     method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify({ linkId }),
+    headers: { Authorization: `Bearer ${token}` },
   });
   if (!response.ok) throw new Error("Failed to delete link");
   return await response.json();

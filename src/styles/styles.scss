@@ -9,6 +9,7 @@ body {
   font-optical-sizing: auto;
   background-color: $color-white-primary;
 }
+
 .loginContainer {
   margin-top: 5rem;
 
@@ -57,5 +58,235 @@ body {
       margin-bottom: 24px;
       padding-left: 45px;
     }
+  }
+}
+header {
+  background-color: $color-white-secondary;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  padding: 16px 24px;
+  border-radius: 12px;
+  margin-bottom: 24px;
+  .links,
+  .profileDetail {
+    @include heading-s;
+    padding: 11px 27px;
+    border-radius: 8px;
+    cursor: pointer;
+    p {
+      margin-left: 8px;
+    }
+  }
+  .links {
+    background-color: $color-purple-light;
+    .active {
+      color: $color-blue;
+    }
+    margin-right: 16px;
+    .notActive {
+      color: $color-gray-dark;
+    }
+    &--notActive {
+      background-color: $color-white-secondary;
+    }
+  }
+  .profileDetail {
+    &--active {
+      background-color: $color-purple-light;
+    }
+
+    p {
+      color: $color-gray-dark;
+    }
+    .active {
+      color: $color-blue;
+    }
+    margin-right: 16px;
+    .notActive {
+      color: $color-gray-dark;
+    }
+    &--notActive {
+      background-color: $color-white-secondary;
+    }
+  }
+  .previewBtn {
+    color: $color-blue;
+    @include heading-s;
+    cursor: pointer;
+    border: 1px solid $color-blue;
+    border-radius: 8px;
+    height: 46px;
+    width: 114px;
+  }
+}
+main {
+  .preview {
+    width: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $color-white-secondary;
+    border-radius: 12px;
+    padding: 24px;
+    margin-right: 24px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  }
+  .addLink {
+    width: 60%;
+    background-color: $color-white-secondary;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    border-radius: 12px;
+    padding: 40px;
+    h1 {
+      margin-bottom: 6px;
+    }
+    h1,
+    h2 {
+      @include heading-m;
+      color: $color-dark;
+    }
+    p {
+      @include body-m;
+      color: $color-gray-dark;
+    }
+    .lpt {
+      @include body-s;
+      color: $color-dark;
+      font-weight: 200;
+    }
+    .start {
+      background-color: $color-white-primary;
+      padding: 20px;
+      min-height: 440px;
+      border-radius: 12px;
+    }
+    .addLinkBtn {
+      margin-top: 40px;
+      width: 100%;
+      border: 1px solid $color-blue;
+      color: $color-blue;
+      height: 46px;
+      @include heading-s;
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+    h2 {
+      margin: 40px 0 24px 0px;
+    }
+    .saveBtn {
+      @include heading-s;
+      background-color: $color-blue;
+      color: $color-white-primary;
+      align-self: flex-start;
+      border-radius: 8px;
+      width: 92px;
+      height: 50px;
+      margin-top: 60px;
+      &:hover {
+        opacity: 0.5;
+      }
+      &:active {
+        opacity: 0.25;
+      }
+    }
+    .detailsForm {
+      .addLinkSection {
+        .imageUploadSection {
+          > div {
+            background-color: #fafafa;
+            border-radius: 12px;
+            padding: 20px;
+            align-items: center;
+            justify-content: space-between;
+            p {
+              @include body-s;
+              margin-left: 24px;
+              &:first-child {
+                @include body-m;
+                width: 50%;
+                margin-right: 16px;
+                margin-left: 0;
+              }
+            }
+            label {
+              display: flex;
+              justify-content: center;
+              flex-direction: column;
+              align-items: center;
+              background-color: $color-purple-light;
+              color: $color-blue;
+              @include heading-s;
+              border-radius: 12px;
+              min-width: 193px;
+              min-height: 193px;
+            }
+          }
+        }
+        .descriptions {
+          background-color: #fafafa;
+          margin-top: 24px;
+          padding: 20px;
+          label {
+            display: flex;
+            align-items: center;
+            input {
+              width: 80%;
+              padding: 12px 16px;
+              border-radius: 12px;
+              border: 1px solid #ccc;
+              &:focus {
+                outline: none;
+                border-color: rgba(99, 60, 255, 0.8);
+                box-shadow: 0 0 10px 7px rgba(99, 60, 255, 0.2);
+              }
+            }
+            p {
+              width: 20%;
+              @include body-m;
+              margin-right: 16px;
+              cursor: pointer;
+            }
+            &:nth-child(2) {
+              margin: 12px 0;
+            }
+          }
+        }
+      }
+    }
+  }
+  .linksAndPlatform {
+    background-color: #fafafa;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
+    padding: 20px;
+    border-radius: 12px;
+    .number {
+      div {
+        @include body-m;
+        color: $color-gray-dark;
+        img {
+          margin-right: 8px;
+        }
+        span {
+          color: $color-dark;
+        }
+      }
+      button {
+        @include body-m;
+        color: $color-gray-dark;
+      }
+      margin-bottom: 12px;
+    }
+    .linkUrl {
+      color: $color-dark;
+      @include body-m;
+      &::placeholder {
+        color: $color-dark;
+      }
+    }
+  }
+}
+.customSelect {
+  .dropdownName {
+    @include body-m;
+    color: $color-dark;
   }
 }
