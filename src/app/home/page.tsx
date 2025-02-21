@@ -47,7 +47,7 @@ export default function Home() {
       } catch (error) {
         console.error(error);
         localStorage.removeItem("token");
-        router.push("/login"); //add /login after changes in UI
+        router.push("/home"); //add /login after changes in UI
       }
     };
 
