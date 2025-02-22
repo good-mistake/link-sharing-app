@@ -14,7 +14,22 @@ type UserType = {
   profilePicture?: string;
   links: { _id: string; url: string; platform: string }[];
 };
-
+const platformDomains: Record<string, string> = {
+  GitHub: "github.com",
+  Twitter: "twitter.com",
+  Youtube: "youtube.com",
+  LinkedIn: "linkedin.com",
+  Facebook: "facebook.com",
+  Frontendmentor: "frontendmentor.io",
+  Gitlab: "gitlab.com",
+  Freecodecamp: "freecodecamp.org",
+  Stackoverflow: "stackoverflow.com",
+  Twitch: "twitch.tv",
+  Devto: "dev.to",
+  Codepen: "codepen.io",
+  CodeWars: "codewars.com",
+  Hashnode: "hashnode.com",
+};
 export default function Home() {
   const router = useRouter();
   const [user, setUser] = useState<UserType | null>(null);
@@ -41,6 +56,10 @@ export default function Home() {
     const fetchUser = async () => {
       try {
         const data = await getProfile();
+        console.log(data, "data");
+        console.log(data.profile, "data profile");
+        console.log(data.profile.links, "data profile link");
+
         setUser(data.profile);
         setLinks(data.profile.links);
       } catch (error) {
@@ -52,6 +71,7 @@ export default function Home() {
 
     fetchUser();
   }, [router]);
+
   const addNewLink = () => {
     setShowIntro(false);
     setNewLinks([
@@ -91,13 +111,32 @@ export default function Home() {
     setErrorMessageIMG(null);
     setSelectedImage(file);
   };
-
+  const isValidPlatformUrl = (url: string, platform: string) => {
+    try {
+      const domain = new URL(url).hostname.replace("www.", "");
+      return domain.includes(platformDomains[platform]);
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  };
   const handleSaveLinks = async () => {
-    if (!user) return;
-
-    if (newLinks.some((link) => !link.url || !link.platform)) {
-      setErrorMessage("Please fill out all links before saving.");
+    console.log("User:", user);
+    if (!user) {
+      console.log("No user found!");
       return;
+    }
+
+    for (const link of newLinks) {
+      if (!link.url || !link.platform) {
+        setErrorMessage("Please fill out all links before saving.");
+        return;
+      }
+
+      if (!isValidPlatformUrl(link.url, link.platform)) {
+        setErrorMessage(`Invalid URL for ${link.platform}.`);
+        return;
+      }
     }
 
     try {
