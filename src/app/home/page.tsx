@@ -56,9 +56,6 @@ export default function Home() {
     const fetchUser = async () => {
       try {
         const data = await getProfile();
-        console.log(data, "data");
-        console.log(data.profile, "data profile");
-        console.log(data.profile.links, "data profile link");
 
         setUser(data.profile);
         setLinks(data.profile.links);
@@ -122,6 +119,7 @@ export default function Home() {
   };
   const handleSaveLinks = async () => {
     console.log("User:", user);
+    console.log("Save button clicked");
     if (!user) {
       console.log("No user found!");
       return;
@@ -161,6 +159,7 @@ export default function Home() {
     }
   };
   const handleSaveProfile = async () => {
+    console.log("Save button clicked");
     if (!user) return;
 
     const firstName = (document.getElementById("name") as HTMLInputElement)
@@ -393,7 +392,7 @@ export default function Home() {
                       <div className="flex mt-16 ">
                         <p>Profile picture</p>
                         <label
-                          htmlFor="profileImage "
+                          htmlFor="profileImage"
                           className=" cursor-pointer"
                         >
                           <Image
