@@ -152,6 +152,7 @@ export default function Home() {
       await updateProfile(updatedProfile);
       setUser(updatedProfile);
       setLinks(updatedProfile.links);
+      console.log("saved");
       setNewLinks([]);
     } catch (error) {
       console.error("Failed to save links:", error);
@@ -191,6 +192,7 @@ export default function Home() {
         if (!uploadResponse.ok) {
           throw new Error("Image upload failed.");
         }
+        console.log("Saving");
 
         const uploadData = await uploadResponse.json();
         profileData.profilePicture = uploadData.imageUrl;
@@ -199,6 +201,7 @@ export default function Home() {
       await updateProfile(profileData);
       setUser({ ...user, ...profileData });
       setErrorMessage(null);
+      console.log("Saved");
     } catch (error) {
       console.error("Failed to update profile:", error);
       setErrorMessage("Error saving profile. Please try again.");
