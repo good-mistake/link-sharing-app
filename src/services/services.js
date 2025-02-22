@@ -1,12 +1,24 @@
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL + "/api/profile";
+const API_BASE_URL = `${process.env.NEXT_PUBLIC_API_URL}/api/profile`;
 
 export const getProfile = async () => {
   const token = localStorage.getItem("token");
-  const response = await fetch(API_BASE_URL, {
-    headers: { Authorization: `Bearer ${token}` },
+  if (!token) {
+    throw new Error("No token found");
+  }
+
+  const response = await fetch("/api/profile", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
   });
-  if (!response.ok) throw new Error("Failed to fetch profile");
-  return await response.json();
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch profile");
+  }
+
+  return response.json();
 };
 
 export const updateProfile = async (profileData) => {
