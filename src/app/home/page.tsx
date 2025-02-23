@@ -206,6 +206,7 @@ export default function Home() {
       setErrorMessage("Error saving profile. Please try again.");
     }
   };
+  console.log("selected platform", selectedPlatform);
   return (
     <div className="p-4">
       <header className="flex justify-between items-center">

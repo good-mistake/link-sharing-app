@@ -75,6 +75,8 @@ export default function CustomSelect({
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+  console.log("selected platform custom select", selected);
+
   return (
     <div className="relative w-100 customSelect	" ref={dropdownRef}>
       <p className="lpt">Platform</p>
