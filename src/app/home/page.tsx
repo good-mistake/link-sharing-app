@@ -120,6 +120,7 @@ export default function Home() {
   const handleSaveLinks = async () => {
     console.log("User:", user);
     console.log("Save button clicked");
+    console.log("New Links:", newLinks);
     if (!user) {
       console.log("No user found!");
       return;
