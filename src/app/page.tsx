@@ -1,3 +1,4 @@
+"use client";
 import "../styles/styles.scss";
 import "../styles/reset.scss";
 import { useEffect, useState } from "react";
