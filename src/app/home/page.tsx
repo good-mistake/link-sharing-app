@@ -142,7 +142,7 @@ export default function Home() {
       const formattedNewLinks = newLinks.map((link) => ({
         _id: String(link.id),
         url: link.url,
-        platform: link.platform,
+        platform: link.platform || selectedPlatform,
       }));
 
       const updatedProfile = {
