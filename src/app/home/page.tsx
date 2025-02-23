@@ -73,7 +73,7 @@ export default function Home() {
     setShowIntro(false);
     setNewLinks([
       ...newLinks,
-      { id: newLinks.length + 1, url: "", platform: "" },
+      { id: newLinks.length + 1, url: "", platform: selectedPlatform || "" },
     ]);
   };
   const removeLink = (id: number) => {
