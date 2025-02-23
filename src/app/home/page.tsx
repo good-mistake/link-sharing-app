@@ -149,6 +149,7 @@ export default function Home() {
         links: [...links, ...formattedNewLinks],
       };
 
+      console.log("Updated Profile Data:", updatedProfile);
       await updateProfile(updatedProfile);
       setUser(updatedProfile);
       setLinks(updatedProfile.links);
@@ -159,6 +160,7 @@ export default function Home() {
       setErrorMessage("Error saving links. Please try again.");
     }
   };
+
   const handleSaveProfile = async () => {
     console.log("Save button clicked");
     if (!user) return;
@@ -174,11 +176,7 @@ export default function Home() {
     }
 
     try {
-      const profileData: Partial<UserType> = {
-        ...user,
-        firstName,
-        lastName,
-      };
+      const profileData: Partial<UserType> = { ...user, firstName, lastName };
 
       if (selectedImage) {
         const formData = new FormData();
@@ -192,8 +190,8 @@ export default function Home() {
         if (!uploadResponse.ok) {
           throw new Error("Image upload failed.");
         }
-        console.log("Saving");
 
+        console.log("Saving");
         const uploadData = await uploadResponse.json();
         profileData.profilePicture = uploadData.imageUrl;
       }
@@ -207,7 +205,6 @@ export default function Home() {
       setErrorMessage("Error saving profile. Please try again.");
     }
   };
-
   return (
     <div className="p-4">
       <header className="flex justify-between items-center">
