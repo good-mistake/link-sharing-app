@@ -68,19 +68,17 @@ export default function Home() {
 
     fetchUser();
   }, [router]);
-
   const addNewLink = () => {
     setShowIntro(false);
 
-    setNewLinks((prevLinks) => {
-      const updatedLinks = [
-        ...prevLinks,
-        { id: prevLinks.length + 1, url: "", platform: selectedPlatform },
-      ];
-      console.log("Updated New Links:", updatedLinks);
-      return updatedLinks;
-    });
+    setNewLinks((prevLinks) => [
+      ...prevLinks,
+      { id: prevLinks.length + 1, url: "", platform: selectedPlatform || "" },
+    ]);
+
+    console.log("Updated New Links:", newLinks);
   };
+
   const removeLink = (id: number) => {
     setNewLinks(newLinks.filter((link) => link.id !== id));
     if (newLinks.length === 1) {
@@ -122,10 +120,17 @@ export default function Home() {
       return false;
     }
   };
+  const handlePlatformChange = (platform: string, id: number) => {
+    setSelectedPlatform(platform);
+    setNewLinks((prevLinks) =>
+      prevLinks.map((link) => (link.id === id ? { ...link, platform } : link))
+    );
+  };
+
   const handleSaveLinks = async () => {
-    console.log("User:", user);
     console.log("Save button clicked");
     console.log("New Links:", newLinks);
+
     if (!user) {
       console.log("No user found!");
       return;
@@ -147,7 +152,7 @@ export default function Home() {
       const formattedNewLinks = newLinks.map((link) => ({
         _id: String(link.id),
         url: link.url,
-        platform: link.platform || selectedPlatform,
+        platform: link.platform,
       }));
 
       const updatedProfile = {
@@ -159,7 +164,6 @@ export default function Home() {
       await updateProfile(updatedProfile);
       setUser(updatedProfile);
       setLinks(updatedProfile.links);
-      console.log("saved");
       setNewLinks([]);
     } catch (error) {
       console.error("Failed to save links:", error);
@@ -348,7 +352,9 @@ export default function Home() {
 
                             <CustomSelect
                               selected={selectedPlatform}
-                              setSelected={setSelectedPlatform}
+                              setSelected={(platform) =>
+                                handlePlatformChange(platform, link.id)
+                              }
                             />
                             <div>
                               <p className="lpt">Link</p>
