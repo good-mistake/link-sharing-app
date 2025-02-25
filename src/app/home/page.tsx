@@ -71,10 +71,15 @@ export default function Home() {
 
   const addNewLink = () => {
     setShowIntro(false);
-    setNewLinks((prevLinks) => [
-      ...prevLinks,
-      { id: prevLinks.length + 1, url: "", platform: selectedPlatform },
-    ]);
+
+    setNewLinks((prevLinks) => {
+      const updatedLinks = [
+        ...prevLinks,
+        { id: prevLinks.length + 1, url: "", platform: selectedPlatform },
+      ];
+      console.log("Updated New Links:", updatedLinks);
+      return updatedLinks;
+    });
   };
   const removeLink = (id: number) => {
     setNewLinks(newLinks.filter((link) => link.id !== id));
