@@ -71,9 +71,9 @@ export default function Home() {
 
   const addNewLink = () => {
     setShowIntro(false);
-    setNewLinks([
-      ...newLinks,
-      { id: newLinks.length + 1, url: "", platform: selectedPlatform },
+    setNewLinks((prevLinks) => [
+      ...prevLinks,
+      { id: prevLinks.length + 1, url: "", platform: selectedPlatform },
     ]);
   };
   const removeLink = (id: number) => {
