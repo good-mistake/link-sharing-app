@@ -6,16 +6,13 @@ export const getProfile = async () => {
     throw new Error("No token found");
   }
 
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/profile`,
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
+  const response = await fetch(`/api/profile`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
 
   if (!response.ok) {
     throw new Error("Failed to fetch profile");
