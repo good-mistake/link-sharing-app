@@ -23,7 +23,7 @@ export const getProfile = async () => {
 
 export const updateProfile = async (profileData) => {
   const token = localStorage.getItem("token");
-  const response = await fetch(API_BASE_URL, {
+  const response = await fetch(`/api/profile`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -37,7 +37,7 @@ export const updateProfile = async (profileData) => {
 
 export const addLink = async (linkData) => {
   const token = localStorage.getItem("token");
-  const response = await fetch(API_BASE_URL, {
+  const response = await fetch(`/api/profile`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -61,7 +61,7 @@ export const deleteLink = async (linkId) => {
 
 export const deleteProfile = async () => {
   const token = localStorage.getItem("token");
-  const response = await fetch(API_BASE_URL, {
+  const response = await fetch(`/api/profile`, {
     method: "DELETE",
     headers: { Authorization: `Bearer ${token}` },
   });
