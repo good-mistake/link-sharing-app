@@ -5,6 +5,7 @@ import Image from "next/image";
 import CustomSelect from "../customselect/Customselect";
 import { motion, AnimatePresence } from "framer-motion";
 import { updateProfile, getProfile } from "../../services/services.js";
+import mongoose from "mongoose";
 type UserType = {
   _id: string;
   firstName: string;
@@ -162,7 +163,7 @@ export default function Home() {
 
     try {
       const formattedNewLinks = newLinks.map((link) => ({
-        _id: String(link.id),
+        _id: new mongoose.Types.ObjectId().toString(),
         url: link.url,
         platform: link.platform,
       }));
@@ -173,7 +174,13 @@ export default function Home() {
       };
 
       console.log("Updated Profile Data:", updatedProfile);
-      await updateProfile(updatedProfile);
+      await updateProfile({
+        ...updatedProfile,
+        links: updatedProfile.links.map((link) => ({
+          ...link,
+          _id: new mongoose.Types.ObjectId(link._id),
+        })),
+      });
       setUser(updatedProfile);
       setLinks(updatedProfile.links);
       setNewLinks([]);
