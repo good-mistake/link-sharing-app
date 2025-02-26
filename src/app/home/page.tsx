@@ -44,6 +44,10 @@ export default function Home() {
   const [linkOrProfile, setLinksOrProfile] = useState<boolean>(false);
   const [selectedPlatform, setSelectedPlatform] = useState("");
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [loadingLinks, setLoadingLinks] = useState(false);
+  const [loadingProfile, setLoadingProfile] = useState(false);
+  const [successLinks, setSuccessLinks] = useState(false);
+  const [successProfile, setSuccessProfile] = useState(false);
   const [errorMessageImg, setErrorMessageIMG] = useState<string | null>(null);
   const [errorMessageProfile, setErrorMessageProfile] = useState<string | null>(
     null
@@ -139,11 +143,12 @@ export default function Home() {
   };
 
   const handleSaveLinks = async () => {
-    console.log("Save button clicked");
-    console.log("New Links:", newLinks);
+    setLoadingLinks(true);
+    setSuccessLinks(false);
+    setErrorMessageLinks(null);
 
     if (!user) {
-      console.log("No user found!");
+      setLoadingLinks(false);
       return;
     }
 
@@ -157,6 +162,7 @@ export default function Home() {
         setErrorMessageLinks(
           `Invalid URL for ${link.platform}. Please provide a valid ${link.platform} URL.`
         );
+        setLoadingLinks(false);
         return;
       }
     }
@@ -184,14 +190,19 @@ export default function Home() {
       setUser(updatedProfile);
       setLinks(updatedProfile.links);
       setNewLinks([]);
+      setSuccessLinks(true);
     } catch (error) {
       console.error("Failed to save links:", error);
       setErrorMessageLinks("Error saving links. Please try again.");
+    } finally {
+      setLoadingLinks(false);
     }
   };
 
   const handleSaveProfile = async () => {
-    console.log("Save button clicked");
+    setLoadingProfile(true);
+    setSuccessProfile(false);
+    setErrorMessageProfile(null);
     if (!user) return;
 
     const firstName = (document.getElementById("name") as HTMLInputElement)
@@ -201,6 +212,8 @@ export default function Home() {
 
     if (!firstName || !lastName) {
       setErrorMessageProfile("First name and last name are required.");
+      setLoadingProfile(false);
+
       return;
     }
 
@@ -217,7 +230,7 @@ export default function Home() {
         });
 
         if (!uploadResponse.ok) {
-          throw new Error("Image upload failed.");
+          setErrorMessageProfile("Image upload failed.");
         }
 
         console.log("Saving");
@@ -228,10 +241,12 @@ export default function Home() {
       await updateProfile(profileData);
       setUser({ ...user, ...profileData });
       setErrorMessageProfile(null);
-      console.log("Saved");
+      setSuccessProfile(true);
     } catch (error) {
       console.error("Failed to update profile:", error);
       setErrorMessageProfile("Error saving profile. Please try again.");
+    } finally {
+      setLoadingProfile(false);
     }
   };
   useEffect(() => {
@@ -416,7 +431,13 @@ export default function Home() {
                       className="saveBtn cursor-pointer"
                       onClick={handleSaveLinks}
                     >
-                      Save
+                      {loadingLinks ? (
+                        <span className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+                      ) : successLinks ? (
+                        "Saved!"
+                      ) : (
+                        "Save"
+                      )}
                     </button>
                   </div>
                 </>
@@ -497,7 +518,13 @@ export default function Home() {
                       className="saveBtn cursor-pointer"
                       onClick={handleSaveProfile}
                     >
-                      Save
+                      {loadingProfile ? (
+                        <span className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+                      ) : successProfile ? (
+                        "Saved!"
+                      ) : (
+                        "Save"
+                      )}{" "}
                     </button>
                   </div>
                 </form>
