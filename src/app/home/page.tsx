@@ -113,13 +113,18 @@ export default function Home() {
   };
   const isValidPlatformUrl = (url: string, platform: string) => {
     try {
-      const domain = new URL(url).hostname.replace("www.", "");
-      return domain.includes(platformDomains[platform]);
+      const domain = new URL(url).hostname;
+      const expectedDomain = platformDomains[platform];
+
+      if (!expectedDomain) return false;
+
+      return domain.includes(expectedDomain);
     } catch (error) {
-      console.log(error);
+      console.error("Invalid URL:", error);
       return false;
     }
   };
+
   const handlePlatformChange = (platform: string, id: number) => {
     setSelectedPlatform(platform);
     setNewLinks((prevLinks) =>
