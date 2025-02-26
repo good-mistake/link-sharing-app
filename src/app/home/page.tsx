@@ -143,7 +143,9 @@ export default function Home() {
       }
 
       if (!isValidPlatformUrl(link.url, link.platform)) {
-        setErrorMessage(`Invalid URL for ${link.platform}.`);
+        setErrorMessage(
+          `Invalid URL for ${link.platform}. Please provide a valid ${link.platform} URL.`
+        );
         return;
       }
     }
