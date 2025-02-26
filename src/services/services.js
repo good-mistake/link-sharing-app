@@ -6,7 +6,7 @@ export const getProfile = async () => {
     throw new Error("No token found");
   }
 
-  const response = await fetch("/api/profile", {
+  const response = await fetch(API_BASE_URL, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
