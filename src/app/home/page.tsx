@@ -44,7 +44,12 @@ export default function Home() {
   const [selectedPlatform, setSelectedPlatform] = useState("");
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [errorMessageImg, setErrorMessageIMG] = useState<string | null>(null);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [errorMessageProfile, setErrorMessageProfile] = useState<string | null>(
+    null
+  );
+  const [errorMessageLinks, setErrorMessageLinks] = useState<string | null>(
+    null
+  );
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -143,12 +148,12 @@ export default function Home() {
 
     for (const link of newLinks) {
       if (!link.url || !link.platform) {
-        setErrorMessage("Please fill out all links before saving.");
+        setErrorMessageLinks("Please fill out all links before saving.");
         return;
       }
 
       if (!isValidPlatformUrl(link.url, link.platform)) {
-        setErrorMessage(
+        setErrorMessageLinks(
           `Invalid URL for ${link.platform}. Please provide a valid ${link.platform} URL.`
         );
         return;
@@ -174,7 +179,7 @@ export default function Home() {
       setNewLinks([]);
     } catch (error) {
       console.error("Failed to save links:", error);
-      setErrorMessage("Error saving links. Please try again.");
+      setErrorMessageLinks("Error saving links. Please try again.");
     }
   };
 
@@ -188,7 +193,7 @@ export default function Home() {
       .value;
 
     if (!firstName || !lastName) {
-      setErrorMessage("First name and last name are required.");
+      setErrorMessageProfile("First name and last name are required.");
       return;
     }
 
@@ -215,11 +220,11 @@ export default function Home() {
 
       await updateProfile(profileData);
       setUser({ ...user, ...profileData });
-      setErrorMessage(null);
+      setErrorMessageProfile(null);
       console.log("Saved");
     } catch (error) {
       console.error("Failed to update profile:", error);
-      setErrorMessage("Error saving profile. Please try again.");
+      setErrorMessageProfile("Error saving profile. Please try again.");
     }
   };
   useEffect(() => {
@@ -393,7 +398,12 @@ export default function Home() {
                         ))}
                       </AnimatePresence>
                     )}
-                  </div>
+                  </div>{" "}
+                  {errorMessageLinks && (
+                    <p className="text-red-600 bg-red-100 border border-red-400 px-4 py-2 rounded-md text-sm mt-2 animate-fadeIn">
+                      {errorMessageLinks}
+                    </p>
+                  )}
                   <div className="flex justify-end ">
                     <button
                       className="saveBtn cursor-pointer"
@@ -466,11 +476,11 @@ export default function Home() {
                       </label>
                     </div>
                   </div>
-                  <div className="flex justify-center">
-                    {errorMessage ||
+                  <div className="flex justify-center text-red-600 bg-red-100 border border-red-400 px-4 py-2 rounded-md text-sm mt-2 animate-fadeIn">
+                    {errorMessageProfile ||
                       (errorMessageImg && (
                         <p className="text-red-600 bg-red-100 border border-red-400 px-4 py-2 rounded-md text-sm mt-2 animate-fadeIn">
-                          {errorMessage}
+                          {errorMessageProfile}
                         </p>
                       ))}
                   </div>
