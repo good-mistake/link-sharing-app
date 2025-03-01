@@ -317,24 +317,33 @@ export default function Home() {
       <main className="maincontent flex">
         <section className="preview">
           {links.length > 0 ? (
-            links
-              .sort(() => 0.5 - Math.random())
-              .slice(0, 5)
-              .map((link) => (
-                <Image
-                  key={link._id}
-                  src={`${
-                    link.platform === "Frontendmentor"
-                      ? "/images/icon-frontend-mentor.svg"
-                      : link.platform === "Stackoverflow"
-                      ? "/images/icon-stack-overflow.svg"
-                      : `/images/icon-${link.platform.toLowerCase()}.svg`
-                  }`}
-                  alt={link.platform}
-                  width={300}
-                  height={618}
-                />
-              ))
+            <>
+              {links
+                .sort(() => 0.5 - Math.random())
+                .slice(0, 5)
+                .map((link) => (
+                  <Image
+                    key={link._id}
+                    src={`${
+                      link.platform === "Frontendmentor"
+                        ? "/images/icon-frontend-mentor.svg"
+                        : link.platform === "Stackoverflow"
+                        ? "/images/icon-stack-overflow.svg"
+                        : `/images/icon-${link.platform.toLowerCase()}.svg`
+                    }`}
+                    alt={link.platform}
+                    width={300}
+                    height={618}
+                    className="absolute inset-0 flex flex-col"
+                  />
+                ))}
+              <Image
+                src="/images/illustration-phone-mockup.svg"
+                alt="logo"
+                width={300}
+                height={618}
+              />
+            </>
           ) : (
             <Image
               src="/images/illustration-phone-mockup.svg"
