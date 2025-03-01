@@ -6,6 +6,7 @@ import CustomSelect from "../customselect/Customselect";
 import { motion, AnimatePresence } from "framer-motion";
 import { updateProfile, getProfile } from "../../services/services.js";
 import mongoose from "mongoose";
+import AnimatedButton from "../animationBtn/AnimatedBtn";
 type UserType = {
   _id: string;
   firstName: string;
@@ -425,20 +426,28 @@ export default function Home() {
                     <div className="text-red-600 bg-red-100 border border-red-400 px-4 py-2 rounded-md text-sm mt-2 animate-fadeIn">
                       {errorMessageLinks}
                     </div>
+                  )}{" "}
+                  {successLinks && (
+                    <motion.div
+                      className="w-full bg-green-100 border border-green-400 text-green-700 px-4 py-2 rounded-lg flex items-center gap-2"
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      Links saved successfully!
+                    </motion.div>
                   )}
                   <div className="flex justify-end ">
-                    <button
-                      className="saveBtn cursor-pointer"
+                    <AnimatedButton
                       onClick={handleSaveLinks}
+                      className="loginBtn w-full flex justify-center items-center gap-2 cursor-pointer"
                     >
                       {loadingLinks ? (
                         <span className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
-                      ) : successLinks ? (
-                        "Saved!"
                       ) : (
                         "Save"
                       )}
-                    </button>
+                    </AnimatedButton>
                   </div>
                 </>
               ) : (
@@ -511,21 +520,28 @@ export default function Home() {
                           {errorMessageProfile}
                         </div>
                       ))}
-                  </div>
-
+                  </div>{" "}
+                  {successProfile && (
+                    <motion.div
+                      className="w-full bg-green-100 border border-green-400 text-green-700 px-4 py-2 rounded-lg flex items-center gap-2"
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      Profile saved successfully!
+                    </motion.div>
+                  )}
                   <div className="flex justify-end ">
-                    <button
-                      className="saveBtn cursor-pointer"
+                    <AnimatedButton
                       onClick={handleSaveProfile}
+                      className="loginBtn w-full flex justify-center items-center gap-2 cursor-pointer"
                     >
                       {loadingProfile ? (
                         <span className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
-                      ) : successProfile ? (
-                        "Saved!"
                       ) : (
                         "Save"
-                      )}{" "}
-                    </button>
+                      )}
+                    </AnimatedButton>
                   </div>
                 </form>
               )}{" "}
