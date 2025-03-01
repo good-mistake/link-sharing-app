@@ -152,7 +152,11 @@ export default function Home() {
       setLoadingLinks(false);
       return;
     }
-
+    if (newLinks.length === 0) {
+      setErrorMessageLinks("Please add at least one link before saving.");
+      setLoadingLinks(false);
+      return;
+    }
     for (const link of newLinks) {
       if (!link.url || !link.platform) {
         setErrorMessageLinks("Please fill out all links before saving.");
@@ -167,7 +171,6 @@ export default function Home() {
         return;
       }
     }
-
     try {
       const formattedNewLinks = newLinks.map((link) => ({
         _id: new mongoose.Types.ObjectId().toString(),
@@ -195,6 +198,7 @@ export default function Home() {
     } catch (error) {
       console.error("Failed to save links:", error);
       setErrorMessageLinks("Error saving links. Please try again.");
+      setSuccessLinks(false);
     } finally {
       setLoadingLinks(false);
     }
