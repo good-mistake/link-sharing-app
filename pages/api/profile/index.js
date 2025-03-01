@@ -43,7 +43,11 @@ export default async function handler(req, res) {
           if (profilePicture) user.profilePicture = profilePicture;
 
           if (links) {
-            user.links = links;
+            user.links = links.map((link) => ({
+              url: link.url,
+              platform: link.platform,
+              color: link.color || "#000",
+            }));
           }
 
           await user.save();
@@ -56,7 +60,7 @@ export default async function handler(req, res) {
 
       case "POST":
         try {
-          const { url, platform } = req.body;
+          const { url, platform, color } = req.body;
           if (!url || !platform)
             return res
               .status(400)
@@ -65,7 +69,7 @@ export default async function handler(req, res) {
           const user = await User.findById(userId);
           if (!user) return res.status(404).json({ error: "User not found" });
 
-          user.links.push({ url, platform });
+          user.links.push({ url, platform, color });
           await user.save();
 
           res.status(201).json({ message: "Link added", profile: user });

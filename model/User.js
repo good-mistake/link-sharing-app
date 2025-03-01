@@ -12,6 +12,7 @@ const UserSchema = new mongoose.Schema({
       url: { type: String, required: true },
       platform: { type: String, required: true },
       createdAt: { type: Date, default: Date.now },
+      color: { type: String },
     },
   ],
   isVerified: { type: Boolean, default: false },

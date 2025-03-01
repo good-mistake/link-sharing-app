@@ -331,7 +331,7 @@ export default function Home() {
                   <div
                     key={link._id}
                     style={{ backgroundColor: link.color }}
-                    className="flex"
+                    className="flex absolute inset-0 flex flex-col"
                   >
                     <Image
                       key={link._id}
@@ -345,7 +345,6 @@ export default function Home() {
                       alt={link.platform}
                       width={300}
                       height={618}
-                      className="absolute inset-0 flex flex-col"
                     />
                     <p>{link.platform}</p>
                     <Image
