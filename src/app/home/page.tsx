@@ -141,10 +141,16 @@ export default function Home() {
     }
   };
 
-  const handlePlatformChange = (platform: string, id: number) => {
+  const handlePlatformChange = (
+    platform: string,
+    id: number,
+    color: string
+  ) => {
     setSelectedPlatform(platform);
     setNewLinks((prevLinks) =>
-      prevLinks.map((link) => (link.id === id ? { ...link, platform } : link))
+      prevLinks.map((link) =>
+        link.id === id ? { ...link, platform, color } : link
+      )
     );
   };
 
@@ -440,7 +446,11 @@ export default function Home() {
                             <CustomSelect
                               selected={selectedPlatform}
                               setSelected={(platform) =>
-                                handlePlatformChange(platform, link.id)
+                                handlePlatformChange(
+                                  platform,
+                                  link.id,
+                                  link.color
+                                )
                               }
                             />
                             <div>
