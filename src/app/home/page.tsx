@@ -323,7 +323,13 @@ export default function Home() {
               .map((link) => (
                 <Image
                   key={link._id}
-                  src={`/images/platforms/${link.platform.toLowerCase()}.svg`}
+                  src={`${
+                    link.platform === "Frontendmentor"
+                      ? "/images/icon-frontend-mentor.svg"
+                      : link.platform === "Stackoverflow"
+                      ? "/images/icon-stack-overflow.svg"
+                      : `/images/icon-${link.platform.toLowerCase()}.svg`
+                  }`}
                   alt={link.platform}
                   width={300}
                   height={618}
