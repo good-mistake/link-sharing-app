@@ -440,7 +440,7 @@ export default function Home() {
                   <div className="flex justify-end ">
                     <AnimatedButton
                       onClick={handleSaveLinks}
-                      className="loginBtn w-full flex justify-center items-center gap-2 cursor-pointer"
+                      className="saveBtn  flex justify-center items-center gap-2 cursor-pointer"
                     >
                       {loadingLinks ? (
                         <span className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
@@ -534,7 +534,7 @@ export default function Home() {
                   <div className="flex justify-end ">
                     <AnimatedButton
                       onClick={handleSaveProfile}
-                      className="loginBtn w-full flex justify-center items-center gap-2 cursor-pointer"
+                      className="saveBtn  flex justify-center items-center gap-2 cursor-pointer"
                     >
                       {loadingProfile ? (
                         <span className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
