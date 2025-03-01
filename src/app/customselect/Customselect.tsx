@@ -3,51 +3,89 @@ import Image from "next/image";
 import { ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 const platforms = [
-  { name: "GitHub", value: "GitHub", icon: "/images/icon-github.svg" },
-  { name: "Twitter", value: "Twitter", icon: "/images/icon-twitter.svg" },
-  { name: "Youtube", value: "Youtube", icon: "/images/icon-youtube.svg" },
-  { name: "LinkedIn", value: "LinkedIn", icon: "/images/icon-linkedin.svg" },
-  { name: "Facebook", value: "Facebook", icon: "/images/icon-facebook.svg" },
+  {
+    name: "GitHub",
+    value: "GitHub",
+    icon: "/images/icon-github.svg",
+    color: "#1A1A1A",
+  },
+  {
+    name: "Twitter",
+    value: "Twitter",
+    icon: "/images/icon-twitter.svg",
+    color: "#43B7E9",
+  },
+  {
+    name: "Youtube",
+    value: "Youtube",
+    icon: "/images/icon-youtube.svg",
+    color: "#EE3939",
+  },
+  {
+    name: "LinkedIn",
+    value: "LinkedIn",
+    icon: "/images/icon-linkedin.svg",
+    color: "#2D68FF",
+  },
+  {
+    name: "Facebook",
+    value: "Facebook",
+    icon: "/images/icon-facebook.svg",
+    color: "#2442AC",
+  },
   {
     name: "Frontendmentor",
     value: "Frontendmentor",
     icon: "/images/icon-frontend-mentor.svg",
+    color: "#FFFFFF",
   },
-  { name: "Gitlab", value: "Gitlab", icon: "/images/icon-gitlab.svg" },
+  {
+    name: "Gitlab",
+    value: "Gitlab",
+    icon: "/images/icon-gitlab.svg",
+    color: "#EB4925",
+  },
   {
     name: "Freecodecamp",
     value: "Freecodecamp",
     icon: "/images/icon-freecodecamp.svg",
+    color: "#302267",
   },
   {
     name: "Stackoverflow",
     value: "Stackoverflow",
     icon: "/images/icon-stack-overflow.svg",
+    color: "#EC7100",
   },
   {
     name: "Twitch",
     value: "Twitch",
     icon: "/images/icon-twitch.svg",
+    color: "#EE3FC8",
   },
   {
     name: "Devto",
     value: "Devto",
     icon: "/images/icon-devto.svg",
+    color: "#333333",
   },
   {
     name: "Codepen",
     value: "Codepen",
     icon: "/images/icon-codepen.svg",
+    color: "#1A1A1A",
   },
   {
     name: "CodeWars",
     value: "CodeWars",
     icon: "/images/icon-codewars.svg",
+    color: "#8A1A50",
   },
   {
     name: "Hashnode",
     value: "Hashnode",
     icon: "/images/icon-hashnode.svg",
+    color: "#0330D1",
   },
 ];
 interface CustomSelectProps {

@@ -36,11 +36,11 @@ export default function Home() {
   const router = useRouter();
   const [user, setUser] = useState<UserType | null>(null);
   const [links, setLinks] = useState<
-    { _id: string; url: string; platform: string }[]
+    { _id: string; url: string; platform: string; color: string }[]
   >([]);
   const [showIntro, setShowIntro] = useState(true);
   const [newLinks, setNewLinks] = useState<
-    { id: number; url: string; platform: string }[]
+    { id: number; url: string; platform: string; color: string }[]
   >([]);
   const [linkOrProfile, setLinksOrProfile] = useState<boolean>(false);
   const [selectedPlatform, setSelectedPlatform] = useState("");
@@ -84,7 +84,12 @@ export default function Home() {
 
     setNewLinks((prevLinks) => [
       ...prevLinks,
-      { id: prevLinks.length + 1, url: "", platform: selectedPlatform || "" },
+      {
+        id: prevLinks.length + 1,
+        url: "",
+        platform: selectedPlatform || "",
+        color: "",
+      },
     ]);
 
     console.log("Updated New Links:", newLinks);
@@ -176,6 +181,7 @@ export default function Home() {
         _id: new mongoose.Types.ObjectId().toString(),
         url: link.url,
         platform: link.platform,
+        color: link.color,
       }));
 
       const updatedProfile = {
@@ -317,25 +323,38 @@ export default function Home() {
       <main className="maincontent flex">
         <section className="preview">
           {links.length > 0 ? (
-            <>
+            <div className="grid grid-cols-2 gap-4">
               {links
                 .sort(() => 0.5 - Math.random())
                 .slice(0, 5)
                 .map((link) => (
-                  <Image
+                  <div
                     key={link._id}
-                    src={`${
-                      link.platform === "Frontendmentor"
-                        ? "/images/icon-frontend-mentor.svg"
-                        : link.platform === "Stackoverflow"
-                        ? "/images/icon-stack-overflow.svg"
-                        : `/images/icon-${link.platform.toLowerCase()}.svg`
-                    }`}
-                    alt={link.platform}
-                    width={300}
-                    height={618}
-                    className="absolute inset-0 flex flex-col"
-                  />
+                    style={{ backgroundColor: link.color }}
+                    className="flex"
+                  >
+                    <Image
+                      key={link._id}
+                      src={`${
+                        link.platform === "Frontendmentor"
+                          ? "/images/icon-frontend-mentor.svg"
+                          : link.platform === "Stackoverflow"
+                          ? "/images/icon-stack-overflow.svg"
+                          : `/images/icon-${link.platform.toLowerCase()}.svg`
+                      }`}
+                      alt={link.platform}
+                      width={300}
+                      height={618}
+                      className="absolute inset-0 flex flex-col"
+                    />
+                    <p>{link.platform}</p>
+                    <Image
+                      src={`/images/icon-arrow-right.svg`}
+                      width={16}
+                      height={16}
+                      alt={link.platform}
+                    />
+                  </div>
                 ))}
               <Image
                 src="/images/illustration-phone-mockup.svg"
@@ -343,7 +362,7 @@ export default function Home() {
                 width={300}
                 height={618}
               />
-            </>
+            </div>
           ) : (
             <Image
               src="/images/illustration-phone-mockup.svg"
