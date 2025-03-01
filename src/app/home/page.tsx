@@ -44,6 +44,8 @@ export default function Home() {
   >([]);
   const [linkOrProfile, setLinksOrProfile] = useState<boolean>(false);
   const [selectedPlatform, setSelectedPlatform] = useState("");
+  const [selectedColor, setSelectedColor] = useState("");
+
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [loadingLinks, setLoadingLinks] = useState(false);
   const [loadingProfile, setLoadingProfile] = useState(false);
@@ -88,7 +90,7 @@ export default function Home() {
         id: prevLinks.length + 1,
         url: "",
         platform: selectedPlatform || "",
-        color: "",
+        color: selectedColor || "",
       },
     ]);
 
@@ -147,6 +149,7 @@ export default function Home() {
     color: string
   ) => {
     setSelectedPlatform(platform);
+    setSelectedColor(color);
     setNewLinks((prevLinks) =>
       prevLinks.map((link) =>
         link.id === id ? { ...link, platform, color } : link
@@ -269,6 +272,7 @@ export default function Home() {
   useEffect(() => {
     console.log("Selected platform:", selectedPlatform);
   }, [selectedPlatform]);
+  console.log(selectedColor);
   return (
     <div className="p-4">
       <header className="flex justify-between items-center">
