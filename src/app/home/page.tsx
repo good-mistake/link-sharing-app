@@ -349,8 +349,8 @@ export default function Home() {
                           : `/images/icon-${link.platform.toLowerCase()}.svg`
                       }`}
                       alt={link.platform}
-                      width={300}
-                      height={618}
+                      width={22}
+                      height={22}
                     />
                     <p>{link.platform}</p>
                     <Image
