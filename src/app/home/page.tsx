@@ -316,12 +316,27 @@ export default function Home() {
       </header>
       <main className="maincontent flex">
         <section className="preview">
-          <Image
-            src="/images/illustration-phone-mockup.svg"
-            alt="logo"
-            width={300}
-            height={618}
-          />
+          {links.length > 0 ? (
+            links
+              .sort(() => 0.5 - Math.random())
+              .slice(0, 5)
+              .map((link) => (
+                <Image
+                  key={link._id}
+                  src={`/images/platforms/${link.platform.toLowerCase()}.svg`}
+                  alt={link.platform}
+                  width={300}
+                  height={618}
+                />
+              ))
+          ) : (
+            <Image
+              src="/images/illustration-phone-mockup.svg"
+              alt="logo"
+              width={300}
+              height={618}
+            />
+          )}
         </section>
         <section className="addLink ">
           <AnimatePresence mode="wait">
