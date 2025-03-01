@@ -36,11 +36,11 @@ export default function Home() {
   const router = useRouter();
   const [user, setUser] = useState<UserType | null>(null);
   const [links, setLinks] = useState<
-    { _id: string; url: string; platform: string; color: string }[]
+    { _id: string; url: string; platform: string }[]
   >([]);
   const [showIntro, setShowIntro] = useState(true);
   const [newLinks, setNewLinks] = useState<
-    { id: number; url: string; platform: string; color: string }[]
+    { id: number; url: string; platform: string }[]
   >([]);
   const [linkOrProfile, setLinksOrProfile] = useState<boolean>(false);
   const [selectedPlatform, setSelectedPlatform] = useState("");
@@ -143,17 +143,10 @@ export default function Home() {
     }
   };
 
-  const handlePlatformChange = (
-    platform: string,
-    id: number,
-    color: string
-  ) => {
+  const handlePlatformChange = (platform: string, id: number) => {
     setSelectedPlatform(platform);
-    setSelectedColor(color);
     setNewLinks((prevLinks) =>
-      prevLinks.map((link) =>
-        link.id === id ? { ...link, platform, color } : link
-      )
+      prevLinks.map((link) => (link.id === id ? { ...link, platform } : link))
     );
   };
 
@@ -190,7 +183,7 @@ export default function Home() {
         _id: new mongoose.Types.ObjectId().toString(),
         url: link.url,
         platform: link.platform,
-        color: link.color,
+        color: selectedColor,
       }));
 
       const updatedProfile = {
@@ -204,6 +197,7 @@ export default function Home() {
         links: updatedProfile.links.map((link) => ({
           ...link,
           _id: new mongoose.Types.ObjectId(link._id),
+          color: selectedColor,
         })),
       });
       setUser(updatedProfile);
@@ -340,7 +334,7 @@ export default function Home() {
                 .map((link) => (
                   <div
                     key={link._id}
-                    style={{ backgroundColor: link.color }}
+                    style={{ backgroundColor: selectedColor }}
                     className="flex absolute inset-0 flex flex-col"
                   >
                     <Image
@@ -449,12 +443,9 @@ export default function Home() {
 
                             <CustomSelect
                               selected={selectedPlatform}
+                              setSelectedColor={setSelectedColor}
                               setSelected={(platform) =>
-                                handlePlatformChange(
-                                  platform,
-                                  link.id,
-                                  link.color
-                                )
+                                handlePlatformChange(platform, link.id)
                               }
                             />
                             <div>

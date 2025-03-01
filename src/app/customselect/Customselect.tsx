@@ -91,10 +91,12 @@ const platforms = [
 interface CustomSelectProps {
   selected: string | null;
   setSelected: (value: string) => void;
+  setSelectedColor: (color: string) => void;
 }
 export default function CustomSelect({
   selected,
   setSelected,
+  setSelectedColor,
 }: CustomSelectProps) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -114,7 +116,14 @@ export default function CustomSelect({
     };
   }, []);
   console.log("selected platform custom select", selected);
-
+  const selectedPlatformColor = platforms.find(
+    (p) => p.value === selected
+  )?.color;
+  useEffect(() => {
+    if (selectedPlatformColor) {
+      setSelectedColor(selectedPlatformColor);
+    }
+  }, [selected, selectedPlatformColor, setSelectedColor]);
   return (
     <div className="relative w-100 customSelect	" ref={dropdownRef}>
       <p className="lpt">Platform</p>
