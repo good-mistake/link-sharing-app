@@ -359,12 +359,6 @@ export default function Home() {
                     <p>{link.platform}</p>
                   </div>
                 ))}
-              <Image
-                src="/images/illustration-phone-mockup.svg"
-                alt="logo"
-                width={300}
-                height={618}
-              />
             </div>
           ) : (
             <Image
