@@ -325,9 +325,9 @@ export default function Home() {
         <button className="previewBtn">Preview</button>
       </header>
       <main className="maincontent flex">
-        <section className="preview">
+        <section className="preview ">
           {links.length > 0 ? (
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-4 rounded-lg relative">
               {links
                 .sort(() => 0.5 - Math.random())
                 .slice(0, 5)
