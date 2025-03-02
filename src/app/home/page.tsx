@@ -336,11 +336,16 @@ export default function Home() {
               {links
                 .sort(() => 0.5 - Math.random())
                 .slice(0, 5)
-                .map((link) => (
+                .map((link, index) => (
                   <div
                     key={link._id}
-                    style={{ backgroundColor: link.color }}
-                    className="flex absolute  flex flex-col"
+                    style={{
+                      backgroundColor: link.color,
+                      top: `${index * 100}px`,
+                      left: "50%",
+                      transform: "translateX(-50%)",
+                    }}
+                    className="absolute w-[80%] p-4 rounded-lg flex flex-col items-center"
                   >
                     <Image
                       key={link._id}
@@ -354,9 +359,13 @@ export default function Home() {
                       alt={link.platform}
                       width={22}
                       height={22}
-                      onClick={() => window.open(link.url, "_blank")}
                     />
                     <p>{link.platform}</p>
+                    <Image
+                      src={`/images/icon-arrow-right.svg`}
+                      onClick={() => window.open(link.url, "_blank")}
+                      alt="arrow right"
+                    />
                   </div>
                 ))}
             </div>
