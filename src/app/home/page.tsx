@@ -36,7 +36,7 @@ export default function Home() {
   const router = useRouter();
   const [user, setUser] = useState<UserType | null>(null);
   const [links, setLinks] = useState<
-    { _id: string; url: string; platform: string }[]
+    { _id: string; url: string; platform: string; color: string }[]
   >([]);
   const [showIntro, setShowIntro] = useState(true);
   const [newLinks, setNewLinks] = useState<
@@ -334,7 +334,7 @@ export default function Home() {
                 .map((link) => (
                   <div
                     key={link._id}
-                    style={{ backgroundColor: selectedColor }}
+                    style={{ backgroundColor: link.color }}
                     className="flex absolute inset-0 flex flex-col"
                   >
                     <Image
