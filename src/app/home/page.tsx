@@ -327,7 +327,12 @@ export default function Home() {
       <main className="maincontent flex">
         <section className="preview ">
           {links.length > 0 ? (
-            <div className="grid grid-cols-2 gap-4 rounded-lg relative">
+            <div
+              style={{
+                backgroundImage: "url('/images/illustration-phone-mockup.svg')",
+              }}
+              className="grid grid-cols-2 gap-4 rounded-lg relative bg-no-repeat bg-cover bg-center  w-[300px] h-[618px]"
+            >
               {links
                 .sort(() => 0.5 - Math.random())
                 .slice(0, 5)
@@ -335,7 +340,7 @@ export default function Home() {
                   <div
                     key={link._id}
                     style={{ backgroundColor: link.color }}
-                    className="flex absolute inset-0 flex flex-col"
+                    className="flex absolute  flex flex-col"
                   >
                     <Image
                       key={link._id}
@@ -349,14 +354,9 @@ export default function Home() {
                       alt={link.platform}
                       width={22}
                       height={22}
+                      onClick={() => window.open(link.url, "_blank")}
                     />
                     <p>{link.platform}</p>
-                    <Image
-                      src={`/images/icon-arrow-right.svg`}
-                      width={16}
-                      height={16}
-                      alt={link.platform}
-                    />
                   </div>
                 ))}
               <Image
