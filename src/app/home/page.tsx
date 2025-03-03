@@ -197,7 +197,6 @@ export default function Home() {
         links: updatedProfile.links.map((link) => ({
           ...link,
           _id: new mongoose.Types.ObjectId(link._id),
-          color: selectedColor,
         })),
       });
       setUser(updatedProfile);
@@ -341,11 +340,11 @@ export default function Home() {
                     key={link._id}
                     style={{
                       backgroundColor: link.color,
-                      top: `${index * 100}px`,
+                      top: `${100 + index * 80}px`,
                       left: "50%",
                       transform: "translateX(-50%)",
                     }}
-                    className="absolute w-[80%] p-4 rounded-lg flex flex-col items-center"
+                    className="absolute w-[237px] h-[44px] p-4 rounded-lg flex items-center justify-center items-center"
                   >
                     <Image
                       key={link._id}
