@@ -546,8 +546,8 @@ export default function Home() {
                                 "/images/icon-upload-image.svg"
                               }
                               alt="Profile"
-                              layout="fill"
-                              objectFit="cover"
+                              width={193}
+                              height={193}
                               className="rounded-xl"
                             />
                           ) : (
