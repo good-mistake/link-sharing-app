@@ -538,18 +538,30 @@ export default function Home() {
                           htmlFor="profileImage"
                           className=" cursor-pointer"
                         >
-                          <Image
-                            src={
-                              previewImage ||
-                              user?.profilePicture ||
-                              "/images/icon-upload-image.svg"
-                            }
-                            alt="Profile"
-                            width={40}
-                            height={40}
-                            className="rounded-full"
-                          />
-                          + Upload Image
+                          {previewImage || user?.profilePicture ? (
+                            <Image
+                              src={
+                                previewImage ||
+                                user?.profilePicture ||
+                                "/images/icon-upload-image.svg"
+                              }
+                              alt="Profile"
+                              layout="fill"
+                              objectFit="cover"
+                              className="rounded-xl"
+                            />
+                          ) : (
+                            <>
+                              <Image
+                                src="/images/icon-upload-image.svg"
+                                alt="Upload"
+                                width={40}
+                                height={40}
+                                className="rounded-full"
+                              />
+                              + Upload Image
+                            </>
+                          )}
                         </label>
                         <p>
                           Image must be below 1024x1024px. Use PNG or JPG
