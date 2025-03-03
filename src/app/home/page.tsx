@@ -93,8 +93,6 @@ export default function Home() {
         color: selectedColor || "",
       },
     ]);
-
-    console.log("Updated New Links:", newLinks);
   };
 
   const removeLink = (id: number) => {
@@ -192,7 +190,6 @@ export default function Home() {
         links: [...links, ...formattedNewLinks],
       };
 
-      console.log("Updated Profile Data:", updatedProfile);
       await updateProfile({
         ...updatedProfile,
         links: updatedProfile.links.map((link) => ({
@@ -213,10 +210,13 @@ export default function Home() {
     }
   };
 
-  const handleSaveProfile = async () => {
+  const handleSaveProfile = async (event: React.FormEvent) => {
+    event.preventDefault();
+
     setLoadingProfile(true);
     setSuccessProfile(false);
     setErrorMessageProfile(null);
+
     if (!user) return;
 
     const firstName = (document.getElementById("name") as HTMLInputElement)
@@ -247,7 +247,6 @@ export default function Home() {
           setErrorMessageProfile("Image upload failed.");
         }
 
-        console.log("Saving");
         const uploadData = await uploadResponse.json();
         profileData.profilePicture = uploadData.imageUrl;
       }
@@ -263,10 +262,7 @@ export default function Home() {
       setLoadingProfile(false);
     }
   };
-  useEffect(() => {
-    console.log("Selected platform:", selectedPlatform);
-  }, [selectedPlatform]);
-  console.log(selectedColor);
+
   return (
     <div className="p-4">
       <header className="flex justify-between items-center">
@@ -525,7 +521,7 @@ export default function Home() {
                   </div>
                 </>
               ) : (
-                <form className="detailsForm">
+                <form className="detailsForm" onSubmit={handleSaveProfile}>
                   <h1>Profile Details</h1>
                   <p>
                     Add your details to create a personal touch to your profile.
@@ -546,6 +542,7 @@ export default function Home() {
                                 })`,
                                 backgroundSize: "cover",
                                 backgroundPosition: "center",
+                                backgroundRepeat: "no-repeat",
                                 borderRadius: "12px",
                                 width: "193px",
                                 height: "193px",
@@ -628,7 +625,7 @@ export default function Home() {
                   )}
                   <div className="flex justify-end ">
                     <AnimatedButton
-                      onClick={handleSaveProfile}
+                      {...{ type: "submit" }}
                       className="saveBtn flex justify-center items-center gap-2 cursor-pointer"
                     >
                       {loadingProfile ? (
