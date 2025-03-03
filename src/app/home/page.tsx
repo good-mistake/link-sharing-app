@@ -368,7 +368,15 @@ export default function Home() {
                         />
                       </div>
                     ) : (
-                      <div className="absolute w-[237px] h-[44px] p-4 rounded-lg flex justify-between items-center"></div>
+                      <div
+                        style={{
+                          backgroundColor: "white",
+                          top: `${272 + index * 60}px`,
+                          left: "50%",
+                          transform: "translateX(-50%)",
+                        }}
+                        className="absolute w-[237px] h-[44px] p-4 rounded-lg flex justify-between items-center"
+                      ></div>
                     )}
                   </>
                 );
