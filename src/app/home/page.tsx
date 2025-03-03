@@ -364,7 +364,7 @@ export default function Home() {
                         <Image
                           src={`/images/icon-arrow-right.svg`}
                           onClick={() => window.open(link.url, "_blank")}
-                          alt="arrow right "
+                          alt="arrow right cursor-pointer"
                         />
                       </div>
                     ) : (
@@ -587,13 +587,12 @@ export default function Home() {
                     </div>
                   </div>
                   <div className="flex justify-center text-red-600 bg-red-100 border border-red-400 px-4 py-2 rounded-md text-sm mt-2 animate-fadeIn">
-                    {errorMessageProfile ||
-                      (errorMessageImg && (
-                        <div className="text-red-600 bg-red-100 border border-red-400 px-4 py-2 rounded-md text-sm mt-2 animate-fadeIn">
-                          {errorMessageProfile}
-                        </div>
-                      ))}
-                  </div>{" "}
+                    {(errorMessageProfile || errorMessageImg) && (
+                      <div className="flex justify-center text-red-600 bg-red-100 border border-red-400 px-4 py-2 rounded-md text-sm mt-2 animate-fadeIn">
+                        {errorMessageProfile || errorMessageImg}
+                      </div>
+                    )}
+                  </div>
                   {successProfile && (
                     <motion.div
                       className="w-full bg-green-100 border border-green-400 text-green-700 px-4 py-2 rounded-lg flex items-center gap-2"
@@ -607,7 +606,7 @@ export default function Home() {
                   <div className="flex justify-end ">
                     <AnimatedButton
                       onClick={handleSaveProfile}
-                      className="saveBtn  flex justify-center items-center gap-2 cursor-pointer"
+                      className="saveBtn flex justify-center items-center gap-2 cursor-pointer"
                     >
                       {loadingProfile ? (
                         <span className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
@@ -617,7 +616,7 @@ export default function Home() {
                     </AnimatedButton>
                   </div>
                 </form>
-              )}{" "}
+              )}
             </motion.div>
           </AnimatePresence>
         </section>
