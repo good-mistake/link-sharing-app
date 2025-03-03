@@ -332,44 +332,47 @@ export default function Home() {
               }}
               className=" rounded-lg relative bg-no-repeat bg-cover bg-center  w-[300px] h-[618px]"
             >
-              {links
-                .sort(() => 0.5 - Math.random())
-                .slice(0, 5)
-                .map((link, index) => (
-                  <div
-                    key={link._id}
-                    style={{
-                      backgroundColor: link.color,
-                      top: `${272 + index * 60}px`,
-                      left: "50%",
-                      transform: "translateX(-50%)",
-                    }}
-                    className={`absolute w-[237px] h-[44px] p-4 rounded-lg flex justify-between items-center ${
-                      link ? "" : "bg-white"
-                    }`}
-                  >
-                    <Image
-                      key={link._id}
-                      src={`${
-                        link.platform === "Frontendmentor"
-                          ? "/images/icon-frontend-mentor.svg"
-                          : link.platform === "Stackoverflow"
-                          ? "/images/icon-stack-overflow.svg"
-                          : `/images/icon-${link.platform.toLowerCase()}.svg`
-                      }`}
-                      alt={link.platform}
-                      width={22}
-                      height={22}
-                      className="invert sepia brightness-0 hue-rotate-180"
-                    />
-                    <p className="text-white">{link.platform}</p>
-                    <Image
-                      src={`/images/icon-arrow-right.svg`}
-                      onClick={() => window.open(link.url, "_blank")}
-                      alt="arrow right cursor-pointer"
-                    />
-                  </div>
-                ))}
+              {Array.from({ length: 5 }).map((_, index) => {
+                const link = links[index];
+                return (
+                  <>
+                    {link ? (
+                      <div
+                        key={index}
+                        style={{
+                          backgroundColor: link ? link.color : "white",
+                          top: `${272 + index * 60}px`,
+                          left: "50%",
+                          transform: "translateX(-50%)",
+                        }}
+                        className="absolute w-[237px] h-[44px] p-4 rounded-lg flex justify-between items-center"
+                      >
+                        <Image
+                          src={`${
+                            link.platform === "Frontendmentor"
+                              ? "/images/icon-frontend-mentor.svg"
+                              : link.platform === "Stackoverflow"
+                              ? "/images/icon-stack-overflow.svg"
+                              : `/images/icon-${link.platform.toLowerCase()}.svg`
+                          }`}
+                          alt={link.platform}
+                          width={22}
+                          height={22}
+                          className="invert sepia brightness-0 hue-rotate-180"
+                        />
+                        <p className="text-white">{link.platform}</p>
+                        <Image
+                          src={`/images/icon-arrow-right.svg`}
+                          onClick={() => window.open(link.url, "_blank")}
+                          alt="arrow right "
+                        />
+                      </div>
+                    ) : (
+                      <div className="absolute w-[237px] h-[44px] p-4 rounded-lg flex justify-between items-center"></div>
+                    )}
+                  </>
+                );
+              })}
             </div>
           ) : (
             <Image
