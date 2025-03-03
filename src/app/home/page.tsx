@@ -330,7 +330,7 @@ export default function Home() {
               style={{
                 backgroundImage: "url('/images/illustration-phone-mockup.svg')",
               }}
-              className="grid grid-cols-2 gap-4 rounded-lg relative bg-no-repeat bg-cover bg-center  w-[300px] h-[618px]"
+              className=" rounded-lg relative bg-no-repeat bg-cover bg-center  w-[300px] h-[618px]"
             >
               {links
                 .sort(() => 0.5 - Math.random())
@@ -344,7 +344,7 @@ export default function Home() {
                       left: "50%",
                       transform: "translateX(-50%)",
                     }}
-                    className="absolute first:mt-0 -mt-12 w-[237px] h-[44px] p-4 rounded-lg flex justify-between items-center"
+                    className="absolute first:mt-0 -mt-10 w-[237px] h-[44px] p-4 rounded-lg flex justify-between items-center"
                   >
                     <Image
                       key={link._id}
