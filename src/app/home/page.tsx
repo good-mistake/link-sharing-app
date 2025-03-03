@@ -344,7 +344,7 @@ export default function Home() {
                       left: "50%",
                       transform: "translateX(-50%)",
                     }}
-                    className="absolute first:mt-0 -mt-[12] w-[237px] h-[44px] p-4 rounded-lg flex justify-between items-center"
+                    className="absolute first:mt-0 -mt-12 w-[237px] h-[44px] p-4 rounded-lg flex justify-between items-center"
                   >
                     <Image
                       key={link._id}
