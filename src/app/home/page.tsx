@@ -44,8 +44,8 @@ export default function Home() {
   >([]);
   const [linkOrProfile, setLinksOrProfile] = useState<boolean>(false);
   const [selectedPlatform, setSelectedPlatform] = useState("");
-  const [selectedColor, setSelectedColor] = useState("");
-
+  const [selectedColor, setSelectedColor] = useState<string>("");
+  const [previewImage, setPreviewImage] = useState<string>("");
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [loadingLinks, setLoadingLinks] = useState(false);
   const [loadingProfile, setLoadingProfile] = useState(false);
@@ -125,7 +125,8 @@ export default function Home() {
       );
       return;
     }
-
+    const imageUrl = URL.createObjectURL(file);
+    setPreviewImage(imageUrl);
     setErrorMessageIMG(null);
     setSelectedImage(file);
   };
@@ -539,6 +540,7 @@ export default function Home() {
                         >
                           <Image
                             src={
+                              previewImage ||
                               user?.profilePicture ||
                               "/images/icon-upload-image.svg"
                             }
