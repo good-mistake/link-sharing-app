@@ -344,7 +344,7 @@ export default function Home() {
                       left: "50%",
                       transform: "translateX(-50%)",
                     }}
-                    className="absolute mt-[-50px] w-[237px] h-[44px] p-4 rounded-lg flex justify-between items-center"
+                    className="absolute first:mt-0 -mt-12 w-[237px] h-[44px] p-4 rounded-lg flex justify-between items-center"
                   >
                     <Image
                       key={link._id}
@@ -360,7 +360,7 @@ export default function Home() {
                       height={22}
                       className="invert sepia brightness-0 hue-rotate-180"
                     />
-                    <p>{link.platform}</p>
+                    <p className="text-white">{link.platform}</p>
                     <Image
                       src={`/images/icon-arrow-right.svg`}
                       onClick={() => window.open(link.url, "_blank")}
