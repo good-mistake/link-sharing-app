@@ -541,11 +541,16 @@ export default function Home() {
                           {previewImage || user?.profilePicture ? (
                             <div
                               style={{
-                                backgroundImage:
-                                  previewImage || user?.profilePicture,
+                                backgroundImage: `url(${
+                                  previewImage || user?.profilePicture
+                                })`,
+                                backgroundSize: "cover",
+                                backgroundPosition: "center",
+                                borderRadius: "12px",
                                 width: "193px",
                                 height: "193px",
                               }}
+                              className="flex items-center flex-col justify-center"
                             >
                               <Image
                                 src={"/images/icon-upload-image.svg"}
@@ -554,7 +559,7 @@ export default function Home() {
                                 height={40}
                                 className="rounded-xl"
                               />
-                              + Change Image
+                              <span>+ Change Image</span>
                             </div>
                           ) : (
                             <>
