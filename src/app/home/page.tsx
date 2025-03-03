@@ -344,7 +344,9 @@ export default function Home() {
                       left: "50%",
                       transform: "translateX(-50%)",
                     }}
-                    className="absolute  w-[237px] h-[44px] p-4 rounded-lg flex justify-between items-center"
+                    className={`absolute w-[237px] h-[44px] p-4 rounded-lg flex justify-between items-center ${
+                      link ? "" : "bg-white"
+                    }`}
                   >
                     <Image
                       key={link._id}
@@ -364,7 +366,7 @@ export default function Home() {
                     <Image
                       src={`/images/icon-arrow-right.svg`}
                       onClick={() => window.open(link.url, "_blank")}
-                      alt="arrow right"
+                      alt="arrow right cursor-pointer"
                     />
                   </div>
                 ))}
