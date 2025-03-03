@@ -371,7 +371,7 @@ export default function Home() {
                       <div
                         style={{
                           backgroundColor: "white",
-                          top: `${272 + index * 60}px`,
+                          top: `${281 + index * 60}px`,
                           left: "50%",
                           transform: "translateX(-50%)",
                         }}
