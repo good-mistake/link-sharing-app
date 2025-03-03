@@ -344,7 +344,7 @@ export default function Home() {
                       left: "50%",
                       transform: "translateX(-50%)",
                     }}
-                    className="absolute w-[237px] h-[44px] p-4 rounded-lg flex items-center justify-center items-center"
+                    className="absolute w-[237px] h-[44px] p-4 rounded-lg flex justify-between items-center"
                   >
                     <Image
                       key={link._id}
@@ -358,6 +358,7 @@ export default function Home() {
                       alt={link.platform}
                       width={22}
                       height={22}
+                      className="filter invert"
                     />
                     <p>{link.platform}</p>
                     <Image
