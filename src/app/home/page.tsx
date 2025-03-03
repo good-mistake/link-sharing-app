@@ -340,11 +340,11 @@ export default function Home() {
                     key={link._id}
                     style={{
                       backgroundColor: link.color,
-                      top: `${280 + index * 100}px`,
+                      top: `${300 + index * 100}px`,
                       left: "50%",
                       transform: "translateX(-50%)",
                     }}
-                    className="absolute w-[237px] h-[44px] p-4 rounded-lg flex justify-between items-center"
+                    className="absolute mt-[-50px] w-[237px] h-[44px] p-4 rounded-lg flex justify-between items-center"
                   >
                     <Image
                       key={link._id}
@@ -358,7 +358,7 @@ export default function Home() {
                       alt={link.platform}
                       width={22}
                       height={22}
-                      className="filter invert"
+                      className="invert sepia brightness-0 hue-rotate-180"
                     />
                     <p>{link.platform}</p>
                     <Image
