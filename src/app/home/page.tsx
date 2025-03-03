@@ -330,7 +330,7 @@ export default function Home() {
               style={{
                 backgroundImage: "url('/images/illustration-phone-mockup.svg')",
               }}
-              className="grid grid-cols-2 gap-4 rounded-lg relative bg-no-repeat bg-cover bg-center  w-[300px] h-[618px]"
+              className="grid grid-cols-2 gap-2 rounded-lg relative bg-no-repeat bg-cover bg-center  w-[300px] h-[618px]"
             >
               {links
                 .sort(() => 0.5 - Math.random())
@@ -340,7 +340,7 @@ export default function Home() {
                     key={link._id}
                     style={{
                       backgroundColor: link.color,
-                      top: `${100 + index * 80}px`,
+                      top: `${200 + index * 100}px`,
                       left: "50%",
                       transform: "translateX(-50%)",
                     }}
