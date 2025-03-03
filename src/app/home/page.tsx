@@ -340,7 +340,7 @@ export default function Home() {
                     key={link._id}
                     style={{
                       backgroundColor: link.color,
-                      top: `${272 + index * 40}px`,
+                      top: `${272 + index * 60}px`,
                       left: "50%",
                       transform: "translateX(-50%)",
                     }}
