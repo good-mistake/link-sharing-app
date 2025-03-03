@@ -539,17 +539,23 @@ export default function Home() {
                           className=" cursor-pointer"
                         >
                           {previewImage || user?.profilePicture ? (
-                            <Image
-                              src={
-                                previewImage ||
-                                user?.profilePicture ||
-                                "/images/icon-upload-image.svg"
-                              }
-                              alt="Profile"
-                              width={193}
-                              height={193}
-                              className="rounded-xl"
-                            />
+                            <div
+                              style={{
+                                backgroundImage:
+                                  previewImage || user?.profilePicture,
+                                width: "193px",
+                                height: "193px",
+                              }}
+                            >
+                              <Image
+                                src={"/images/icon-upload-image.svg"}
+                                alt="Upload"
+                                width={40}
+                                height={40}
+                                className="rounded-xl"
+                              />
+                              + Change Image
+                            </div>
                           ) : (
                             <>
                               <Image
