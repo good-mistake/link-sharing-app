@@ -232,7 +232,12 @@ export default function Home() {
     }
 
     try {
-      const profileData: Partial<UserType> = { ...user, firstName, lastName };
+      const profileData: Partial<UserType> = {
+        ...user,
+        firstName,
+        lastName,
+        profileEmail: user.profileEmail,
+      };
 
       if (selectedImage) {
         const formData = new FormData();
