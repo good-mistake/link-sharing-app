@@ -15,7 +15,6 @@ const handler = nc()
   .use(upload.single("image"))
   .post(async (req, res) => {
     await connectDB();
-
     try {
       if (!req.file) {
         return res.status(400).json({ error: "No file uploaded" });
@@ -27,7 +26,7 @@ const handler = nc()
       });
 
       await client.connect();
-      const db = client.db("yourDatabaseName"); // Set your actual DB name
+      const db = client.db("yourDatabaseName");
       const bucket = new GridFSBucket(db, { bucketName: "uploads" });
 
       const uploadStream = bucket.openUploadStream(req.file.originalname, {
