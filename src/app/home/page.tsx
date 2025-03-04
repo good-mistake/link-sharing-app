@@ -327,7 +327,7 @@ export default function Home() {
               style={{
                 backgroundImage: "url('/images/illustration-phone-mockup.svg')",
               }}
-              className=" rounded-lg relative bg-no-repeat bg-cover bg-center  w-[300px] h-[618px]"
+              className="rounded-lg relative bg-no-repeat bg-cover bg-center  w-[300px] h-[618px]"
             >
               {Array.from({ length: 5 }).map((_, index) => {
                 const link = links[index];
@@ -554,7 +554,7 @@ export default function Home() {
                                 alt="Upload"
                                 width={40}
                                 height={40}
-                                className="rounded-xl"
+                                className="rounded-xl invert sepia brightness-0 hue-rotate-180"
                               />
                               <span>+ Change Image</span>
                             </div>
