@@ -2,6 +2,7 @@ import connectDB from "../../utils/connectDB.js";
 import multer from "multer";
 import nc from "next-connect";
 import { MongoClient, GridFSBucket } from "mongodb";
+
 const upload = multer({ storage: multer.memoryStorage() });
 
 export const config = {
@@ -20,12 +21,13 @@ const handler = nc()
         return res.status(400).json({ error: "No file uploaded" });
       }
 
-      const client = await MongoClient.connect(process.env.MONGO_URI, {
+      const client = new MongoClient(process.env.MONGO_URI, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
       });
-      const db = client.db();
 
+      await client.connect();
+      const db = client.db("yourDatabaseName"); // Set your actual DB name
       const bucket = new GridFSBucket(db, { bucketName: "uploads" });
 
       const uploadStream = bucket.openUploadStream(req.file.originalname, {
@@ -35,7 +37,7 @@ const handler = nc()
       uploadStream.end(req.file.buffer);
 
       uploadStream.on("finish", () => {
-        const imageUrl = `${process.env.MONGO_URI}/uploads/${uploadStream.id}`;
+        const imageUrl = `/api/uploads/${uploadStream.id}`;
         res.status(200).json({ imageUrl });
       });
 
