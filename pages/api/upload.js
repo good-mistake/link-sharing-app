@@ -1,39 +1,49 @@
-import { MongoClient, GridFSBucket } from "mongodb";
 import multer from "multer";
 import nc from "next-connect";
+import { MongoClient, GridFSBucket } from "mongodb";
 import connectDB from "../../utils/connectDB";
 
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
+
 const upload = multer({ storage: multer.memoryStorage() });
-const handler = nc();
 
-handler.use(upload.single("image"));
+const handler = nc()
+  .use(upload.single("image"))
+  .post(async (req, res) => {
+    await connectDB();
 
-handler.post(async (req, res) => {
-  await connectDB();
-  try {
-    const client = await MongoClient.connect(process.env.MONGO_URI);
-    const db = client.db();
-    const bucket = new GridFSBucket(db, { bucketName: "uploads" });
+    try {
+      if (!req.file) {
+        return res.status(400).json({ error: "No file uploaded" });
+      }
 
-    const uploadStream = bucket.openUploadStream(req.file.originalname, {
-      contentType: req.file.mimetype,
-    });
+      const client = new MongoClient(process.env.MONGO_URI);
+      await client.connect();
+      const db = client.db();
+      const bucket = new GridFSBucket(db, { bucketName: "uploads" });
 
-    uploadStream.end(req.file.buffer);
+      const uploadStream = bucket.openUploadStream(req.file.originalname, {
+        contentType: req.file.mimetype,
+      });
 
-    uploadStream.on("finish", () => {
-      const imageUrl = `/api/uploads/${uploadStream.id}`;
-      res.status(200).json({ imageUrl });
-    });
+      uploadStream.end(req.file.buffer);
 
-    uploadStream.on("error", (error) => {
+      uploadStream.on("finish", () => {
+        res.status(200).json({ imageUrl: `/api/uploads/${uploadStream.id}` });
+      });
+
+      uploadStream.on("error", (error) => {
+        console.error(error);
+        res.status(500).json({ error: "Failed to upload file" });
+      });
+    } catch (error) {
       console.error(error);
-      res.status(500).json({ error: "Failed to upload file" });
-    });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Upload failed" });
-  }
-});
+      res.status(500).json({ error: "Upload failed" });
+    }
+  });
 
 export default handler;

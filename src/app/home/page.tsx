@@ -253,6 +253,7 @@ export default function Home() {
         }
 
         const uploadData = await uploadResponse.json();
+        console.log(uploadData);
         profileData.profilePicture = uploadData.imageUrl;
       }
 
