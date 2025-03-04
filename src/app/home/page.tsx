@@ -227,7 +227,6 @@ export default function Home() {
     if (!firstName || !lastName) {
       setErrorMessageProfile("First name and last name are required.");
       setLoadingProfile(false);
-
       return;
     }
 
@@ -240,27 +239,36 @@ export default function Home() {
       };
 
       if (selectedImage) {
-        const formData = new FormData();
-        formData.append("image", selectedImage);
+        const reader = new FileReader();
+        reader.readAsDataURL(selectedImage);
 
-        const uploadResponse = await fetch("/api/upload", {
-          method: "POST",
-          body: formData,
-        });
+        reader.onloadend = async () => {
+          const uploadResponse = await fetch("/api/upload", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ image: reader.result, userId: user._id }),
+          });
 
-        if (!uploadResponse.ok) {
-          setErrorMessageProfile("Image upload failed.");
-        }
+          if (!uploadResponse.ok) {
+            setErrorMessageProfile("Image upload failed.");
+            setLoadingProfile(false);
+            return;
+          }
 
-        const uploadData = await uploadResponse.json();
-        console.log(uploadData);
-        profileData.profilePicture = uploadData.imageUrl;
+          const uploadData = await uploadResponse.json();
+          profileData.profilePicture = uploadData.imageUrl;
+
+          await updateProfile(profileData);
+          setUser({ ...user, ...profileData });
+          setErrorMessageProfile(null);
+          setSuccessProfile(true);
+        };
+      } else {
+        await updateProfile(profileData);
+        setUser({ ...user, ...profileData });
+        setErrorMessageProfile(null);
+        setSuccessProfile(true);
       }
-
-      await updateProfile(profileData);
-      setUser({ ...user, ...profileData });
-      setErrorMessageProfile(null);
-      setSuccessProfile(true);
     } catch (error) {
       console.error("Failed to update profile:", error);
       setErrorMessageProfile("Error saving profile. Please try again.");

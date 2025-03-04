@@ -1,49 +1,26 @@
-import multer from "multer";
-import nc from "next-connect";
-import { MongoClient, GridFSBucket } from "mongodb";
-import connectDB from "../../utils/connectDB";
+import cloudinary from "cloudinary";
 
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
+cloudinary.v2.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
-const upload = multer({ storage: multer.memoryStorage() });
+export default async function handler(req, res) {
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Method Not Allowed" });
+  }
 
-const handler = nc()
-  .use(upload.single("image"))
-  .post(async (req, res) => {
-    await connectDB();
+  try {
+    const { image } = req.body;
 
-    try {
-      if (!req.file) {
-        return res.status(400).json({ error: "No file uploaded" });
-      }
+    const uploadResponse = await cloudinary.v2.uploader.upload(image, {
+      folder: "uploads",
+    });
 
-      const client = new MongoClient(process.env.MONGO_URI);
-      await client.connect();
-      const db = client.db();
-      const bucket = new GridFSBucket(db, { bucketName: "uploads" });
-
-      const uploadStream = bucket.openUploadStream(req.file.originalname, {
-        contentType: req.file.mimetype,
-      });
-
-      uploadStream.end(req.file.buffer);
-
-      uploadStream.on("finish", () => {
-        res.status(200).json({ imageUrl: `/api/uploads/${uploadStream.id}` });
-      });
-
-      uploadStream.on("error", (error) => {
-        console.error(error);
-        res.status(500).json({ error: "Failed to upload file" });
-      });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: "Upload failed" });
-    }
-  });
-
-export default handler;
+    res.status(200).json({ imageUrl: uploadResponse.secure_url });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Upload failed" });
+  }
+}
