@@ -243,36 +243,43 @@ export default function Home() {
         reader.readAsDataURL(selectedImage);
 
         reader.onloadend = async () => {
-          const uploadResponse = await fetch("/api/upload", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ image: reader.result, userId: user._id }),
-          });
+          try {
+            const uploadResponse = await fetch("/api/upload", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ image: reader.result, userId: user._id }),
+            });
 
-          if (!uploadResponse.ok) {
-            setErrorMessageProfile("Image upload failed.");
+            if (!uploadResponse.ok) {
+              setErrorMessageProfile("Image upload failed.");
+              setLoadingProfile(false);
+              return;
+            }
+
+            const uploadData = await uploadResponse.json();
+            profileData.profilePicture = uploadData.imageUrl;
+
+            await updateProfile(profileData);
+            setUser({ ...user, ...profileData });
+            setErrorMessageProfile(null);
+            setSuccessProfile(true);
+          } catch (error) {
+            console.error("Image upload error:", error);
+            setErrorMessageProfile("Error uploading image.");
+          } finally {
             setLoadingProfile(false);
-            return;
           }
-
-          const uploadData = await uploadResponse.json();
-          profileData.profilePicture = uploadData.imageUrl;
-
-          await updateProfile(profileData);
-          setUser({ ...user, ...profileData });
-          setErrorMessageProfile(null);
-          setSuccessProfile(true);
         };
       } else {
         await updateProfile(profileData);
         setUser({ ...user, ...profileData });
         setErrorMessageProfile(null);
         setSuccessProfile(true);
+        setLoadingProfile(false);
       }
     } catch (error) {
       console.error("Failed to update profile:", error);
       setErrorMessageProfile("Error saving profile. Please try again.");
-    } finally {
       setLoadingProfile(false);
     }
   };
