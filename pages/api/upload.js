@@ -10,7 +10,7 @@ cloudinary.v2.config({
 
 export const config = {
   api: {
-    bodyParser: false, 
+    bodyParser: false, // Required to handle file uploads
   },
 };
 
@@ -21,36 +21,38 @@ export default async function handler(req, res) {
 
   const form = new IncomingForm({ keepExtensions: true });
 
-  try {
-    const [, files] = await form.parse(req);
+  form.parse(req, async (err, fields, files) => {
+    if (err) {
+      console.error("Form Parsing Error:", err);
+      return res.status(400).json({ error: "Form parsing error" });
+    }
 
-    console.log("Uploaded Files:", files);
+    console.log("Fields:", fields); // Debugging line to check form fields
+    console.log("Files:", files); // Debugging line to check uploaded files
 
-    const file = files.image?.[0]; 
-
+    const file = files.image?.[0]; // Get first file
     if (!file) {
-      console.log("No image uploaded"); /
+      console.log("No image uploaded"); // Debugging
       return res.status(400).json({ error: "No image uploaded" });
     }
 
-    const fileData = await fs.readFile(file.filepath);
-    console.log("File read successfully"); // Debugging
-
-    const uploadStream = cloudinary.v2.uploader.upload_stream(
-      { folder: "uploads" },
-      (error, result) => {
-        if (error) {
-          console.error("Cloudinary Upload Error:", error);
-          return res.status(500).json({ error: "Upload failed" });
+    try {
+      const fileData = await fs.readFile(file.filepath);
+      const uploadStream = cloudinary.v2.uploader.upload_stream(
+        { folder: "uploads" },
+        (error, result) => {
+          if (error) {
+            console.error("Cloudinary Upload Error:", error);
+            return res.status(500).json({ error: "Upload failed" });
+          }
+          console.log("Cloudinary Upload Success:", result);
+          return res.status(200).json({ imageUrl: result.secure_url });
         }
-        console.log("Cloudinary Upload Success:", result);
-        return res.status(200).json({ imageUrl: result.secure_url });
-      }
-    );
-
-    uploadStream.end(fileData); // Send file data to Cloudinary
-  } catch (error) {
-    console.error("Server Error:", error);
-    return res.status(500).json({ error: "Something went wrong" });
-  }
+      );
+      uploadStream.end(fileData); // Send file data to Cloudinary
+    } catch (error) {
+      console.error("Server Error:", error);
+      return res.status(500).json({ error: "Something went wrong" });
+    }
+  });
 }
