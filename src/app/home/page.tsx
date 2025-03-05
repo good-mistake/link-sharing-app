@@ -101,33 +101,7 @@ export default function Home() {
       setShowIntro(true);
     }
   };
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
 
-    if (!file) {
-      setErrorMessageIMG("No file selected.");
-      return;
-    }
-
-    const validTypes = ["image/jpeg", "image/png", "image/gif", "image/webp"];
-    if (!validTypes.includes(file.type)) {
-      setErrorMessageIMG(
-        "Invalid file type. Please upload a JPEG, PNG, GIF, or WEBP."
-      );
-      return;
-    }
-
-    if (file.size > 5 * 1024 * 1024) {
-      setErrorMessageIMG(
-        "File size exceeds 5MB. Please choose a smaller file."
-      );
-      return;
-    }
-    const imageUrl = URL.createObjectURL(file);
-    setPreviewImage(imageUrl);
-    setErrorMessageIMG(null);
-    setSelectedImage(file);
-  };
   const isValidPlatformUrl = (url: string, platform: string) => {
     try {
       const domain = new URL(url).hostname;
@@ -239,37 +213,35 @@ export default function Home() {
       };
 
       if (selectedImage) {
-        const reader = new FileReader();
-        reader.readAsDataURL(selectedImage);
+        const formData = new FormData();
+        formData.append("file", selectedImage); // Append the selected image file to FormData
+        formData.append("userId", user._id); // Optionally append userId if needed for your backend
 
-        reader.onloadend = async () => {
-          try {
-            const uploadResponse = await fetch("/api/upload", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ image: reader.result, userId: user._id }),
-            });
+        try {
+          const uploadResponse = await fetch("/api/upload", {
+            method: "POST",
+            body: formData, // Send the FormData containing the image
+          });
 
-            if (!uploadResponse.ok) {
-              setErrorMessageProfile("Image upload failed.");
-              setLoadingProfile(false);
-              return;
-            }
-
-            const uploadData = await uploadResponse.json();
-            profileData.profilePicture = uploadData.imageUrl;
-
-            await updateProfile(profileData);
-            setUser({ ...user, ...profileData });
-            setErrorMessageProfile(null);
-            setSuccessProfile(true);
-          } catch (error) {
-            console.error("Image upload error:", error);
-            setErrorMessageProfile("Error uploading image.");
-          } finally {
+          if (!uploadResponse.ok) {
+            setErrorMessageProfile("Image upload failed.");
             setLoadingProfile(false);
+            return;
           }
-        };
+
+          const uploadData = await uploadResponse.json();
+          profileData.profilePicture = uploadData.imageUrl;
+
+          await updateProfile(profileData);
+          setUser({ ...user, ...profileData });
+          setErrorMessageProfile(null);
+          setSuccessProfile(true);
+        } catch (error) {
+          console.error("Image upload error:", error);
+          setErrorMessageProfile("Error uploading image.");
+        } finally {
+          setLoadingProfile(false);
+        }
       } else {
         await updateProfile(profileData);
         setUser({ ...user, ...profileData });
@@ -282,6 +254,35 @@ export default function Home() {
       setErrorMessageProfile("Error saving profile. Please try again.");
       setLoadingProfile(false);
     }
+  };
+
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+
+    if (!file) {
+      setErrorMessageIMG("No file selected.");
+      return;
+    }
+
+    const validTypes = ["image/jpeg", "image/png", "image/gif", "image/webp"];
+    if (!validTypes.includes(file.type)) {
+      setErrorMessageIMG(
+        "Invalid file type. Please upload a JPEG, PNG, GIF, or WEBP."
+      );
+      return;
+    }
+
+    if (file.size > 5 * 1024 * 1024) {
+      setErrorMessageIMG(
+        "File size exceeds 5MB. Please choose a smaller file."
+      );
+      return;
+    }
+
+    const imageUrl = URL.createObjectURL(file);
+    setPreviewImage(imageUrl);
+    setErrorMessageIMG(null);
+    setSelectedImage(file); // Set the file directly
   };
 
   return (
