@@ -10,7 +10,7 @@ cloudinary.v2.config({
 
 export const config = {
   api: {
-    bodyParser: false,
+    bodyParser: false, 
   },
 };
 
@@ -23,28 +23,34 @@ export default async function handler(req, res) {
 
   try {
     const [, files] = await form.parse(req);
-    const file = files.image?.[0];
+
+    console.log("Uploaded Files:", files);
+
+    const file = files.image?.[0]; 
 
     if (!file) {
+      console.log("No image uploaded"); /
       return res.status(400).json({ error: "No image uploaded" });
     }
 
     const fileData = await fs.readFile(file.filepath);
+    console.log("File read successfully"); // Debugging
 
-    const uploadResponse = await cloudinary.v2.uploader.upload_stream(
+    const uploadStream = cloudinary.v2.uploader.upload_stream(
       { folder: "uploads" },
       (error, result) => {
         if (error) {
-          console.error(error);
+          console.error("Cloudinary Upload Error:", error);
           return res.status(500).json({ error: "Upload failed" });
         }
+        console.log("Cloudinary Upload Success:", result);
         return res.status(200).json({ imageUrl: result.secure_url });
       }
     );
 
-    uploadResponse.end(fileData); // Send file data to Cloudinary
+    uploadStream.end(fileData); // Send file data to Cloudinary
   } catch (error) {
-    console.error(error);
+    console.error("Server Error:", error);
     return res.status(500).json({ error: "Something went wrong" });
   }
 }
