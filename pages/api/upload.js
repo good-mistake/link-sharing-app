@@ -1,5 +1,6 @@
 import cloudinary from "cloudinary";
-import formidable from "formidable";
+import { IncomingForm } from "formidable";
+import { promises as fs } from "fs";
 
 cloudinary.v2.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -18,30 +19,32 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: "Method Not Allowed" });
   }
 
-  const form = new formidable.IncomingForm();
-  form.uploadDir = "/tmp";
-  form.keepExtensions = true;
+  const form = new IncomingForm({ keepExtensions: true });
 
-  form.parse(req, async (err, fields, files) => {
-    if (err) {
-      return res.status(500).json({ error: "Form parse error" });
+  try {
+    const [, files] = await form.parse(req);
+    const file = files.image?.[0];
+
+    if (!file) {
+      return res.status(400).json({ error: "No image uploaded" });
     }
 
-    const file = files.image;
-    if (!file) return res.status(400).json({ error: "No image uploaded" });
+    const fileData = await fs.readFile(file.filepath);
 
-    try {
-      const uploadResponse = await cloudinary.v2.uploader.upload(
-        file.filepath,
-        {
-          folder: "uploads",
+    const uploadResponse = await cloudinary.v2.uploader.upload_stream(
+      { folder: "uploads" },
+      (error, result) => {
+        if (error) {
+          console.error(error);
+          return res.status(500).json({ error: "Upload failed" });
         }
-      );
+        return res.status(200).json({ imageUrl: result.secure_url });
+      }
+    );
 
-      return res.status(200).json({ imageUrl: uploadResponse.secure_url });
-    } catch (error) {
-      console.error(error);
-      return res.status(500).json({ error: "Upload failed" });
-    }
-  });
+    uploadResponse.end(fileData); // Send file data to Cloudinary
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Something went wrong" });
+  }
 }
