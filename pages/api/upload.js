@@ -13,6 +13,7 @@ export default async function handler(req, res) {
   }
   const form = new IncomingForm();
   form.parse(req, async (err, fields, files) => {
+    console.log(req.body);
     if (err) {
       return res.status(500).json({ error: "Error parsing form data" });
     }

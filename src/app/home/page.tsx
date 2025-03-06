@@ -206,7 +206,7 @@ export default function Home() {
       setLoadingProfile(false);
       return;
     }
-
+    console.log(selectedImage, "selectedImg");
     try {
       const profileData: Partial<UserType> = {
         ...user,
