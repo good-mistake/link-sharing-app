@@ -41,7 +41,7 @@ export default async function handler(req, res) {
           if (lastName) user.lastName = lastName;
           if (profileEmail) user.profileEmail = profileEmail;
           if (profilePicture) user.profilePicture = profilePicture;
-
+          if (profilePicture) user.profilePicture = profilePicture;
           if (links) {
             user.links = links.map((link) => ({
               url: link.url,

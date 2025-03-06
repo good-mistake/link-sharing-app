@@ -1,33 +1,37 @@
+import formidable from "formidable";
 import fs from "fs";
-import { IncomingForm } from "formidable";
+import path from "path";
 
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
+export const config = { api: { bodyParser: false } }; // Disable default body parser
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
-    return res.status(405).json({ error: "Method Not Allowed" });
+    return res.status(405).json({ error: "Method not allowed" });
   }
-  const form = new IncomingForm();
+
+  const form = new formidable.IncomingForm();
+  form.uploadDir = path.join(process.cwd(), "public/uploads"); // Save files locally
+  form.keepExtensions = true;
+
   form.parse(req, async (err, fields, files) => {
-    console.log(req.body);
-    if (err) {
-      return res.status(500).json({ error: "Error parsing form data" });
-    }
+    if (err) return res.status(500).json({ error: "Error parsing the file" });
 
-    // Example: Read image file
-    const imageFile = files.profileImg;
-    if (!imageFile) {
+    if (!files.file)
       return res.status(400).json({ error: "No image uploaded" });
-    }
 
-    // Simulate saving file (Modify this to your storage logic)
-    const filePath = `./public/uploads/${imageFile.newFilename}`;
-    fs.renameSync(imageFile.filepath, filePath);
+    const oldPath = files.file.filepath;
+    const newPath = path.join(form.uploadDir, files.file.originalFilename);
 
-    res.status(200).json({ message: "Profile updated successfully", filePath });
+    // Move file to correct path
+    fs.rename(oldPath, newPath, (err) => {
+      if (err) return res.status(500).json({ error: "File move error" });
+
+      res
+        .status(200)
+        .json({
+          message: "File uploaded successfully",
+          fileUrl: `/uploads/${files.file.originalFilename}`,
+        });
+    });
   });
 }
