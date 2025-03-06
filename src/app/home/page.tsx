@@ -198,9 +198,8 @@ export default function Home() {
     const lastName = (document.getElementById("lastName") as HTMLInputElement)
       .value;
 
-    const profileEmail = (
-      document.getElementById("profileEmail") as HTMLInputElement
-    ).value;
+    const profileEmail = (document.getElementById("email") as HTMLInputElement)
+      .value;
 
     if (!firstName || !lastName || !profileEmail || !selectedImage) {
       setErrorMessageProfile("All the fields are required.");
@@ -224,7 +223,7 @@ export default function Home() {
         try {
           const uploadResponse = await fetch("/api/upload", {
             method: "POST",
-            body: formData, // Send the FormData containing the image
+            body: formData,
           });
 
           if (!uploadResponse.ok) {
@@ -286,7 +285,7 @@ export default function Home() {
     const imageUrl = URL.createObjectURL(file);
     setPreviewImage(imageUrl);
     setErrorMessageIMG(null);
-    setSelectedImage(file); // Set the file directly
+    setSelectedImage(file);
   };
 
   return (
