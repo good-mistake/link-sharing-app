@@ -10,7 +10,7 @@ cloudinary.v2.config({
 
 export const config = {
   api: {
-    bodyParser: false, // Disable Next.js default body parser
+    bodyParser: false,
   },
 };
 
@@ -20,30 +20,36 @@ export default async function handler(req, res) {
   }
 
   const form = new formidable.IncomingForm();
-
   form.parse(req, async (err, fields, files) => {
     if (err) {
-      console.error("Formidable Error:", err);
-      return res.status(500).json({ error: "File upload error" });
+      return res.status(500).json({ error: "Form parsing error" });
     }
 
-    if (!files.file) {
-      return res.status(400).json({ error: "No image uploaded" });
-    }
+    const { firstName, lastName, profileEmail } = fields;
+    const file = files.profileImg;
 
-    const filePath = files.file.filepath;
+    // **Check if all fields are present**
+    if (!firstName || !lastName || !profileEmail || !file) {
+      return res.status(400).json({ error: "All fields are required." });
+    }
 
     try {
-      const uploadResponse = await cloudinary.v2.uploader.upload(filePath, {
-        folder: "uploads",
+      const uploadResponse = await cloudinary.v2.uploader.upload(
+        file.filepath,
+        {
+          folder: "uploads",
+        }
+      );
+
+      fs.unlinkSync(file.filepath);
+
+      return res.status(200).json({
+        message: "Profile updated successfully.",
+        imageUrl: uploadResponse.secure_url,
       });
-
-      fs.unlinkSync(filePath);
-
-      res.status(200).json({ imageUrl: uploadResponse.secure_url });
-    } catch (uploadError) {
-      console.error("Cloudinary Upload Error:", uploadError);
-      res.status(500).json({ error: "Upload failed" });
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({ error: "Image upload failed." });
     }
   });
 }
