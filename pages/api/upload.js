@@ -4,7 +4,7 @@ console.log("Cloudinary URL:", process.env.CLOUDINARY_URL);
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_URL.split("@")[1],
-  api_key: process.env.CLOUDINARY_URL.split("/")[2].split("@")[0],
+  api_key: process.env.CLOUDINARY_URL.split("/")[2].split(":")[2],
   api_secret: process.env.CLOUDINARY_URL.split(":")[2],
 });
 console.log("Cloudinary URL:", process.env.CLOUDINARY_URL);
