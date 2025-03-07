@@ -2,9 +2,9 @@ import { IncomingForm } from "formidable";
 import cloudinary from "cloudinary";
 
 cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
+  cloud_name: process.env.CLOUDINARY_URL.split("@")[1],
+  api_key: process.env.CLOUDINARY_URL.split(":")[1].split("@")[0],
+  api_secret: process.env.CLOUDINARY_URL.split(":")[2],
 });
 
 export const config = { api: { bodyParser: false } };
@@ -34,7 +34,6 @@ export default async function handler(req, res) {
       const tempPath = file.filepath || file.path;
 
       try {
-        // Upload to Cloudinary
         const result = await cloudinary.v2.uploader.upload(tempPath, {
           folder: "user_profiles",
         });
