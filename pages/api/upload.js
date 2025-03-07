@@ -1,4 +1,4 @@
-import formidable from "formidable";
+import { IncomingForm } from "formidable";
 import fs from "fs";
 
 export const config = { api: { bodyParser: false } };
@@ -9,8 +9,8 @@ export default async function handler(req, res) {
   }
 
   try {
-    const form = new formidable.IncomingForm();
-    form.uploadDir = "/tmp";
+    const form = new IncomingForm();
+    form.uploadDir = "/tmp"; // Use temporary storage
     form.keepExtensions = true;
 
     form.parse(req, async (err, fields, files) => {
