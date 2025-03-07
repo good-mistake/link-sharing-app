@@ -38,6 +38,9 @@ export default function Home() {
   const [links, setLinks] = useState<
     { _id: string; url: string; platform: string; color: string }[]
   >([]);
+  const [profile, setProfile] = useState<
+    { firstName: string; lastName: string; email: string; image: string }[]
+  >([]);
   const [showIntro, setShowIntro] = useState(true);
   const [newLinks, setNewLinks] = useState<
     { id: number; url: string; platform: string }[]
@@ -206,7 +209,6 @@ export default function Home() {
       setLoadingProfile(false);
       return;
     }
-    console.log(selectedImage, "selectedImg");
     try {
       const profileData: Partial<UserType> = {
         ...user,
@@ -239,6 +241,15 @@ export default function Home() {
           setUser({ ...user, ...profileData });
           setErrorMessageProfile(null);
           setSuccessProfile(true);
+          setProfile((prev) => [
+            ...prev,
+            profileData as {
+              firstName: string;
+              lastName: string;
+              email: string;
+              image: string;
+            },
+          ]);
         } catch (error) {
           console.error("Image upload error:", error);
           setErrorMessageProfile("Error uploading image.");
@@ -287,7 +298,8 @@ export default function Home() {
     setErrorMessageIMG(null);
     setSelectedImage(file);
   };
-
+  console.log(user, "user");
+  console.log(profile, "profile");
   return (
     <div className="p-4">
       <header className="flex justify-between items-center">
