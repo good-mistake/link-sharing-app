@@ -1,18 +1,22 @@
 import { IncomingForm } from "formidable";
 import cloudinary from "cloudinary";
+console.log("Cloudinary URL:", process.env.CLOUDINARY_URL);
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_URL.split("@")[1],
   api_key: process.env.CLOUDINARY_URL.split(":")[1].split("@")[0],
   api_secret: process.env.CLOUDINARY_URL.split(":")[2],
 });
+console.log("Cloudinary URL:", process.env.CLOUDINARY_URL);
 
 export const config = { api: { bodyParser: false } };
+console.log("Cloudinary URL:", process.env.CLOUDINARY_URL);
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
   }
+  console.log("Cloudinary URL:", process.env.CLOUDINARY_URL);
 
   try {
     const form = new IncomingForm();
