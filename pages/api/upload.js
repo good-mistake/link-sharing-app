@@ -1,11 +1,10 @@
 import { IncomingForm } from "formidable";
 import cloudinary from "cloudinary";
 console.log("Cloudinary URL:", process.env.CLOUDINARY_URL);
-
 cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_URL.split("@")[1],
-  api_key: process.env.CLOUDINARY_URL.split("/")[2].split(":")[2],
-  api_secret: process.env.CLOUDINARY_URL.split(":")[2],
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 console.log("Cloudinary URL:", process.env.CLOUDINARY_URL);
 
