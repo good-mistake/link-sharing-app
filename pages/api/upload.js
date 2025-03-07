@@ -6,7 +6,7 @@ cloudinary.config({
   api_key: process.env.CLOUDINARY_URL.split(":")[1].split("@")[0],
   api_secret: process.env.CLOUDINARY_URL.split(":")[2],
 });
-
+///adad
 export const config = { api: { bodyParser: false } };
 
 export default async function handler(req, res) {
