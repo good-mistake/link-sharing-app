@@ -1,5 +1,11 @@
 import { IncomingForm } from "formidable";
-import fs from "fs";
+import cloudinary from "cloudinary";
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 export const config = { api: { bodyParser: false } };
 
@@ -10,7 +16,7 @@ export default async function handler(req, res) {
 
   try {
     const form = new IncomingForm();
-    form.uploadDir = "/tmp"; // Use temporary storage
+    form.uploadDir = "/tmp";
     form.keepExtensions = true;
 
     form.parse(req, async (err, fields, files) => {
@@ -25,17 +31,19 @@ export default async function handler(req, res) {
       }
 
       const file = files.file[0];
-      console.log("Uploaded file:", file);
-
       const tempPath = file.filepath || file.path;
-      const fileData = fs.readFileSync(tempPath);
-      const base64Image = `data:${file.mimetype};base64,${fileData.toString(
-        "base64"
-      )}`;
 
-      res
-        .status(200)
-        .json({ message: "File uploaded successfully", image: base64Image });
+      try {
+        // Upload to Cloudinary
+        const result = await cloudinary.v2.uploader.upload(tempPath, {
+          folder: "user_profiles",
+        });
+
+        res.status(200).json({ imageUrl: result.secure_url });
+      } catch (uploadError) {
+        console.error("Cloudinary upload error:", uploadError);
+        res.status(500).json({ error: "Failed to upload image" });
+      }
     });
   } catch (error) {
     console.error("Upload error:", error);

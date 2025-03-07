@@ -33,7 +33,6 @@ export default async function handler(req, res) {
         try {
           const { firstName, lastName, profileEmail, profilePicture, links } =
             req.body;
-          console.log(req.body, "inside profile index.js");
           const user = await User.findById(userId);
           if (!user) return res.status(404).json({ error: "User not found" });
 
@@ -41,7 +40,7 @@ export default async function handler(req, res) {
           if (lastName) user.lastName = lastName;
           if (profileEmail) user.profileEmail = profileEmail;
           if (profilePicture) user.profilePicture = profilePicture;
-          if (profilePicture) user.profilePicture = profilePicture;
+
           if (links) {
             user.links = links.map((link) => ({
               url: link.url,
@@ -53,7 +52,7 @@ export default async function handler(req, res) {
           await user.save();
           res.status(200).json({ message: "Profile updated", profile: user });
         } catch (error) {
-          console.error(error);
+          console.log(error);
           res.status(500).json({ error: "Failed to update profile" });
         }
         break;

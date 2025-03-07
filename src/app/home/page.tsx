@@ -38,9 +38,7 @@ export default function Home() {
   const [links, setLinks] = useState<
     { _id: string; url: string; platform: string; color: string }[]
   >([]);
-  const [profile, setProfile] = useState<
-    { firstName: string; lastName: string; email: string; image: string }[]
-  >([]);
+
   const [showIntro, setShowIntro] = useState(true);
   const [newLinks, setNewLinks] = useState<
     { id: number; url: string; platform: string }[]
@@ -186,6 +184,20 @@ export default function Home() {
       setLoadingLinks(false);
     }
   };
+  const handleImageUpload = async (file: File) => {
+    const formData = new FormData();
+    formData.append("file", file);
+
+    const res = await fetch("/api/upload", {
+      method: "POST",
+      body: formData,
+    });
+
+    if (!res.ok) throw new Error("Failed to upload image");
+
+    const data = await res.json();
+    return data.imageUrl;
+  };
 
   const handleSaveProfile = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -200,15 +212,15 @@ export default function Home() {
       .value;
     const lastName = (document.getElementById("lastName") as HTMLInputElement)
       .value;
-
     const profileEmail = (document.getElementById("email") as HTMLInputElement)
       .value;
 
-    if (!firstName || !lastName || !profileEmail || !selectedImage) {
+    if (!firstName || !lastName || !profileEmail) {
       setErrorMessageProfile("All the fields are required.");
       setLoadingProfile(false);
       return;
     }
+
     try {
       const profileData: Partial<UserType> = {
         ...user,
@@ -218,54 +230,24 @@ export default function Home() {
       };
 
       if (selectedImage) {
-        const formData = new FormData();
-        formData.append("file", selectedImage);
-        formData.append("userId", user._id);
-
         try {
-          const uploadResponse = await fetch("/api/upload", {
-            method: "POST",
-            body: formData,
-          });
-
-          if (!uploadResponse.ok) {
-            setErrorMessageProfile("Image upload failed.");
-            setLoadingProfile(false);
-            return;
-          }
-
-          const uploadData = await uploadResponse.json();
-          profileData.profilePicture = uploadData.imageUrl;
-
-          await updateProfile(profileData);
-          setUser({ ...user, ...profileData });
-          setErrorMessageProfile(null);
-          setSuccessProfile(true);
-          setProfile((prev) => [
-            ...prev,
-            profileData as {
-              firstName: string;
-              lastName: string;
-              email: string;
-              image: string;
-            },
-          ]);
+          profileData.profilePicture = await handleImageUpload(selectedImage);
         } catch (error) {
           console.error("Image upload error:", error);
-          setErrorMessageProfile("Error uploading image.");
-        } finally {
+          setErrorMessageProfile("Image upload failed.");
           setLoadingProfile(false);
+          return;
         }
-      } else {
-        await updateProfile(profileData);
-        setUser({ ...user, ...profileData });
-        setErrorMessageProfile(null);
-        setSuccessProfile(true);
-        setLoadingProfile(false);
       }
+
+      await updateProfile(profileData);
+      setUser({ ...user, ...profileData });
+      setSuccessProfile(true);
+      setErrorMessageProfile(null);
     } catch (error) {
       console.error("Failed to update profile:", error);
       setErrorMessageProfile("Error saving profile. Please try again.");
+    } finally {
       setLoadingProfile(false);
     }
   };
@@ -299,7 +281,6 @@ export default function Home() {
     setSelectedImage(file);
   };
   console.log(user, "user");
-  console.log(profile, "profile");
   return (
     <div className="p-4">
       <header className="flex justify-between items-center">
