@@ -354,13 +354,43 @@ export default function Home() {
       </header>
       <main className="maincontent flex">
         <section className="preview ">
-          {links.length > 0 ? (
+          {links.length > 0 || user?.profilePicture ? (
             <div
               style={{
                 backgroundImage: "url('/images/illustration-phone-mockup.svg')",
               }}
               className="rounded-lg relative bg-no-repeat bg-cover bg-center  w-[300px] h-[618px]"
             >
+              <Image
+                src={`${user?.profilePicture}`}
+                alt={`profile pic`}
+                width={96}
+                height={96}
+                className="invert sepia brightness-0 hue-rotate-180 absolute"
+                style={{
+                  top: `${232 + 60}px`,
+                  left: "50%",
+                  transform: "translateX(-50%)",
+                }}
+              />
+              <p
+                style={{
+                  top: `${242 + 60}px`,
+                  left: "50%",
+                  transform: "translateX(-50%)",
+                }}
+              >
+                {(user?.firstName, user?.lastName)}
+              </p>
+              <p
+                style={{
+                  top: `${252 + 60}px`,
+                  left: "50%",
+                  transform: "translateX(-50%)",
+                }}
+              >
+                {user?.profileEmail}
+              </p>
               {Array.from({ length: 5 }).map((_, index) => {
                 const link = links[index];
                 return (
@@ -393,14 +423,15 @@ export default function Home() {
                         <Image
                           src={`/images/icon-arrow-right.svg`}
                           onClick={() => window.open(link.url, "_blank")}
-                          alt="arrow right cursor-pointer"
+                          alt="arrow right"
+                          className="cursor-pointer"
                         />
                       </div>
                     ) : (
                       <div
                         style={{
                           backgroundColor: "white",
-                          top: `${281 + index * 60}px`,
+                          top: `${271 + index * 60}px`,
                           left: "50%",
                           transform: "translateX(-50%)",
                         }}
