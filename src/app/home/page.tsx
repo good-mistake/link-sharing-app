@@ -35,6 +35,7 @@ const platformDomains: Record<string, string> = {
 export default function Home() {
   const router = useRouter();
   const [user, setUser] = useState<UserType | null>(null);
+  const [profiles, setProfiles] = useState<UserType[]>([]);
   const [links, setLinks] = useState<
     { _id: string; url: string; platform: string; color: string }[]
   >([]);
@@ -239,6 +240,16 @@ export default function Home() {
           return;
         }
       }
+      const updatedProfiles: UserType[] = profiles.map((profile) => ({
+        _id: profile._id || new mongoose.Types.ObjectId().toString(),
+        firstName: profile.firstName || "",
+        lastName: profile.lastName || "",
+        profileEmail: profile.profileEmail || "",
+        accountEmail: profile.accountEmail || "",
+        profilePicture: profile.profilePicture || "",
+        links: profile.links || [],
+      }));
+      setProfiles(updatedProfiles);
 
       await updateProfile(profileData);
       setUser({ ...user, ...profileData });
@@ -280,7 +291,7 @@ export default function Home() {
     setErrorMessageIMG(null);
     setSelectedImage(file);
   };
-  console.log(user, "user");
+  console.log(profiles, "profiles");
   return (
     <div className="p-4">
       <header className="flex justify-between items-center">
