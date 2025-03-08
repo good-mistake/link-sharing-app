@@ -379,10 +379,10 @@ export default function Home() {
                   left: "50%",
                   transform: "translateX(-50%)",
                 }}
-                className="absolute bg-white userName w-[237px]"
+                className="absolute bg-white userName w-[237px] text-center"
               >
-                {user?.firstName}(` `)
-                {user?.lastName}
+                <span> {user?.firstName}</span>
+                <span> {user?.lastName}</span>
               </p>
               <p
                 style={{
@@ -390,7 +390,7 @@ export default function Home() {
                   left: "50%",
                   transform: "translateX(-50%)",
                 }}
-                className="absolute userEmail w-[237px]"
+                className="absolute userEmail w-[237px] text-center"
               >
                 {user?.profileEmail}
               </p>
@@ -434,7 +434,7 @@ export default function Home() {
                       <div
                         style={{
                           backgroundColor: "white",
-                          top: `${281 + index * 60}px`,
+                          top: `${276 + index * 60}px`,
                           left: "50%",
                           transform: "translateX(-50%)",
                         }}
