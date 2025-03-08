@@ -293,6 +293,7 @@ export default function Home() {
   };
   console.log(profiles, "profiles");
   console.log(user, "user");
+  console.log(previewImage, "previewImage");
 
   return (
     <div className="p-4">
