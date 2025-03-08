@@ -366,7 +366,7 @@ export default function Home() {
                 alt={`profile pic`}
                 width={96}
                 height={96}
-                className="rounded-full absolute border-6 border-[#633CFF]"
+                className="rounded-full absolute border-6 border-[#633CFF] aspect-square"
                 style={{
                   top: `${66}px`,
                   left: "50%",
