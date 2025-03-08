@@ -366,28 +366,31 @@ export default function Home() {
                 alt={`profile pic`}
                 width={96}
                 height={96}
-                className="invert sepia brightness-0 hue-rotate-180 absolute"
+                className="rounded-full absolute border-2 border-[#633CFF]"
                 style={{
-                  top: `${232 + 60}px`,
+                  top: `${66}px`,
                   left: "50%",
                   transform: "translateX(-50%)",
                 }}
               />
               <p
                 style={{
-                  top: `${242 + 60}px`,
+                  top: `${174}px`,
                   left: "50%",
                   transform: "translateX(-50%)",
                 }}
+                className="absolute bg-white userName"
               >
-                {(user?.firstName, user?.lastName)}
+                {user?.firstName}
+                {user?.lastName}
               </p>
               <p
                 style={{
-                  top: `${252 + 60}px`,
+                  top: `${200}px`,
                   left: "50%",
                   transform: "translateX(-50%)",
                 }}
+                className="absolute userEmail"
               >
                 {user?.profileEmail}
               </p>

@@ -290,3 +290,12 @@ main {
     color: $color-dark;
   }
 }
+.userName {
+  @include body-m;
+  color: $color-dark;
+}
+.userEmail {
+  @include body-s;
+
+  color: #737373;
+}
