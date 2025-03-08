@@ -381,7 +381,7 @@ export default function Home() {
                 }}
                 className="absolute bg-white userName w-[237px]"
               >
-                {user?.firstName}
+                {user?.firstName}(` `)
                 {user?.lastName}
               </p>
               <p
