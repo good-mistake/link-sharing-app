@@ -291,11 +291,11 @@ main {
   }
 }
 .userName {
-  @include body-m;
+  @include heading-m;
   color: $color-dark;
 }
 .userEmail {
-  @include body-s;
+  @include heading-s;
 
   color: #737373;
 }

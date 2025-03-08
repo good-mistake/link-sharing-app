@@ -366,7 +366,7 @@ export default function Home() {
                 alt={`profile pic`}
                 width={96}
                 height={96}
-                className="rounded-full absolute border-2 border-[#633CFF]"
+                className="rounded-full absolute border-4 border-[#633CFF]"
                 style={{
                   top: `${66}px`,
                   left: "50%",
@@ -379,7 +379,7 @@ export default function Home() {
                   left: "50%",
                   transform: "translateX(-50%)",
                 }}
-                className="absolute bg-white userName"
+                className="absolute bg-white userName w-[237px]"
               >
                 {user?.firstName}
                 {user?.lastName}
@@ -390,7 +390,7 @@ export default function Home() {
                   left: "50%",
                   transform: "translateX(-50%)",
                 }}
-                className="absolute userEmail"
+                className="absolute userEmail w-[237px]"
               >
                 {user?.profileEmail}
               </p>
@@ -434,7 +434,7 @@ export default function Home() {
                       <div
                         style={{
                           backgroundColor: "white",
-                          top: `${271 + index * 60}px`,
+                          top: `${281 + index * 60}px`,
                           left: "50%",
                           transform: "translateX(-50%)",
                         }}
