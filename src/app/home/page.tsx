@@ -364,9 +364,9 @@ export default function Home() {
               <Image
                 src={`${user?.profilePicture}`}
                 alt={`profile pic`}
-                width={96}
-                height={96}
-                className="rounded-full absolute border-[6px] border-[#633CFF] aspect-square"
+                width={100}
+                height={100}
+                className="rounded-full absolute border-[5px] border-[#633CFF] aspect-square"
                 style={{
                   top: `${66}px`,
                   left: "50%",
