@@ -292,6 +292,8 @@ export default function Home() {
     setSelectedImage(file);
   };
   console.log(profiles, "profiles");
+  console.log(user, "user");
+
   return (
     <div className="p-4">
       <header className="flex justify-between items-center">
@@ -566,9 +568,7 @@ export default function Home() {
                           {previewImage || user?.profilePicture ? (
                             <div
                               style={{
-                                backgroundImage: `url(${
-                                  previewImage || user?.profilePicture
-                                })`,
+                                backgroundImage: `url(${previewImage})`,
                                 backgroundSize: "cover",
                                 backgroundPosition: "center",
                                 backgroundRepeat: "no-repeat",
@@ -618,7 +618,7 @@ export default function Home() {
                       <label htmlFor="name">
                         <p>First name*</p>
                         <input type="text" id="name" placeholder="e.g. John" />
-                      </label>{" "}
+                      </label>
                       <label htmlFor="lastName">
                         <p>Last name*</p>
                         <input
