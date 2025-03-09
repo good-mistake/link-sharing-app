@@ -297,9 +297,6 @@ export default function Home() {
     setErrorMessageIMG(null);
     setSelectedImage(file);
   };
-  console.log(profiles, "profiles");
-  console.log(user, "user");
-  console.log(previewImage, "previewImage");
 
   return (
     <div className="p-4">
@@ -356,15 +353,13 @@ export default function Home() {
             </p>
           </div>
         </div>
-        <button className="previewBtn" onClick={handlePreviewBtn}>
-          {!preview ? (
-            <button className="previewBtn" onClick={handlePreviewBtn}>
-              Preview
-            </button>
-          ) : (
-            <Preview user={user} />
-          )}{" "}
-        </button>
+        {!preview ? (
+          <button className="previewBtn" onClick={handlePreviewBtn}>
+            Preview
+          </button>
+        ) : (
+          <Preview user={user} />
+        )}{" "}
       </header>
       <main className="maincontent flex">
         <section className="preview ">
