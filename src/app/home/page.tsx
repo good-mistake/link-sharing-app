@@ -7,7 +7,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { updateProfile, getProfile } from "../../services/services.js";
 import mongoose from "mongoose";
 import AnimatedButton from "../animationBtn/AnimatedBtn";
-import Preview from "../Preview.ts/Preview";
 type UserType = {
   _id: string;
   firstName: string;
@@ -61,7 +60,6 @@ export default function Home() {
   const [errorMessageLinks, setErrorMessageLinks] = useState<string | null>(
     null
   );
-  const [preview, setPreview] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -86,7 +84,16 @@ export default function Home() {
     fetchUser();
   }, [router]);
   const handlePreviewBtn = () => {
-    setPreview(true);
+    if (!user) return;
+    const queryString = new URLSearchParams({
+      firstName: user.firstName,
+      lastName: user.lastName,
+      links: JSON.stringify(user.links),
+      email: user.profileEmail,
+      profilePicture: user.profilePicture || "",
+    }).toString();
+
+    router.push(`/preview?${queryString}`);
   };
 
   const addNewLink = () => {
@@ -353,13 +360,9 @@ export default function Home() {
             </p>
           </div>
         </div>
-        {!preview ? (
-          <button className="previewBtn" onClick={handlePreviewBtn}>
-            Preview
-          </button>
-        ) : (
-          <Preview user={user} />
-        )}{" "}
+        <button className="previewBtn" onClick={handlePreviewBtn}>
+          Preview
+        </button>
       </header>
       <main className="maincontent flex">
         <section className="preview ">
