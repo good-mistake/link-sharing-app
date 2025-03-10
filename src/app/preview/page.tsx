@@ -20,15 +20,14 @@ const Preview = () => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [routerReady, setRouterReady] = useState(false);
-
+  const router = useRouter();
+  const params = useParams();
+  const userId = params?.userId;
   useEffect(() => {
     setIsMounted(true);
     setRouterReady(true);
   }, []);
 
-  const router = useRouter();
-  const params = useParams();
-  const userId = params?.userId;
   useEffect(() => {
     if (!isMounted || !userId) return;
     const fetchUser = async () => {
@@ -52,9 +51,8 @@ const Preview = () => {
   const handlePreviewBtn = () => {
     const token = localStorage.getItem("token");
     if (!token) return;
-    if (routerReady) {
-      router.push(`/home`);
-    }
+    if (!token || !routerReady) return;
+    router.push(`/home`);
   };
   console.log(user);
 
