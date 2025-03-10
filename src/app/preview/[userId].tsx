@@ -52,6 +52,7 @@ const Preview = () => {
     router.push(`/home`);
   };
   console.log(user);
+  console.log(userId);
 
   const handleShare = () => {
     if (!user?._id) return;
