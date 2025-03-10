@@ -35,6 +35,7 @@ export default function Signup() {
     e.preventDefault();
     setLoading(true);
     const { email, password, confirmPassword } = formData;
+
     if (!email || !password || !confirmPassword) {
       setError("Please fill in all fields.");
       setLoading(false);
@@ -55,7 +56,27 @@ export default function Signup() {
       setLoading(false);
       return;
     }
+
     try {
+      const checkRes = await fetch(`/api/auth/checkUser`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+
+      const checkData = await checkRes.json();
+      if (!checkRes.ok) {
+        setError(checkData.error || "An error occurred during user check.");
+        setLoading(false);
+        return;
+      }
+
+      if (checkData.exists) {
+        setError("User already exists. Please log in.");
+        setLoading(false);
+        return;
+      }
+
       const res = await fetch(`/api/auth/signup`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -67,14 +88,13 @@ export default function Signup() {
 
       const data = await res.json();
       if (!res.ok) {
-        if (data.error) {
-          setError(data.error);
-        } else {
-          setError("An error occurred during Signup. Please try again.");
-        }
+        setError(
+          data.error || "An error occurred during Signup. Please try again."
+        );
         setLoading(false);
         return;
       }
+
       setSuccess(
         "Signup successful! Please check your email for verification."
       );
@@ -94,6 +114,7 @@ export default function Signup() {
       setLoading(false);
     }
   };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
