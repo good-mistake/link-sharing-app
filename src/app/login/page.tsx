@@ -71,6 +71,10 @@ const Login = () => {
       setLoading(false);
     }
   };
+  const handleSignUp = () => {
+    setError("");
+    router.push("/signup");
+  };
   return (
     <motion.div
       initial="initial"
@@ -200,10 +204,7 @@ const Login = () => {
         )}
         <p>
           Don’t have an account?
-          <AnimatedButton
-            onClick={() => router.push("/signup")}
-            className="signupBtn"
-          >
+          <AnimatedButton onClick={handleSignUp} className="signupBtn">
             Create account
           </AnimatedButton>
         </p>
