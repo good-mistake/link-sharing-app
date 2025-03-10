@@ -1,8 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { getProfileById } from "../../../services/services";
-import { useRouter } from "next/navigation";
-import { useParams } from "next/navigation";
+import { useRouter } from "next/router";
 import Image from "next/image.js";
 type UserType = {
   _id: string;
@@ -13,9 +12,7 @@ type UserType = {
   profilePicture?: string;
   links: { _id: string; url: string; platform: string; color: string }[];
 };
-interface Params {
-  [key: string]: string | string[] | undefined;
-}
+
 const Preview = () => {
   const [isMounted, setIsMounted] = useState(false);
   const [user, setUser] = useState<UserType | null>(null);
@@ -23,8 +20,7 @@ const Preview = () => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const router = useRouter();
-  const params = useParams<Params>();
-  const { userId } = params || {};
+  const { userId } = router.query;
   useEffect(() => {
     setIsMounted(true);
   }, []);
