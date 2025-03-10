@@ -130,6 +130,16 @@ main {
     margin-right: 24px;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   }
+  .createdLinks {
+    p {
+      @include body-m;
+      color: $color-white-primary;
+      &:last-child {
+        text-align: center;
+      }
+    }
+  }
+
   .addLink {
     width: 60%;
     background-color: $color-white-secondary;
@@ -298,16 +308,5 @@ main {
   }
   &:active {
     opacity: 0.25;
-  }
-}
-.createdLinks {
-  p {
-    @include body-m;
-    color: $color-white-primary;
-    margin-bottom: 40px;
-    margin-top: 8px;
-    &:last-child {
-      text-align: center;
-    }
   }
 }

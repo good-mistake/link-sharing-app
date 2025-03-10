@@ -548,28 +548,31 @@ export default function Home() {
                                 key={link._id}
                                 className="createdLinks w-[100%] h-[50px] p-4 rounded-lg flex justify-between items-center"
                               >
-                                <Image
-                                  src={`${
-                                    link.platform === "Frontendmentor"
-                                      ? "/images/icon-frontend-mentor.svg"
-                                      : link.platform === "Stackoverflow"
-                                      ? "/images/icon-stack-overflow.svg"
-                                      : `/images/icon-${link.platform.toLowerCase()}.svg`
-                                  }`}
-                                  alt={link.platform}
-                                  width={22}
-                                  height={22}
-                                  className="invert sepia brightness-0 hue-rotate-180"
-                                />
+                                <div>
+                                  <Image
+                                    src={`${
+                                      link.platform === "Frontendmentor"
+                                        ? "/images/icon-frontend-mentor.svg"
+                                        : link.platform === "Stackoverflow"
+                                        ? "/images/icon-stack-overflow.svg"
+                                        : `/images/icon-${link.platform.toLowerCase()}.svg`
+                                    }`}
+                                    alt={link.platform}
+                                    width={22}
+                                    height={22}
+                                    className="invert sepia brightness-0 hue-rotate-180"
+                                  />{" "}
+                                  <Image
+                                    src={`/images/icon-arrow-right.svg`}
+                                    onClick={() =>
+                                      window.open(link.url, "_blank")
+                                    }
+                                    alt="arrow right"
+                                    className="cursor-pointer"
+                                  />
+                                </div>
+
                                 <p className="text-white">{link.platform}</p>
-                                <Image
-                                  src={`/images/icon-arrow-right.svg`}
-                                  onClick={() =>
-                                    window.open(link.url, "_blank")
-                                  }
-                                  alt="arrow right"
-                                  className="cursor-pointer"
-                                />
                                 <button
                                   onClick={() => removeLink(link._id)}
                                   className="text-white"
