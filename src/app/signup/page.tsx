@@ -247,7 +247,10 @@ export default function Signup() {
             )}
           </span>
         </div>
-        <AnimatedButton className="loginBtn w-full flex justify-center items-center gap-2">
+        <AnimatedButton
+          type="submit"
+          className="loginBtn w-full flex justify-center items-center gap-2"
+        >
           {loading ? (
             <span className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
           ) : (
@@ -280,7 +283,6 @@ export default function Signup() {
           <AnimatedButton
             onClick={() => router.push("/login")}
             className="signupBtn"
-            type="submit"
           >
             Login
           </AnimatedButton>
