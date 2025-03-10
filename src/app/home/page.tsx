@@ -85,13 +85,6 @@ export default function Home() {
   }, [router]);
   const handlePreviewBtn = () => {
     if (!user) return;
-    // const queryString = new URLSearchParams({
-    //   firstName: user.firstName,
-    //   lastName: user.lastName,
-    //   links: JSON.stringify(user.links),
-    //   email: user.profileEmail,
-    //   profilePicture: user.profilePicture || "",
-    // }).toString();
 
     router.push(`/preview`);
   };
