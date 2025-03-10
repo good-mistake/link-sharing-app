@@ -548,7 +548,7 @@ export default function Home() {
                                 key={link._id}
                                 className="createdLinks w-[100%] h-[50px] p-4 rounded-lg flex justify-between items-center"
                               >
-                                <div>
+                                <div className=" flex justify-between items-center">
                                   <Image
                                     src={`${
                                       link.platform === "Frontendmentor"

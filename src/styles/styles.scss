@@ -133,7 +133,7 @@ main {
   .createdLinks {
     p {
       @include body-m;
-      color: $color-white-primary;
+      color: $color-white-primary !important;
       &:last-child {
         text-align: center;
       }
