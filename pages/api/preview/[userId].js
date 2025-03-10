@@ -1,5 +1,5 @@
-import User from "../../../../model/User.js";
-import connectDB from "../../../../utils/connectDB.js";
+import User from "../../../model/User.js";
+import connectDB from "../../../utils/connectDB.js";
 export async function GET(req, { params }) {
   await connectDB();
 
