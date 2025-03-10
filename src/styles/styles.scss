@@ -172,22 +172,7 @@ main {
     h2 {
       margin: 40px 0 24px 0px;
     }
-    .saveBtn {
-      @include heading-s;
-      background-color: $color-blue;
-      color: $color-white-primary;
-      align-self: flex-start;
-      border-radius: 8px;
-      width: 92px;
-      height: 50px;
-      margin-top: 60px;
-      &:hover {
-        opacity: 0.5;
-      }
-      &:active {
-        opacity: 0.25;
-      }
-    }
+
     .detailsForm {
       .addLinkSection {
         .imageUploadSection {
@@ -298,4 +283,20 @@ main {
   @include body-m;
 
   color: #737373;
+}
+.saveBtn {
+  @include heading-s;
+  background-color: $color-blue;
+  color: $color-white-primary;
+  align-self: flex-start;
+  border-radius: 8px;
+  width: 92px;
+  height: 50px;
+  margin-top: 60px;
+  &:hover {
+    opacity: 0.5;
+  }
+  &:active {
+    opacity: 0.25;
+  }
 }

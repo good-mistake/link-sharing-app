@@ -4,7 +4,11 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import CustomSelect from "../customselect/Customselect";
 import { motion, AnimatePresence } from "framer-motion";
-import { updateProfile, getProfile } from "../../services/services.js";
+import {
+  updateProfile,
+  getProfile,
+  deleteLink,
+} from "../../services/services.js";
 import mongoose from "mongoose";
 import AnimatedButton from "../animationBtn/AnimatedBtn";
 type UserType = {
@@ -14,7 +18,12 @@ type UserType = {
   profileEmail: string;
   accountEmail: string;
   profilePicture?: string;
-  links: { _id: string; url: string; platform: string }[];
+  links: {
+    _id: string | number;
+    url: string;
+    platform: string;
+    color: string;
+  }[];
 };
 const platformDomains: Record<string, string> = {
   GitHub: "github.com",
@@ -61,28 +70,6 @@ export default function Home() {
     null
   );
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      router.push("/login"); //add /login after changes in UI
-      return;
-    }
-
-    const fetchUser = async () => {
-      try {
-        const data = await getProfile();
-
-        setUser(data.profile);
-        setLinks(data.profile.links);
-      } catch (error) {
-        console.error(error);
-        localStorage.removeItem("token");
-        router.push("/login"); //add /login after changes in UI
-      }
-    };
-
-    fetchUser();
-  }, [router]);
   const handlePreviewBtn = () => {
     if (!user) return;
 
@@ -103,13 +90,41 @@ export default function Home() {
     ]);
   };
 
-  const removeLink = (id: number) => {
-    setNewLinks(newLinks.filter((link) => link.id !== id));
-    if (newLinks.length === 1) {
-      setShowIntro(true);
+  const removeLink = async (id: number | string) => {
+    try {
+      await deleteLink(id);
+      const updatedLinks = newLinks.filter((link) => link.id !== id);
+      setNewLinks(updatedLinks);
+      if (updatedLinks.length === 0) {
+        setShowIntro(true);
+      }
+    } catch (error) {
+      console.error("Error deleting link:", error);
     }
   };
 
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      router.push("/login");
+      return;
+    }
+
+    const fetchUser = async () => {
+      try {
+        const data = await getProfile();
+
+        setUser(data.profile);
+        setLinks(data.profile.links);
+      } catch (error) {
+        console.error(error);
+        localStorage.removeItem("token");
+        router.push("/login");
+      }
+    };
+
+    fetchUser();
+  }, [router]);
   const isValidPlatformUrl = (url: string, platform: string) => {
     try {
       const domain = new URL(url).hostname;
@@ -297,7 +312,11 @@ export default function Home() {
     setErrorMessageIMG(null);
     setSelectedImage(file);
   };
-
+  useEffect(() => {
+    if (user?.links && user?.links.length > 0) {
+      setShowIntro(false);
+    }
+  }, [user?.links]);
   return (
     <div className="p-4">
       <header className="flex justify-between items-center">
@@ -498,6 +517,39 @@ export default function Home() {
                       </div>
                     ) : (
                       <AnimatePresence>
+                        {links.map((link) => (
+                          <div
+                            key={link._id}
+                            className=" w-[237px] h-[44px] p-4 rounded-lg flex justify-between items-center"
+                          >
+                            <Image
+                              src={`${
+                                link.platform === "Frontendmentor"
+                                  ? "/images/icon-frontend-mentor.svg"
+                                  : link.platform === "Stackoverflow"
+                                  ? "/images/icon-stack-overflow.svg"
+                                  : `/images/icon-${link.platform.toLowerCase()}.svg`
+                              }`}
+                              alt={link.platform}
+                              width={22}
+                              height={22}
+                              className="invert sepia brightness-0 hue-rotate-180"
+                            />
+                            <p className="text-white">{link.platform}</p>
+                            <Image
+                              src={`/images/icon-arrow-right.svg`}
+                              onClick={() => window.open(link.url, "_blank")}
+                              alt="arrow right"
+                              className="cursor-pointer"
+                            />
+                            <button
+                              onClick={() => removeLink(link._id)}
+                              className=""
+                            >
+                              Remove
+                            </button>
+                          </div>
+                        ))}
                         {newLinks.map((link, index) => (
                           <motion.div
                             initial={{ opacity: 0, y: -10 }}
@@ -524,7 +576,6 @@ export default function Home() {
                                 Remove
                               </button>
                             </div>
-
                             <CustomSelect
                               selected={selectedPlatform}
                               setSelectedColor={setSelectedColor}

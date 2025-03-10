@@ -20,6 +20,15 @@ export const getProfile = async () => {
 
   return response.json();
 };
+export const getProfileById = async (userId) => {
+  const response = await fetch(`${API_BASE_URL}/api/profile/${userId}`);
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch profile");
+  }
+
+  return response.json();
+};
 
 export const updateProfile = async (profileData) => {
   const token = localStorage.getItem("token");

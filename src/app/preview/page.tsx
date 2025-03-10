@@ -1,7 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
-import { getProfile } from "../../services/services.js";
-import { useRouter } from "next/navigation";
+import { getProfileById } from "../../services/services";
+import { useParams } from "next/navigation";
+import { useRouter } from "next/router.js";
 import Image from "next/image.js";
 type UserType = {
   _id: string;
@@ -14,15 +15,20 @@ type UserType = {
 };
 const Preview = () => {
   const router = useRouter();
+  const params = useParams();
+  const userId = params?.userId;
+
   const [user, setUser] = useState<UserType | null>(null);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
   useEffect(() => {
+    if (!userId) return;
     const fetchUser = async () => {
       setLoading(true);
+      setSuccess(false);
       try {
-        const data = await getProfile();
-
+        const data = await getProfileById(userId);
         setUser(data.profile);
         setLoading(false);
         setError(false);
@@ -34,13 +40,20 @@ const Preview = () => {
     };
 
     fetchUser();
-  }, []);
+  }, [userId]);
   const handlePreviewBtn = () => {
     if (!user) return;
 
     router.push(`/home`);
   };
   console.log(user);
+  const handleShare = () => {
+    if (!user?._id) return;
+    const url = `${window.location.origin}/preview/${user._id}`;
+    navigator.clipboard.writeText(url);
+    setSuccess(true);
+  };
+
   return (
     <div>
       {error ? (
@@ -48,18 +61,27 @@ const Preview = () => {
       ) : (
         <div>
           {loading ? (
-            <div></div>
+            <div className="absolute inset-0 flex justify-center items-center bg-gray-800 bg-opacity-50">
+              <div className="animate-pulse space-y-4">
+                <div className="w-32 h-6 bg-gray-300 rounded-md"></div>
+                <div className="w-48 h-6 bg-gray-300 rounded-md"></div>
+                <div className="w-40 h-6 bg-gray-300 rounded-md"></div>
+              </div>
+            </div>
           ) : (
             <div>
-              <header>
+              <header className=" top-0 left-0 right-0 bg-[#633CFF] p-4 rounded-t-lg z-10">
                 <button className="previewBtn" onClick={handlePreviewBtn}>
                   Back to Editor
                 </button>
-                <button className="saveBtn flex justify-center items-center gap-2 cursor-pointer">
+                <button
+                  onClick={handleShare}
+                  className="saveBtn flex justify-center items-center gap-2 cursor-pointer"
+                >
                   Share Link
                 </button>
               </header>
-              <main className="flex flex-col justify-center items-center">
+              <main className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col justify-center items-center bg-white p-8 rounded-lg shadow-xl">
                 <div>
                   <Image
                     src={user?.profilePicture || ""}
@@ -89,46 +111,56 @@ const Preview = () => {
                   >
                     {user?.profileEmail}
                   </p>{" "}
-                  {user?.links.map((link) => {
-                    return (
-                      <>
-                        <div
-                          key={link._id}
-                          style={{
-                            backgroundColor: link ? link.color : "white",
-                            top: `${272 + 60}px`,
-                            left: "50%",
-                            transform: "translateX(-50%)",
-                          }}
-                          className="absolute w-[237px] h-[44px] p-4 rounded-lg flex justify-between items-center"
-                        >
-                          <Image
-                            src={`${
-                              link.platform === "Frontendmentor"
-                                ? "/images/icon-frontend-mentor.svg"
-                                : link.platform === "Stackoverflow"
-                                ? "/images/icon-stack-overflow.svg"
-                                : `/images/icon-${link.platform.toLowerCase()}.svg`
-                            }`}
-                            alt={link.platform}
-                            width={22}
-                            height={22}
-                            className="invert sepia brightness-0 hue-rotate-180"
-                          />
-                          <p className="text-white">{link.platform}</p>
-                          <Image
-                            src={`/images/icon-arrow-right.svg`}
-                            onClick={() => window.open(link.url, "_blank")}
-                            alt="arrow right"
-                            className="cursor-pointer"
-                          />
-                        </div>
-                      </>
-                    );
-                  })}
+                  {user?.links.map((link, index) => (
+                    <>
+                      <div
+                        key={index}
+                        style={{
+                          backgroundColor: link ? link.color : "white",
+                          top: `${272 + index * 60}px`,
+                          left: "50%",
+                          transform: "translateX(-50%)",
+                        }}
+                        className="absolute w-[237px] h-[44px] p-4 rounded-lg flex justify-between items-center"
+                      >
+                        <Image
+                          src={`${
+                            link.platform === "Frontendmentor"
+                              ? "/images/icon-frontend-mentor.svg"
+                              : link.platform === "Stackoverflow"
+                              ? "/images/icon-stack-overflow.svg"
+                              : `/images/icon-${link.platform.toLowerCase()}.svg`
+                          }`}
+                          alt={link.platform}
+                          width={22}
+                          height={22}
+                          className="invert sepia brightness-0 hue-rotate-180"
+                        />
+                        <p className="text-white">{link.platform}</p>
+                        <Image
+                          src={`/images/icon-arrow-right.svg`}
+                          onClick={() => window.open(link.url, "_blank")}
+                          alt="arrow right"
+                          className="cursor-pointer"
+                        />
+                      </div>
+                    </>
+                  ))}
                 </div>
               </main>
             </div>
+          )}
+          {success ? (
+            <div className="absolute top-1/4 left-1/2 transform -translate-x-1/2 bg-[#333333] text-white p-4 rounded-lg shadow-lg">
+              <Image
+                src="icon-link-copied-to-clipboard.svg"
+                alt="copied"
+                className="rounded-full  aspect-square invert sepia brightness-0 hue-rotate-180"
+              />
+              <p>The link has been copied to your clipboard!</p>
+            </div>
+          ) : (
+            ""
           )}
         </div>
       )}
