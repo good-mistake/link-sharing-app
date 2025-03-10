@@ -49,9 +49,6 @@ const Preview = () => {
   }, [userId, isMounted]);
 
   const handlePreviewBtn = () => {
-    const token = localStorage.getItem("token");
-    if (!token) return;
-    if (!token || !routerReady) return;
     router.push(`/home`);
   };
   console.log(user);
