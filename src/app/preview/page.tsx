@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
 import { getProfileById } from "../../services/services";
-import { useParams } from "next/navigation";
 import { useRouter } from "next/router";
 import Image from "next/image.js";
 type UserType = {
@@ -20,8 +19,7 @@ const Preview = () => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const router = useRouter();
-  const params = useParams();
-  const userId = params?.userId;
+  const { userId } = router.query;
   useEffect(() => {
     setIsMounted(true);
   }, []);
@@ -47,6 +45,8 @@ const Preview = () => {
   }, [userId, isMounted]);
 
   const handlePreviewBtn = () => {
+    const token = localStorage.getItem("token");
+    if (!token) return;
     router.push(`/home`);
   };
   console.log(user);
