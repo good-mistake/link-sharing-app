@@ -13,6 +13,9 @@ type UserType = {
   profilePicture?: string;
   links: { _id: string; url: string; platform: string; color: string }[];
 };
+interface Params {
+  [key: string]: string | string[] | undefined;
+}
 const Preview = () => {
   const [isMounted, setIsMounted] = useState(false);
   const [user, setUser] = useState<UserType | null>(null);
@@ -20,8 +23,8 @@ const Preview = () => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const router = useRouter();
-  const params = useParams();
-  const userId = params?.userId;
+  const params = useParams<Params>();
+  const { userId } = params || {};
   useEffect(() => {
     setIsMounted(true);
   }, []);
