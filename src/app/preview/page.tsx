@@ -14,19 +14,21 @@ type UserType = {
   links: { _id: string; url: string; platform: string; color: string }[];
 };
 const Preview = () => {
-  const router = useRouter();
-  const params = useParams();
-  const userId = params?.userId;
   const [isMounted, setIsMounted] = useState(false);
   const [user, setUser] = useState<UserType | null>(null);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [routerReady, setRouterReady] = useState(false);
 
   useEffect(() => {
     setIsMounted(true);
+    setRouterReady(true);
   }, []);
 
+  const router = useRouter();
+  const params = useParams();
+  const userId = params?.userId;
   useEffect(() => {
     if (!isMounted || !userId) return;
     const fetchUser = async () => {
@@ -50,7 +52,9 @@ const Preview = () => {
   const handlePreviewBtn = () => {
     const token = localStorage.getItem("token");
     if (!token) return;
-    router.push(`/home`);
+    if (routerReady) {
+      router.push(`/home`);
+    }
   };
   console.log(user);
 
