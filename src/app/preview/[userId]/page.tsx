@@ -14,15 +14,19 @@ type UserType = {
 };
 
 const Preview = () => {
+  const [isMounted, setIsMounted] = useState(false);
   const [user, setUser] = useState<UserType | null>(null);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const router = useRouter();
   const { userId } = router.query;
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   useEffect(() => {
-    if (!userId) return;
+    if (!isMounted || !userId) return;
     const fetchUser = async () => {
       setLoading(true);
       setSuccess(false);
@@ -39,7 +43,7 @@ const Preview = () => {
     };
 
     fetchUser();
-  }, [userId]);
+  }, [userId, isMounted]);
 
   const handlePreviewBtn = () => {
     const token = localStorage.getItem("token");
@@ -55,6 +59,7 @@ const Preview = () => {
     navigator.clipboard.writeText(url);
     setSuccess(true);
   };
+  if (!isMounted) return null;
   return (
     <div>
       {error ? (
