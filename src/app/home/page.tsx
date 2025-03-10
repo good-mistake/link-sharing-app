@@ -405,18 +405,21 @@ export default function Home() {
                   }}
                   className="rounded-lg relative bg-no-repeat bg-cover bg-center  w-[300px] h-[618px]"
                 >
-                  <Image
-                    src={`${user?.profilePicture ? user.profilePicture : ""}`}
-                    alt={`profile pic`}
-                    width={100}
-                    height={100}
-                    className="rounded-full absolute border-[5px] border-[#633CFF] aspect-square"
-                    style={{
-                      top: `${66}px`,
-                      left: "50%",
-                      transform: "translateX(-50%)",
-                    }}
-                  />
+                  {user?.profilePicture && (
+                    <Image
+                      src={`${user?.profilePicture}`}
+                      alt={`profile pic`}
+                      width={100}
+                      height={100}
+                      className="rounded-full absolute border-[5px] border-[#633CFF] aspect-square"
+                      style={{
+                        top: `${66}px`,
+                        left: "50%",
+                        transform: "translateX(-50%)",
+                      }}
+                    />
+                  )}
+
                   <p
                     style={{
                       top: `${174}px`,
@@ -478,11 +481,11 @@ export default function Home() {
                           <div
                             style={{
                               backgroundColor: "white",
-                              top: `${276 + index * 60}px`,
+                              top: `${270 + index * 60}px`,
                               left: "50%",
                               transform: "translateX(-50%)",
                             }}
-                            className="absolute w-[237px] h-[44px] p-4 rounded-lg flex justify-between items-center"
+                            className="absolute w-[237px] h-[60px] p-4 rounded-lg flex justify-between items-center"
                           ></div>
                         )}
                       </>
