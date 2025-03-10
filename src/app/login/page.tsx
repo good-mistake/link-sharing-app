@@ -204,7 +204,11 @@ const Login = () => {
         )}
         <p>
           Don’t have an account?
-          <AnimatedButton onClick={handleSignUp} className="signupBtn">
+          <AnimatedButton
+            type="button"
+            onClick={handleSignUp}
+            className="signupBtn"
+          >
             Create account
           </AnimatedButton>
         </p>
