@@ -19,13 +19,11 @@ const Preview = () => {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
-  const [routerReady, setRouterReady] = useState(false);
   const router = useRouter();
   const params = useParams();
   const userId = params?.userId;
   useEffect(() => {
     setIsMounted(true);
-    setRouterReady(true);
   }, []);
 
   useEffect(() => {
