@@ -60,9 +60,13 @@ export const addLink = async (linkData) => {
 
 export const deleteLink = async (linkId) => {
   const token = localStorage.getItem("token");
-  const response = await fetch(`/api/profile?linkId=${linkId}`, {
+  const response = await fetch(`/api/profile`, {
     method: "DELETE",
-    headers: { Authorization: `Bearer ${token}` },
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ linkId }),
   });
   if (!response.ok) throw new Error("Failed to delete link");
   return await response.json();
