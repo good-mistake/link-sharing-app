@@ -560,8 +560,8 @@ export default function Home() {
                                     alt={link.platform}
                                     width={22}
                                     height={22}
-                                    className="invert sepia brightness-0 hue-rotate-180"
-                                  />{" "}
+                                    className="invert sepia brightness-0 hue-rotate-180 mr-4"
+                                  />
                                   <Image
                                     src={`/images/icon-arrow-right.svg`}
                                     onClick={() =>
