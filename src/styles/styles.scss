@@ -300,3 +300,14 @@ main {
     opacity: 0.25;
   }
 }
+.createdLinks {
+  p {
+    @include body-m;
+    color: $color-white-primary;
+    margin-bottom: 40px;
+    margin-top: 8px;
+    &:last-child {
+      text-align: center;
+    }
+  }
+}

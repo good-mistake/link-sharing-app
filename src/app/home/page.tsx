@@ -542,8 +542,11 @@ export default function Home() {
                           <AnimatePresence>
                             {links.map((link) => (
                               <div
+                                style={{
+                                  backgroundColor: link ? link.color : "white",
+                                }}
                                 key={link._id}
-                                className=" w-[237px] h-[44px] p-4 rounded-lg flex justify-between items-center"
+                                className="createdLinks w-[100%] h-[50px] p-4 rounded-lg flex justify-between items-center"
                               >
                                 <Image
                                   src={`${
@@ -569,7 +572,7 @@ export default function Home() {
                                 />
                                 <button
                                   onClick={() => removeLink(link._id)}
-                                  className=""
+                                  className="text-white"
                                 >
                                   Remove
                                 </button>
