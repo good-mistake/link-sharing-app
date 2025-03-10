@@ -406,7 +406,7 @@ export default function Home() {
                   className="rounded-lg relative bg-no-repeat bg-cover bg-center  w-[300px] h-[618px]"
                 >
                   <Image
-                    src={`${user?.profilePicture}`}
+                    src={`${user?.profilePicture ? user.profilePicture : ""}`}
                     alt={`profile pic`}
                     width={100}
                     height={100}

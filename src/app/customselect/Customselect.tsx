@@ -115,7 +115,6 @@ export default function CustomSelect({
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-  console.log("selected platform custom select", selected);
   const selectedPlatformColor = platforms.find(
     (p) => p.value === selected
   )?.color;
@@ -193,8 +192,6 @@ export default function CustomSelect({
        index !== platforms.length - 1 ? "border-b border-[#D9D9D9]" : ""
      }`}
                 onClick={() => {
-                  console.log("Setting Platform:", platform.value);
-
                   setSelected(platform.value);
                   setIsOpen(false);
                 }}
