@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { getProfileById } from "../../services/services";
 import { useParams } from "next/navigation";
-import { useRouter } from "next/router.js";
+import { useRouter } from "next/router";
 import Image from "next/image.js";
 type UserType = {
   _id: string;
@@ -17,13 +17,18 @@ const Preview = () => {
   const router = useRouter();
   const params = useParams();
   const userId = params?.userId;
-
+  const [isMounted, setIsMounted] = useState(false);
   const [user, setUser] = useState<UserType | null>(null);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+
   useEffect(() => {
-    if (!userId) return;
+    setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isMounted || !userId) return;
     const fetchUser = async () => {
       setLoading(true);
       setSuccess(false);
@@ -40,20 +45,22 @@ const Preview = () => {
     };
 
     fetchUser();
-  }, [userId]);
-  const handlePreviewBtn = () => {
-    if (!user) return;
+  }, [userId, isMounted]);
 
+  const handlePreviewBtn = () => {
+    const token = localStorage.getItem("token");
+    if (!token) return;
     router.push(`/home`);
   };
   console.log(user);
+
   const handleShare = () => {
     if (!user?._id) return;
     const url = `${window.location.origin}/preview/${user._id}`;
     navigator.clipboard.writeText(url);
     setSuccess(true);
   };
-
+  if (!isMounted) return null;
   return (
     <div>
       {error ? (
