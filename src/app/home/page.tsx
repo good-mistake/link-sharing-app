@@ -74,7 +74,7 @@ export default function Home() {
   const handlePreviewBtn = () => {
     if (!user) return;
 
-    router.push(`/preview/${user._id}`);
+    router.push(`api/preview/${user._id}`);
   };
 
   const addNewLink = () => {

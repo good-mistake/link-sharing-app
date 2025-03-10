@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { getProfileById } from "../../services/services";
+import { getProfileById } from "../../../services/services";
 import { useRouter } from "next/navigation";
 import { useParams } from "next/navigation";
 import Image from "next/image.js";
