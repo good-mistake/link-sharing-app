@@ -772,7 +772,7 @@ export default function Home() {
                       )}
                       <div className="flex justify-end ">
                         <AnimatedButton
-                          {...{ type: "submit" }}
+                          type="submit"
                           className="saveBtn flex justify-center items-center gap-2 cursor-pointer"
                         >
                           {loadingProfile ? (

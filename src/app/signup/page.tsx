@@ -276,10 +276,11 @@ export default function Signup() {
           </motion.div>
         )}
         <p>
-          Already have an account?{" "}
+          Already have an account?
           <AnimatedButton
             onClick={() => router.push("/login")}
             className="signupBtn"
+            type="submit"
           >
             Login
           </AnimatedButton>
