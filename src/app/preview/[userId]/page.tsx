@@ -1,8 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { getProfileById } from "../../../services/services";
-import { useRouter } from "next/router";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 import Image from "next/image.js";
 type UserType = {
