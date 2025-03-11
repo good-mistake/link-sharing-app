@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { getProfileById } from "../../../services/services";
 import { usePathname, useRouter } from "next/navigation";
+import { motion } from "framer-motion";
 
 import Image from "next/image.js";
 type UserType = {
@@ -65,7 +66,18 @@ const Preview = () => {
   return (
     <div>
       {error ? (
-        <p>There was an error please refresh the page or comeback later</p>
+        <div className="h-screen flex items-center justify-center bg-red-100">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            transition={{ duration: 0.5 }}
+            className="bg-white shadow-lg rounded-lg p-6 text-center max-w-md"
+          >
+            <p className="text-gray-600 mt-2">{error}</p>
+            <p className="text-sm text-gray-500 mt-1">
+              There was an error please refresh the page or comeback later
+            </p>
+          </motion.div>
+        </div>
       ) : (
         <div>
           {loading ? (
