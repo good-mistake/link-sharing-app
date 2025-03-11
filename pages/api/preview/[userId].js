@@ -1,23 +1,20 @@
 import User from "../../../model/User.js";
 import connectDB from "../../../utils/connectDB.js";
-export async function GET(req, { params }) {
+
+export default async function handler(req, res) {
   await connectDB();
 
-  const { userId } = params;
+  const { userId } = req.query;
 
   try {
     const user = await User.findById(userId);
     if (!user) {
-      return new Response(JSON.stringify({ error: "User not found" }), {
-        status: 404,
-      });
+      return res.status(404).json({ error: "User not found" });
     }
 
-    return new Response(JSON.stringify({ profile: user }), { status: 200 });
+    return res.status(200).json({ profile: user });
   } catch (error) {
     console.error(error);
-    return new Response(JSON.stringify({ error: "Server error" }), {
-      status: 500,
-    });
+    return res.status(500).json({ error: "Server error" });
   }
 }
