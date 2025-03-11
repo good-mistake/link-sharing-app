@@ -93,8 +93,8 @@ const Preview = () => {
               </motion.div>
             </div>
           ) : (
-            <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
-              <div className="bg-white p-6 rounded-xl shadow-2xl">
+            <div className="">
+              <div className=" ">
                 <header className=" top-0 left-0 right-0 bg-[#633CFF] p-4 rounded-t-lg z-10">
                   <button className="previewBtn" onClick={handlePreviewBtn}>
                     Back to Editor
@@ -106,7 +106,7 @@ const Preview = () => {
                     Share Link
                   </button>
                 </header>
-                <main className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col justify-center items-center bg-white p-8 rounded-lg shadow-xl">
+                <main className="absolute bg-white p-6 rounded-xl shadow-2xl top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col justify-center items-center bg-white p-8 rounded-lg shadow-xl">
                   <div>
                     <Image
                       src={user?.profilePicture || ""}
