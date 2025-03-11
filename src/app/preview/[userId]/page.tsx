@@ -82,92 +82,98 @@ const Preview = () => {
         <div>
           {loading ? (
             <div className="absolute inset-0 flex justify-center items-center bg-gray-800 bg-opacity-50">
-              <div className="animate-pulse space-y-4">
-                <div className="w-32 h-6 bg-gray-300 rounded-md"></div>
-                <div className="w-48 h-6 bg-gray-300 rounded-md"></div>
-                <div className="w-40 h-6 bg-gray-300 rounded-md"></div>
-              </div>
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5 }}
+                className="bg-white p-6 rounded-xl shadow-2xl flex flex-col items-center"
+              >
+                <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-[#633CFF]"></div>
+                <p className="text-gray-700 mt-4">Loading profile...</p>
+              </motion.div>
             </div>
           ) : (
-            <div>
-              <header className=" top-0 left-0 right-0 bg-[#633CFF] p-4 rounded-t-lg z-10">
-                <button className="previewBtn" onClick={handlePreviewBtn}>
-                  Back to Editor
-                </button>
-                <button
-                  onClick={handleShare}
-                  className="saveBtn flex justify-center items-center gap-2 cursor-pointer"
-                >
-                  Share Link
-                </button>
-              </header>
-              <main className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col justify-center items-center bg-white p-8 rounded-lg shadow-xl">
-                <div>
-                  <Image
-                    src={user?.profilePicture || ""}
-                    alt="profilePic"
-                    width={104}
-                    height={104}
-                    className="rounded-full absolute border-[5px] border-[#633CFF] aspect-square"
-                  />{" "}
-                  <p
-                    style={{
-                      top: `${174}px`,
-                      left: "50%",
-                      transform: "translateX(-50%)",
-                    }}
-                    className="absolute bg-white userName w-[237px] text-center"
+            <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
+              <div className="bg-white p-6 rounded-xl shadow-2xl">
+                <header className=" top-0 left-0 right-0 bg-[#633CFF] p-4 rounded-t-lg z-10">
+                  <button className="previewBtn" onClick={handlePreviewBtn}>
+                    Back to Editor
+                  </button>
+                  <button
+                    onClick={handleShare}
+                    className="saveBtn flex justify-center items-center gap-2 cursor-pointer"
                   >
-                    <span> {user?.firstName}</span>
-                    <span> {user?.lastName}</span>
-                  </p>
-                  <p
-                    style={{
-                      top: `${200}px`,
-                      left: "50%",
-                      transform: "translateX(-50%)",
-                    }}
-                    className="absolute userEmail w-[237px] text-center"
-                  >
-                    {user?.profileEmail}
-                  </p>{" "}
-                  {user?.links.map((link, index) => (
-                    <>
-                      <div
-                        key={index}
-                        style={{
-                          backgroundColor: link ? link.color : "white",
-                          top: `${272 + index * 60}px`,
-                          left: "50%",
-                          transform: "translateX(-50%)",
-                        }}
-                        className="absolute w-[237px] h-[44px] p-4 rounded-lg flex justify-between items-center"
-                      >
-                        <Image
-                          src={`${
-                            link.platform === "Frontendmentor"
-                              ? "/images/icon-frontend-mentor.svg"
-                              : link.platform === "Stackoverflow"
-                              ? "/images/icon-stack-overflow.svg"
-                              : `/images/icon-${link.platform.toLowerCase()}.svg`
-                          }`}
-                          alt={link.platform}
-                          width={22}
-                          height={22}
-                          className="invert sepia brightness-0 hue-rotate-180"
-                        />
-                        <p className="text-white">{link.platform}</p>
-                        <Image
-                          src={`/images/icon-arrow-right.svg`}
-                          onClick={() => window.open(link.url, "_blank")}
-                          alt="arrow right"
-                          className="cursor-pointer"
-                        />
-                      </div>
-                    </>
-                  ))}
-                </div>
-              </main>
+                    Share Link
+                  </button>
+                </header>
+                <main className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col justify-center items-center bg-white p-8 rounded-lg shadow-xl">
+                  <div>
+                    <Image
+                      src={user?.profilePicture || ""}
+                      alt="profilePic"
+                      width={104}
+                      height={104}
+                      className="rounded-full absolute border-[5px] border-[#633CFF] aspect-square"
+                    />{" "}
+                    <p
+                      style={{
+                        top: `${174}px`,
+                        left: "50%",
+                        transform: "translateX(-50%)",
+                      }}
+                      className="absolute bg-white userName w-[237px] text-center"
+                    >
+                      <span> {user?.firstName}</span>
+                      <span> {user?.lastName}</span>
+                    </p>
+                    <p
+                      style={{
+                        top: `${200}px`,
+                        left: "50%",
+                        transform: "translateX(-50%)",
+                      }}
+                      className="absolute userEmail w-[237px] text-center"
+                    >
+                      {user?.profileEmail}
+                    </p>{" "}
+                    {user?.links.map((link, index) => (
+                      <>
+                        <div
+                          key={index}
+                          style={{
+                            backgroundColor: link ? link.color : "white",
+                            top: `${272 + index * 60}px`,
+                            left: "50%",
+                            transform: "translateX(-50%)",
+                          }}
+                          className="absolute w-[237px] h-[44px] p-4 rounded-lg flex justify-between items-center"
+                        >
+                          <Image
+                            src={`${
+                              link.platform === "Frontendmentor"
+                                ? "/images/icon-frontend-mentor.svg"
+                                : link.platform === "Stackoverflow"
+                                ? "/images/icon-stack-overflow.svg"
+                                : `/images/icon-${link.platform.toLowerCase()}.svg`
+                            }`}
+                            alt={link.platform}
+                            width={22}
+                            height={22}
+                            className="invert sepia brightness-0 hue-rotate-180"
+                          />
+                          <p className="text-white">{link.platform}</p>
+                          <Image
+                            src={`/images/icon-arrow-right.svg`}
+                            onClick={() => window.open(link.url, "_blank")}
+                            alt="arrow right"
+                            className="cursor-pointer"
+                          />
+                        </div>
+                      </>
+                    ))}
+                  </div>
+                </main>
+              </div>
             </div>
           )}
           {success ? (
