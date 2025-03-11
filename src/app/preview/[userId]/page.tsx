@@ -2,6 +2,8 @@
 import { useEffect, useState } from "react";
 import { getProfileById } from "../../../services/services";
 import { useRouter } from "next/router";
+import { usePathname } from "next/navigation";
+
 import Image from "next/image.js";
 type UserType = {
   _id: string;
@@ -20,7 +22,8 @@ const Preview = () => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const router = useRouter();
-  const { userId } = router.query;
+  const pathname = usePathname();
+  const userId = pathname?.split("/").pop();
   useEffect(() => {
     setIsMounted(true);
   }, []);
