@@ -114,7 +114,7 @@ const Preview = () => {
                         alt="profilePic"
                         width={104}
                         height={104}
-                        className="rounded-full absolute border-[5px] border-[#633CFF] aspect-square"
+                        className="rounded-full  border-[5px] border-[#633CFF] aspect-square"
                       />
                     )}
                     <p
@@ -123,7 +123,7 @@ const Preview = () => {
                         left: "50%",
                         transform: "translateX(-50%)",
                       }}
-                      className="absolute bg-white userName w-[237px] text-center"
+                      className=" bg-white userName w-[237px] text-center"
                     >
                       <span> {user?.firstName}</span>
                       <span> {user?.lastName}</span>
@@ -134,7 +134,7 @@ const Preview = () => {
                         left: "50%",
                         transform: "translateX(-50%)",
                       }}
-                      className="absolute userEmail w-[237px] text-center"
+                      className=" userEmail w-[237px] text-center"
                     >
                       {user?.profileEmail}
                     </p>{" "}
@@ -148,7 +148,7 @@ const Preview = () => {
                             left: "50%",
                             transform: "translateX(-50%)",
                           }}
-                          className="absolute w-[237px] h-[44px] p-4 rounded-lg flex justify-between items-center"
+                          className=" w-[237px] h-[44px] p-4 rounded-lg flex justify-between items-center"
                         >
                           <Image
                             src={`${
@@ -179,7 +179,7 @@ const Preview = () => {
             </div>
           )}
           {success ? (
-            <div className="absolute top-1/4 left-1/2 transform -translate-x-1/2 bg-[#333333] text-white p-4 rounded-lg shadow-lg">
+            <div className=" top-1/4 left-1/2 transform -translate-x-1/2 bg-[#333333] text-white p-4 rounded-lg shadow-lg">
               <Image
                 src="icon-link-copied-to-clipboard.svg"
                 alt="copied"
