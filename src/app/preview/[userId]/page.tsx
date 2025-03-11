@@ -108,13 +108,15 @@ const Preview = () => {
                 </header>
                 <main className="absolute bg-white p-6 rounded-xl shadow-2xl top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col justify-center items-center bg-white p-8 rounded-lg shadow-xl">
                   <div>
-                    <Image
-                      src={user?.profilePicture || ""}
-                      alt="profilePic"
-                      width={104}
-                      height={104}
-                      className="rounded-full absolute border-[5px] border-[#633CFF] aspect-square"
-                    />{" "}
+                    {user?.profilePicture && (
+                      <Image
+                        src={user?.profilePicture || ""}
+                        alt="profilePic"
+                        width={104}
+                        height={104}
+                        className="rounded-full absolute border-[5px] border-[#633CFF] aspect-square"
+                      />
+                    )}
                     <p
                       style={{
                         top: `${174}px`,
