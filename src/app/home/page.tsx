@@ -560,12 +560,12 @@ export default function Home() {
                         </button>
                         {successDeleteLinks && (
                           <motion.div
-                            className="w-full text-red-600 bg-red-100 border border-red-400 px-4 py-2 rounded-lg flex items-center gap-2"
+                            className="w-full mb-4 text-red-600 bg-red-100 border border-red-400 px-4 py-2 rounded-lg flex items-center gap-2"
                             initial={{ opacity: 0, y: -10 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.3 }}
                           >
-                            Links Delete successfully!
+                            Link Deleted successfully!
                           </motion.div>
                         )}
                         {showIntro ? (
@@ -654,7 +654,7 @@ export default function Home() {
                                   </button>
                                 </div>
                                 <CustomSelect
-                                  selected={selectedPlatform}
+                                  selected={link.platform}
                                   setSelectedColor={(color) => {
                                     setSelectedColor(color);
                                     setNewLinks((prevLinks) =>
@@ -711,7 +711,7 @@ export default function Home() {
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ duration: 0.3 }}
                         >
-                          Links saved successfully!
+                          Links created successfully!
                         </motion.div>
                       )}
 
@@ -831,7 +831,7 @@ export default function Home() {
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ duration: 0.3 }}
                         >
-                          Profile saved successfully!
+                          Profile created successfully!
                         </motion.div>
                       )}
                       {successDeleteProfile && (
@@ -841,7 +841,7 @@ export default function Home() {
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ duration: 0.3 }}
                         >
-                          Profile Delete successfully!
+                          Profile Deleted successfully!
                         </motion.div>
                       )}
                       <div className="flex justify-end ">
