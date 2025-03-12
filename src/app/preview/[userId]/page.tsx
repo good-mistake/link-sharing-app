@@ -94,17 +94,19 @@ const Preview = () => {
             </div>
           ) : (
             <div className="">
-              <div className=" ">
-                <header className="w-[90%] bg-white p-8  flex justify-center items-center  p-4 rounded-t-lg z-10">
-                  <button className="previewBtn" onClick={handlePreviewBtn}>
-                    Back to Editor
-                  </button>
-                  <button
-                    onClick={handleShare}
-                    className="saveBtn flex justify-center items-center gap-2 cursor-pointer"
-                  >
-                    Share Link
-                  </button>
+              <div>
+                <header className="  bg-[#633CFF] p-4 rounded-t-lg z-10">
+                  <div className="w-[95%] flex mt-4 justify-center items-center bg-white p-8 rounded-lg shadow-xl">
+                    <button className="previewBtn" onClick={handlePreviewBtn}>
+                      Back to Editor
+                    </button>
+                    <button
+                      onClick={handleShare}
+                      className="saveBtn flex justify-center items-center gap-2 cursor-pointer"
+                    >
+                      Share Link
+                    </button>
+                  </div>
                 </header>
                 <main className="min-h-[65vh] absolute bg-white p-6 rounded-xl shadow-2xl top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col justify-center items-center bg-white p-8 rounded-lg shadow-xl">
                   <div>
