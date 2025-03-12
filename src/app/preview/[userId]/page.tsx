@@ -106,7 +106,7 @@ const Preview = () => {
                     </button>
                   </div>
                 </header>
-                <main className="min-h-[60vh] absolute bg-white p-8 rounded-xl shadow-2xl top-[60%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col justify-center items-center bg-white p-8 rounded-lg shadow-xl">
+                <main className="min-h-[65vh] w-[348px] absolute bg-white p-10 rounded-xl shadow-2xl top-[60%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col justify-center items-center bg-white p-8 rounded-lg shadow-xl">
                   <div>
                     {user?.profilePicture && (
                       <Image
