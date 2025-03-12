@@ -660,13 +660,13 @@ export default function Home() {
                                   </div>{" "}
                                   <AnimatedButton
                                     onClick={() => removeLink(link.id)}
-                                    className=" w-[60px] h-[25px] bg-[rgb(115, 115, 115)]"
+                                    className="text-white w-[60px] h-[25px]"
                                   >
                                     {loadingRemoveLink ? (
-                                      <span className="w-5 h-5 border-2 border-gray border-t-transparent rounded-full animate-spin"></span>
+                                      <span className="w-5 h-5 border-4 border-solid border-white border-t-transparent rounded-full animate-spin inline-block"></span>
                                     ) : (
                                       "Remove"
-                                    )}{" "}
+                                    )}
                                   </AnimatedButton>
                                 </div>
                                 <CustomSelect
