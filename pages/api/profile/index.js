@@ -80,7 +80,7 @@ export default async function handler(req, res) {
 
       case "DELETE":
         try {
-          const { linkId } = req.body;
+          const { linkId, deleteProfile } = req.body;
 
           const user = await User.findById(userId);
           if (!user) return res.status(404).json({ error: "User not found" });
@@ -90,16 +90,21 @@ export default async function handler(req, res) {
               (link) => link._id.toString() !== linkId
             );
             await user.save();
-            res.status(200).json({ message: "Link deleted", profile: user });
-          } else {
-            await User.findByIdAndDelete(userId);
-            res.status(200).json({ message: "Profile deleted" });
+            return res
+              .status(200)
+              .json({ message: "Link deleted", profile: user });
           }
+
+          if (deleteProfile) {
+            await User.findByIdAndDelete(userId);
+            return res.status(200).json({ message: "Profile deleted" });
+          }
+
+          return res.status(400).json({ error: "Invalid delete request" });
         } catch (error) {
           console.error(error);
           res.status(500).json({ error: "Failed to delete" });
         }
-        break;
 
       default:
         res.setHeader("Allow", ["GET", "POST", "PUT", "DELETE"]);

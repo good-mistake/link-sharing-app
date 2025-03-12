@@ -11,6 +11,7 @@ import {
 } from "../../services/services.js";
 import mongoose from "mongoose";
 import AnimatedButton from "../animationBtn/AnimatedBtn";
+import { deleteProfile } from "../../services/services.js";
 type UserType = {
   _id: string;
   firstName: string;
@@ -74,7 +75,7 @@ export default function Home() {
   const handlePreviewBtn = () => {
     if (!user) return;
 
-    router.push(`preview/${user._id}`);
+    router.push(`api/preview/${user._id}`);
   };
 
   const addNewLink = () => {
@@ -103,7 +104,16 @@ export default function Home() {
       console.error("Error deleting link:", error);
     }
   };
-
+  const handleDeleteProfile = async () => {
+    try {
+      await deleteProfile();
+      localStorage.removeItem("token");
+      setUser(null);
+      setProfiles([]);
+    } catch (error) {
+      console.error("Error deleting profile:", error);
+    }
+  };
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -791,6 +801,17 @@ export default function Home() {
                           )}
                         </AnimatedButton>
                       </div>
+                      {(user?.profileEmail ||
+                        user?.profilePicture ||
+                        user?.firstName ||
+                        user?.lastName) && (
+                        <button
+                          onClick={handleDeleteProfile}
+                          className="text-red-600"
+                        >
+                          Delete Profile
+                        </button>
+                      )}
                     </form>
                   )}
                 </motion.div>

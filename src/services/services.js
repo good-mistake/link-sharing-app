@@ -79,5 +79,4 @@ export const deleteProfile = async () => {
     headers: { Authorization: `Bearer ${token}` },
   });
   if (!response.ok) throw new Error("Failed to delete profile");
-  return await response.json();
 };
