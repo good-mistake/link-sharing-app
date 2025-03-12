@@ -26,8 +26,9 @@ export const getProfileById = async (userId) => {
   if (!response.ok) {
     throw new Error("Failed to fetch profile");
   }
+  const data = await response.json();
 
-  return response.json();
+  return data;
 };
 
 export const updateProfile = async (profileData) => {

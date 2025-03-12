@@ -35,6 +35,7 @@ const Preview = () => {
       setSuccess(false);
       try {
         const data = await getProfileById(userId);
+        console.log(data);
         setUser(data.profile);
         setLoading(false);
         setError(false);
