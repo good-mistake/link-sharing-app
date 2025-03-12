@@ -107,24 +107,23 @@ const Preview = () => {
                     </button>
                   </div>
                 </header>
-                <main className="min-h-[65vh] w-[348px] absolute bg-white  rounded-xl shadow-2xl top-[60%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col justify-center items-center bg-white p-8 rounded-lg shadow-xl">
-                  <div>
+                <main className="min-h-[70vh] w-[348px] absolute bg-white  rounded-xl shadow-2xl top-[60%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col justify-center items-center bg-white p-8 rounded-lg shadow-xl">
+                  <div className="flex flex-col justify-center items-center">
                     {user?.profilePicture && (
                       <Image
                         src={user?.profilePicture || ""}
                         alt="profilePic"
                         width={104}
                         height={104}
-                        className="rounded-full  border-[5px] border-[#633CFF] aspect-square"
+                        className="rounded-full  border-[5px] border-[#633CFF] aspect-square mb-4"
                       />
                     )}
                     <p
                       style={{
                         top: `${174}px`,
                         left: "50%",
-                        transform: "translateX(-50%)",
                       }}
-                      className=" bg-white userName w-[237px] text-center"
+                      className=" bg-white userName w-[237px] text-center  mb-4"
                     >
                       <span> {user?.firstName}</span>
                       <span> {user?.lastName}</span>
@@ -133,9 +132,8 @@ const Preview = () => {
                       style={{
                         top: `${200}px`,
                         left: "50%",
-                        transform: "translateX(-50%)",
                       }}
-                      className=" userEmail w-[237px] text-center"
+                      className=" userEmail w-[237px] text-center mb-4"
                     >
                       {user?.profileEmail}
                     </p>
@@ -146,7 +144,7 @@ const Preview = () => {
                           style={{
                             backgroundColor: link ? link.color : "white",
                           }}
-                          className=" w-[237px] h-[44px] p-4 rounded-lg flex justify-between items-center"
+                          className="mb-4 w-[237px] h-[44px] p-4 rounded-lg flex justify-between items-center"
                         >
                           <Image
                             src={`${
