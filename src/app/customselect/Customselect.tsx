@@ -123,6 +123,14 @@ export default function CustomSelect({
       setSelectedColor(selectedPlatformColor);
     }
   }, [selected]);
+  useEffect(() => {
+    if (!selected) {
+      setSelected("GitHub");
+      setSelectedColor(
+        platforms.find((p) => p.value === "GitHub")?.color || ""
+      );
+    }
+  }, []);
   return (
     <div className="relative w-100 customSelect	" ref={dropdownRef}>
       <p className="lpt">Platform</p>
@@ -164,7 +172,7 @@ export default function CustomSelect({
               />
 
               <span className="group-hover:text-[#633CFF] group-active:text-[#633CFF] dropdownName">
-                GitHub{" "}
+                GitHub
               </span>
             </div>
           </div>

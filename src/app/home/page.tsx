@@ -157,6 +157,7 @@ export default function Home() {
     for (const link of newLinks) {
       if (!link.url || !link.platform) {
         setErrorMessageLinks("Please fill out all links before saving.");
+        setLoadingLinks(false);
         return;
       }
 
