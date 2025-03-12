@@ -649,7 +649,7 @@ export default function Home() {
                                 className="linksAndPlatform items-center gap-2 mt-4"
                               >
                                 <div className="flex justify-between number">
-                                  <div className="flex ">
+                                  <div className="flex items-center justify-center">
                                     <Image
                                       src="/images/icon-drag-and-drop.svg"
                                       alt="logo"
