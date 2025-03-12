@@ -317,13 +317,13 @@ export default function Home() {
     setSuccessLinks(true);
     setTimeout(() => {
       setSuccessLinks(false);
-    }, 5000);
+    }, 3000);
   };
   const showSuccessProfile = () => {
     setSuccessLinks(true);
     setTimeout(() => {
       setSuccessLinks(false);
-    }, 5000);
+    }, 3000);
   };
   const removeLink = async (id: number | string) => {
     try {
@@ -340,7 +340,7 @@ export default function Home() {
       setSuccessDeleteLinks(true);
       setTimeout(() => {
         setSuccessDeleteLinks(false);
-      }, 5000);
+      }, 3000);
     } catch (error) {
       console.error("Error deleting link:", error);
     }
@@ -355,7 +355,7 @@ export default function Home() {
       setSuccessDeleteProfile(true);
       setTimeout(() => {
         setSuccessDeleteProfile(false);
-      }, 5000);
+      }, 3000);
     } catch (error) {
       console.error("Error deleting profile:", error);
     }
@@ -558,7 +558,16 @@ export default function Home() {
                         <button onClick={addNewLink} className="addLinkBtn">
                           + Add new link
                         </button>
-
+                        {successDeleteLinks && (
+                          <motion.div
+                            className="w-full text-red-600 bg-red-100 border border-red-400 px-4 py-2 rounded-lg flex items-center gap-2"
+                            initial={{ opacity: 0, y: -10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.3 }}
+                          >
+                            Links Delete successfully!
+                          </motion.div>
+                        )}
                         {showIntro ? (
                           <div className="flex flex-col justify-center items-center start">
                             <Image
@@ -583,7 +592,7 @@ export default function Home() {
                                   backgroundColor: link ? link.color : "white",
                                 }}
                                 key={link._id}
-                                className="createdLinks w-[100%] h-[50px] p-4 rounded-lg flex justify-between items-center"
+                                className="createdLinks w-[100%] h-[50px] p-4 rounded-lg flex justify-between items-center mb-4"
                               >
                                 <div className=" flex justify-between items-center">
                                   <Image
@@ -646,11 +655,19 @@ export default function Home() {
                                 </div>
                                 <CustomSelect
                                   selected={selectedPlatform}
-                                  setSelectedColor={setSelectedColor}
+                                  setSelectedColor={(color) => {
+                                    setSelectedColor(color);
+                                    setNewLinks((prevLinks) =>
+                                      prevLinks.map((l) =>
+                                        l.id === link.id ? { ...l, color } : l
+                                      )
+                                    );
+                                  }}
                                   setSelected={(platform) =>
                                     handlePlatformChange(platform, link.id)
                                   }
                                 />
+
                                 <div>
                                   <p className="lpt">Link</p>
                                   <div className="flex items-center border rounded-lg  w-100 px-4">
@@ -697,16 +714,7 @@ export default function Home() {
                           Links saved successfully!
                         </motion.div>
                       )}
-                      {successDeleteLinks && (
-                        <motion.div
-                          className="w-full text-red-600 bg-red-100 border border-red-400 px-4 py-2 rounded-lg flex items-center gap-2"
-                          initial={{ opacity: 0, y: -10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.3 }}
-                        >
-                          Links Delete successfully!
-                        </motion.div>
-                      )}
+
                       <div className="flex justify-end ">
                         <AnimatedButton
                           onClick={handleSaveLinks}
