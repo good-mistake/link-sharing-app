@@ -622,14 +622,13 @@ export default function Home() {
                                     className="cursor-pointer"
                                   />
                                 </div>
-
                                 <p className="text-white">{link.platform}</p>
-                                <button
+                                <AnimatedButton
                                   onClick={() => removeLink(link._id)}
                                   className="text-white"
                                 >
                                   Remove
-                                </button>
+                                </AnimatedButton>{" "}
                               </div>
                             ))}
                             {newLinks.map((link, index) => (
