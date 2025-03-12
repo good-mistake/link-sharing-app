@@ -22,12 +22,14 @@ export const getProfile = async () => {
 };
 export const getProfileById = async (userId) => {
   const response = await fetch(`/api/preview/${userId}`);
+  console.log("response:", response);
 
   if (!response.ok) {
     throw new Error("Failed to fetch profile");
   }
+  console.log("User ID:", userId);
   const data = await response.json();
-
+  console.log("data:", data);
   return data;
 };
 

@@ -5,7 +5,7 @@ export default async function handler(req, res) {
   await connectDB();
 
   const { userId } = req.query;
-
+  console.log("User ID:", userId);
   try {
     const user = await User.findById(userId);
     if (!user) {
