@@ -115,14 +115,16 @@ export default function CustomSelect({
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-  const selectedPlatformColor = platforms.find(
-    (p) => p.value === selected
-  )?.color;
+  // const selectedPlatformColor = platforms.find(
+  //   (p) => p.value === selected
+  // )?.color;
   useEffect(() => {
-    if (selectedPlatformColor) {
-      setSelectedColor(selectedPlatformColor);
+    const color = platforms.find((p) => p.value === selected)?.color;
+    if (color) {
+      setSelectedColor(color);
     }
-  }, [selected]);
+  }, [selected, setSelectedColor]);
+
   useEffect(() => {
     if (!selected) {
       setSelected("GitHub");
@@ -130,7 +132,7 @@ export default function CustomSelect({
         platforms.find((p) => p.value === "GitHub")?.color || ""
       );
     }
-  }, []);
+  }, [selected, setSelected, setSelectedColor]);
   return (
     <div className="relative w-100 customSelect	" ref={dropdownRef}>
       <p className="lpt">Platform</p>
