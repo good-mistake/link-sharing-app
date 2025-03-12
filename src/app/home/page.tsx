@@ -629,7 +629,7 @@ export default function Home() {
                                 <p className="text-white">{link.platform}</p>
                                 <AnimatedButton
                                   onClick={() => removeLink(link._id)}
-                                  className="text-white"
+                                  className="text-white w-[60px] h-[25px] bg-[rgb(255,57,57)]"
                                 >
                                   {loadingRemoveLink ? (
                                     <span className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
@@ -660,10 +660,10 @@ export default function Home() {
                                   </div>{" "}
                                   <AnimatedButton
                                     onClick={() => removeLink(link.id)}
-                                    className=""
+                                    className=" w-[60px] h-[25px] bg-[rgb(115, 115, 115)]"
                                   >
                                     {loadingRemoveLink ? (
-                                      <span className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+                                      <span className="w-5 h-5 border-2 border-gray border-t-transparent rounded-full animate-spin"></span>
                                     ) : (
                                       "Remove"
                                     )}{" "}
