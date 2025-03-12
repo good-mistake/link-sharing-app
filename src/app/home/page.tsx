@@ -93,52 +93,7 @@ export default function Home() {
       },
     ]);
   };
-  const showSuccessLinks = () => {
-    setSuccessLinks(true);
-    setTimeout(() => {
-      setSuccessLinks(false);
-    }, 5000);
-  };
-  const showSuccessProfile = () => {
-    setSuccessLinks(true);
-    setTimeout(() => {
-      setSuccessLinks(false);
-    }, 5000);
-  };
-  const removeLink = async (id: number | string) => {
-    try {
-      await deleteLink(id);
 
-      const updatedLinks = newLinks.filter((link) => link.id !== id);
-      setNewLinks(updatedLinks);
-
-      if (updatedLinks.length === 0) {
-        setShowIntro(true);
-      }
-
-      setSuccessDeleteLinks(true);
-      setTimeout(() => {
-        setSuccessDeleteLinks(false);
-      }, 5000);
-    } catch (error) {
-      console.error("Error deleting link:", error);
-    }
-  };
-
-  const handleDeleteProfile = async () => {
-    try {
-      await deleteProfile();
-      localStorage.removeItem("token");
-      setUser(null);
-      setProfiles([]);
-      setSuccessDeleteProfile(true);
-      setTimeout(() => {
-        setSuccessDeleteProfile(false);
-      }, 5000);
-    } catch (error) {
-      console.error("Error deleting profile:", error);
-    }
-  };
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -358,6 +313,53 @@ export default function Home() {
       setShowIntro(false);
     }
   }, [user?.links]);
+  const showSuccessLinks = () => {
+    setSuccessLinks(true);
+    setTimeout(() => {
+      setSuccessLinks(false);
+    }, 5000);
+  };
+  const showSuccessProfile = () => {
+    setSuccessLinks(true);
+    setTimeout(() => {
+      setSuccessLinks(false);
+    }, 5000);
+  };
+  const removeLink = async (id: number | string) => {
+    try {
+      await deleteLink(id);
+
+      const updatedLinks = links.filter((link) => link._id !== id);
+      const updatedNewLinks = newLinks.filter((link) => link.id !== id);
+      setLinks(updatedLinks);
+      setNewLinks(updatedNewLinks);
+      if (updatedLinks.length === 0) {
+        setShowIntro(true);
+      }
+
+      setSuccessDeleteLinks(true);
+      setTimeout(() => {
+        setSuccessDeleteLinks(false);
+      }, 5000);
+    } catch (error) {
+      console.error("Error deleting link:", error);
+    }
+  };
+
+  const handleDeleteProfile = async () => {
+    try {
+      await deleteProfile();
+      localStorage.removeItem("token");
+      setUser(null);
+      setProfiles([]);
+      setSuccessDeleteProfile(true);
+      setTimeout(() => {
+        setSuccessDeleteProfile(false);
+      }, 5000);
+    } catch (error) {
+      console.error("Error deleting profile:", error);
+    }
+  };
   return (
     <div className="p-4">
       {loading ? (
@@ -679,12 +681,12 @@ export default function Home() {
                             ))}
                           </AnimatePresence>
                         )}
-                      </div>{" "}
+                      </div>
                       {errorMessageLinks && (
                         <div className="text-red-600 bg-red-100 border border-red-400 px-4 py-2 rounded-md text-sm mt-2 animate-fadeIn">
                           {errorMessageLinks}
                         </div>
-                      )}{" "}
+                      )}
                       {successLinks && (
                         <motion.div
                           className="w-full bg-green-100 border border-green-400 text-green-700 px-4 py-2 rounded-lg flex items-center gap-2"
@@ -823,7 +825,7 @@ export default function Home() {
                         >
                           Profile saved successfully!
                         </motion.div>
-                      )}{" "}
+                      )}
                       {successDeleteProfile && (
                         <motion.div
                           className="w-full text-red-600 bg-red-100 border border-red-400 px-4 py-2 rounded-lg flex items-center gap-2"
