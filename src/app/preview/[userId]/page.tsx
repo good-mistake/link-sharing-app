@@ -95,14 +95,14 @@ const Preview = () => {
           ) : (
             <div className="">
               <div>
-                <header className="  bg-[#633CFF] p-4 rounded-t-lg z-10">
-                  <div className="w-[95%] flex mt-4 justify-center items-center bg-white p-8 rounded-lg shadow-xl">
-                    <button className="previewBtn" onClick={handlePreviewBtn}>
+                <header className="bg-[#633CFF] p-4 rounded-t-lg z-10 min-h-[45vh]">
+                  <div className="w-[95%] shadow-lg shadow-[#633CFF]/50 flex mt-2 justify-between items-center bg-white  rounded-lg shadow-xl">
+                    <button className="backBtn" onClick={handlePreviewBtn}>
                       Back to Editor
                     </button>
                     <button
                       onClick={handleShare}
-                      className="saveBtn flex justify-center items-center gap-2 cursor-pointer"
+                      className="shareLink flex justify-center items-center gap-2 cursor-pointer "
                     >
                       Share Link
                     </button>

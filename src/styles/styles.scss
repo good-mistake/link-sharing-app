@@ -294,7 +294,8 @@ main {
 
   color: #737373;
 }
-.saveBtn {
+.saveBtn,
+.shareLink {
   @include heading-s;
   background-color: $color-blue;
   color: $color-white-primary;
@@ -309,4 +310,17 @@ main {
   &:active {
     opacity: 0.25;
   }
+}
+.shareLink {
+  margin-top: 0;
+  width: 133px;
+}
+.backBtn {
+  color: $color-blue;
+  @include heading-s;
+  cursor: pointer;
+  border: 1px solid $color-blue;
+  border-radius: 8px;
+  height: 46px;
+  width: 158px;
 }
