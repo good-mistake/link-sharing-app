@@ -11,7 +11,6 @@ import {
 } from "../../services/services.js";
 import mongoose from "mongoose";
 import AnimatedButton from "../animationBtn/AnimatedBtn";
-import { deleteProfile } from "../../services/services.js";
 import { platforms } from "../customselect/Customselect";
 type UserType = {
   _id: string;
@@ -66,7 +65,6 @@ export default function Home() {
   const [loadingRemoveLink, setLoadingRemoveLink] = useState(false);
   const [successLinks, setSuccessLinks] = useState(false);
   const [successDeleteLinks, setSuccessDeleteLinks] = useState(false);
-  const [successDeleteProfile, setSuccessDeleteProfile] = useState(false);
   const [successProfile, setSuccessProfile] = useState(false);
   const [errorMessageImg, setErrorMessageIMG] = useState<string | null>(null);
   const [errorMessageProfile, setErrorMessageProfile] = useState<string | null>(
@@ -355,20 +353,6 @@ export default function Home() {
     }
   };
 
-  const handleDeleteProfile = async () => {
-    try {
-      await deleteProfile();
-      localStorage.removeItem("token");
-      setUser(null);
-      setProfiles([]);
-      setSuccessDeleteProfile(true);
-      setTimeout(() => {
-        setSuccessDeleteProfile(false);
-      }, 3000);
-    } catch (error) {
-      console.error("Error deleting profile:", error);
-    }
-  };
   return (
     <div className="p-4">
       {loading ? (
@@ -849,16 +833,7 @@ export default function Home() {
                           Profile created successfully!
                         </motion.div>
                       )}
-                      {successDeleteProfile && (
-                        <motion.div
-                          className="w-full text-red-600 bg-red-100 border border-red-400 px-4 py-2 rounded-lg flex items-center gap-2"
-                          initial={{ opacity: 0, y: -10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.3 }}
-                        >
-                          Profile Deleted successfully!
-                        </motion.div>
-                      )}
+
                       <div className="flex justify-end ">
                         <AnimatedButton
                           type="submit"
@@ -871,17 +846,6 @@ export default function Home() {
                           )}
                         </AnimatedButton>
                       </div>
-                      {(user?.profileEmail ||
-                        user?.profilePicture ||
-                        user?.firstName ||
-                        user?.lastName) && (
-                        <button
-                          onClick={handleDeleteProfile}
-                          className="text-red-600"
-                        >
-                          Delete Profile
-                        </button>
-                      )}
                     </form>
                   )}
                 </motion.div>
