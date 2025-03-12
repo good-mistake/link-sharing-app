@@ -56,7 +56,7 @@ export default function Home() {
     { id: number; url: string; platform: string; color: string }[]
   >([]);
   const [linkOrProfile, setLinksOrProfile] = useState<boolean>(false);
-  const [selectedPlatform, setSelectedPlatform] = useState("");
+  // const [selectedPlatform, setSelectedPlatform] = useState("");
   const [selectedColor, setSelectedColor] = useState<string>("");
   const [previewImage, setPreviewImage] = useState<string>("");
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
@@ -89,7 +89,7 @@ export default function Home() {
       {
         id: prevLinks.length + 1,
         url: "",
-        platform: selectedPlatform || "",
+        platform: /*selectedPlatform ||*/ "",
         color: selectedColor || "",
       },
     ]);
@@ -137,8 +137,6 @@ export default function Home() {
   const handlePlatformChange = (platform: string, id: number) => {
     const platformColor =
       platforms.find((p) => p.value === platform)?.color || "";
-    setSelectedPlatform(platform);
-    setSelectedColor(platformColor);
     setNewLinks((prevLinks) =>
       prevLinks.map((link) =>
         link.id === id ? { ...link, platform, color: platformColor } : link

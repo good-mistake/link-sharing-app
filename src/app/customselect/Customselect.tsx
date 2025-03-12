@@ -118,12 +118,12 @@ export default function CustomSelect({
   // const selectedPlatformColor = platforms.find(
   //   (p) => p.value === selected
   // )?.color;
-  useEffect(() => {
-    const color = platforms.find((p) => p.value === selected)?.color;
-    if (color) {
-      setSelectedColor(color);
-    }
-  }, [selected, setSelectedColor]);
+  // useEffect(() => {
+  //   const color = platforms.find((p) => p.value === selected)?.color;
+  //   if (color) {
+  //     setSelectedColor(color);
+  //   }
+  // }, [selected, setSelectedColor]);
 
   useEffect(() => {
     if (!selected) {
@@ -203,6 +203,7 @@ export default function CustomSelect({
      }`}
                 onClick={() => {
                   setSelected(platform.value);
+                  setSelectedColor(platform.color);
                   setIsOpen(false);
                 }}
               >
