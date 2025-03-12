@@ -367,7 +367,6 @@ export default function Home() {
         </div>
       ) : (
         <>
-          {" "}
           <header className="flex justify-between items-center">
             <div className="">
               <Image
