@@ -122,7 +122,7 @@ export default function CustomSelect({
     if (selectedPlatformColor) {
       setSelectedColor(selectedPlatformColor);
     }
-  }, [selected, selectedPlatformColor, setSelectedColor]);
+  }, [selected]);
   return (
     <div className="relative w-100 customSelect	" ref={dropdownRef}>
       <p className="lpt">Platform</p>

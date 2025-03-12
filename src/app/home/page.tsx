@@ -655,6 +655,9 @@ export default function Home() {
                                 </div>
                                 <CustomSelect
                                   selected={link.platform}
+                                  setSelected={(platform) =>
+                                    handlePlatformChange(platform, link.id)
+                                  }
                                   setSelectedColor={(color) => {
                                     setSelectedColor(color);
                                     setNewLinks((prevLinks) =>
@@ -663,9 +666,6 @@ export default function Home() {
                                       )
                                     );
                                   }}
-                                  setSelected={(platform) =>
-                                    handlePlatformChange(platform, link.id)
-                                  }
                                 />
 
                                 <div>
