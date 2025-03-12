@@ -63,6 +63,8 @@ export default function Home() {
   const [loadingLinks, setLoadingLinks] = useState(false);
   const [loadingProfile, setLoadingProfile] = useState(false);
   const [successLinks, setSuccessLinks] = useState(false);
+  const [successDeleteLinks, setSuccessDeleteLinks] = useState(false);
+  const [successDeleteProfile, setSuccessDeleteProfile] = useState(false);
   const [successProfile, setSuccessProfile] = useState(false);
   const [errorMessageImg, setErrorMessageIMG] = useState<string | null>(null);
   const [errorMessageProfile, setErrorMessageProfile] = useState<string | null>(
@@ -91,25 +93,48 @@ export default function Home() {
       },
     ]);
   };
-
+  const showSuccessLinks = () => {
+    setSuccessLinks(true);
+    setTimeout(() => {
+      setSuccessLinks(false);
+    }, 5000);
+  };
+  const showSuccessProfile = () => {
+    setSuccessLinks(true);
+    setTimeout(() => {
+      setSuccessLinks(false);
+    }, 5000);
+  };
   const removeLink = async (id: number | string) => {
     try {
       await deleteLink(id);
+
       const updatedLinks = newLinks.filter((link) => link.id !== id);
       setNewLinks(updatedLinks);
+
       if (updatedLinks.length === 0) {
         setShowIntro(true);
       }
+
+      setSuccessDeleteLinks(true);
+      setTimeout(() => {
+        setSuccessDeleteLinks(false);
+      }, 5000);
     } catch (error) {
       console.error("Error deleting link:", error);
     }
   };
+
   const handleDeleteProfile = async () => {
     try {
       await deleteProfile();
       localStorage.removeItem("token");
       setUser(null);
       setProfiles([]);
+      setSuccessDeleteProfile(true);
+      setTimeout(() => {
+        setSuccessDeleteProfile(false);
+      }, 5000);
     } catch (error) {
       console.error("Error deleting profile:", error);
     }
@@ -211,7 +236,7 @@ export default function Home() {
       setUser(updatedProfile);
       setLinks(updatedProfile.links);
       setNewLinks([]);
-      setSuccessLinks(true);
+      showSuccessLinks();
     } catch (error) {
       console.error("Failed to save links:", error);
       setErrorMessageLinks("Error saving links. Please try again.");
@@ -289,7 +314,7 @@ export default function Home() {
 
       await updateProfile(profileData);
       setUser({ ...user, ...profileData });
-      setSuccessProfile(true);
+      showSuccessProfile();
       setErrorMessageProfile(null);
     } catch (error) {
       console.error("Failed to update profile:", error);
@@ -670,6 +695,16 @@ export default function Home() {
                           Links saved successfully!
                         </motion.div>
                       )}
+                      {successDeleteLinks && (
+                        <motion.div
+                          className="w-full text-red-600 bg-red-100 border border-red-400 px-4 py-2 rounded-lg flex items-center gap-2"
+                          initial={{ opacity: 0, y: -10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.3 }}
+                        >
+                          Links Delete successfully!
+                        </motion.div>
+                      )}
                       <div className="flex justify-end ">
                         <AnimatedButton
                           onClick={handleSaveLinks}
@@ -787,6 +822,16 @@ export default function Home() {
                           transition={{ duration: 0.3 }}
                         >
                           Profile saved successfully!
+                        </motion.div>
+                      )}{" "}
+                      {successDeleteProfile && (
+                        <motion.div
+                          className="w-full text-red-600 bg-red-100 border border-red-400 px-4 py-2 rounded-lg flex items-center gap-2"
+                          initial={{ opacity: 0, y: -10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.3 }}
+                        >
+                          Profile Delete successfully!
                         </motion.div>
                       )}
                       <div className="flex justify-end ">
