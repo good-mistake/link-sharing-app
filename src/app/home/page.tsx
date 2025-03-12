@@ -90,7 +90,7 @@ export default function Home() {
         id: prevLinks.length + 1,
         url: "",
         platform: /*selectedPlatform ||*/ "",
-        color: selectedColor || "",
+        color: "",
       },
     ]);
   };
