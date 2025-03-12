@@ -358,7 +358,7 @@ export default function Home() {
       {loading ? (
         <div className="loading-overlay flex justify-center items-center w-full h-screen">
           <motion.div
-            className="w-20 h-20 border-4 border-t-transparent border-blue-500 rounded-full animate-spin"
+            className="w-25 h-25 border-8 border-t-transparent border-blue-500 rounded-full animate-spin"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
