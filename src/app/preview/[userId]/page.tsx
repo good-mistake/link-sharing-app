@@ -81,7 +81,7 @@ const Preview = () => {
       ) : (
         <div>
           {loading ? (
-            <div className="absolute inset-0 flex justify-center items-center bg-gray-800 bg-opacity-50">
+            <div className="absolute inset-0 flex justify-center items-center bg-[#633CFF] bg-opacity-50">
               <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -95,7 +95,7 @@ const Preview = () => {
           ) : (
             <div className="">
               <div className=" ">
-                <header className=" top-0 left-0 right-0 bg-[#633CFF] p-4 rounded-t-lg z-10">
+                <header className="w-[90%] bg-white p-8  flex justify-center items-center  p-4 rounded-t-lg z-10">
                   <button className="previewBtn" onClick={handlePreviewBtn}>
                     Back to Editor
                   </button>
