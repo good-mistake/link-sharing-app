@@ -663,7 +663,7 @@ export default function Home() {
                                     className="text-white w-[60px] h-[25px]"
                                   >
                                     {loadingRemoveLink ? (
-                                      <span className="w-5 h-5 border-4 border-solid border-white border-t-transparent rounded-full animate-spin inline-block"></span>
+                                      <span className="w-5 h-5 border-4 border-solid border-[rgb(51, 51, 51)] border-t-transparent rounded-full animate-spin inline-block"></span>
                                     ) : (
                                       "Remove"
                                     )}
