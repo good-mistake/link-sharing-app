@@ -95,8 +95,8 @@ const Preview = () => {
           ) : (
             <div className="">
               <div>
-                <header className="bg-[#633CFF] p-4 rounded-t-lg z-10 min-h-[45vh]">
-                  <div className="w-[95%] shadow-lg shadow-[#633CFF]/50 flex mt-2 justify-between items-center bg-white  rounded-lg shadow-xl">
+                <header className="bg-[#633CFF] p-4 rounded-bl-[1rem] rounded-br-[1rem] z-10 min-h-[45vh]">
+                  <div className="w-[100%] p-4 shadow-lg shadow-[#633CFF]/50 flex mt-2 justify-between items-center bg-white  rounded-lg shadow-xl">
                     <button className="backBtn" onClick={handlePreviewBtn}>
                       Back to Editor
                     </button>
@@ -108,7 +108,7 @@ const Preview = () => {
                     </button>
                   </div>
                 </header>
-                <main className="min-h-[65vh] absolute bg-white p-6 rounded-xl shadow-2xl top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col justify-center items-center bg-white p-8 rounded-lg shadow-xl">
+                <main className="min-h-[65vh] absolute bg-white p-8 rounded-xl shadow-2xl top-[65%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col justify-center items-center bg-white p-8 rounded-lg shadow-xl">
                   <div>
                     {user?.profilePicture && (
                       <Image
