@@ -63,6 +63,7 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [loadingLinks, setLoadingLinks] = useState(false);
   const [loadingProfile, setLoadingProfile] = useState(false);
+  const [loadingRemoveLink, setLoadingRemoveLink] = useState(false);
   const [successLinks, setSuccessLinks] = useState(false);
   const [successDeleteLinks, setSuccessDeleteLinks] = useState(false);
   const [successDeleteProfile, setSuccessDeleteProfile] = useState(false);
@@ -331,6 +332,7 @@ export default function Home() {
     }, 3000);
   };
   const removeLink = async (id: number | string) => {
+    setLoadingRemoveLink(true);
     try {
       await deleteLink(id);
 
@@ -348,6 +350,8 @@ export default function Home() {
       }, 3000);
     } catch (error) {
       console.error("Error deleting link:", error);
+    } finally {
+      setLoadingRemoveLink(false);
     }
   };
 
@@ -627,8 +631,12 @@ export default function Home() {
                                   onClick={() => removeLink(link._id)}
                                   className="text-white"
                                 >
-                                  Remove
-                                </AnimatedButton>{" "}
+                                  {loadingRemoveLink ? (
+                                    <span className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+                                  ) : (
+                                    "Remove"
+                                  )}
+                                </AnimatedButton>
                               </div>
                             ))}
                             {newLinks.map((link, index) => (
@@ -654,7 +662,11 @@ export default function Home() {
                                     onClick={() => removeLink(link.id)}
                                     className=""
                                   >
-                                    Remove
+                                    {loadingRemoveLink ? (
+                                      <span className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+                                    ) : (
+                                      "Remove"
+                                    )}{" "}
                                   </AnimatedButton>
                                 </div>
                                 <CustomSelect
