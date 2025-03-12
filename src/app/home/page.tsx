@@ -57,7 +57,7 @@ export default function Home() {
   >([]);
   const [linkOrProfile, setLinksOrProfile] = useState<boolean>(false);
   // const [selectedPlatform, setSelectedPlatform] = useState("");
-  const [selectedColor, setSelectedColor] = useState<string>("");
+  // const [selectedColor, setSelectedColor] = useState<string>("");
   const [previewImage, setPreviewImage] = useState<string>("");
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [loading, setLoading] = useState(true);
@@ -178,7 +178,7 @@ export default function Home() {
         _id: new mongoose.Types.ObjectId().toString(),
         url: link.url,
         platform: link.platform,
-        color: selectedColor,
+        color: link.color,
       }));
 
       const updatedProfile = {
@@ -651,12 +651,12 @@ export default function Home() {
                                     />
                                     <span>Link #{index + 1}</span>
                                   </div>{" "}
-                                  <button
+                                  <AnimatedButton
                                     onClick={() => removeLink(link.id)}
                                     className=""
                                   >
                                     Remove
-                                  </button>
+                                  </AnimatedButton>
                                 </div>
                                 <CustomSelect
                                   selected={link.platform}
@@ -664,7 +664,6 @@ export default function Home() {
                                     handlePlatformChange(platform, link.id)
                                   }
                                   setSelectedColor={(color) => {
-                                    setSelectedColor(color);
                                     setNewLinks((prevLinks) =>
                                       prevLinks.map((l) =>
                                         l.id === link.id ? { ...l, color } : l
