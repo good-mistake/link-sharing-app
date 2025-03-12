@@ -95,7 +95,7 @@ const Preview = () => {
             <div className="">
               <div>
                 <header className="bg-[#633CFF] p-4 rounded-bl-[1rem] rounded-br-[1rem] rounded-tl-[0rem] rounded-tr-[0rem] z-10 min-h-[40vh]">
-                  <div className="w-[100%] p-4 shadow-lg shadow-[#633CFF]/50 flex mt-2 justify-between items-center bg-white  rounded-lg shadow-xl">
+                  <div className="w-[100%] p-2 shadow-lg shadow-[#633CFF]/50 flex mt-2 justify-between items-center bg-white  rounded-lg shadow-xl">
                     <button className="backBtn" onClick={handlePreviewBtn}>
                       Back to Editor
                     </button>
@@ -107,15 +107,15 @@ const Preview = () => {
                     </button>
                   </div>
                 </header>
-                <main className="min-h-[70vh] w-[348px] absolute bg-white  rounded-xl shadow-2xl top-[60%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col justify-center items-center bg-white p-8 rounded-lg shadow-xl">
+                <main className="min-h-[70vh] w-[340px] absolute bg-white  rounded-xl shadow-2xl top-[60%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col justify-center items-center bg-white p-8 rounded-lg shadow-xl">
                   <div className="flex flex-col justify-center items-center">
                     {user?.profilePicture && (
                       <Image
                         src={user?.profilePicture || ""}
                         alt="profilePic"
-                        width={104}
-                        height={104}
-                        className="rounded-full  border-[5px] border-[#633CFF] aspect-square mb-4"
+                        width={105}
+                        height={105}
+                        className="rounded-full  border-[4px] border-[#633CFF] aspect-square "
                       />
                     )}
                     <p
@@ -123,7 +123,7 @@ const Preview = () => {
                         top: `${174}px`,
                         left: "50%",
                       }}
-                      className=" bg-white userName w-[237px] text-center  mb-4"
+                      className=" bg-white userNameP w-[237px] text-center  mb-2"
                     >
                       <span> {user?.firstName}</span>
                       <span> {user?.lastName}</span>
@@ -133,7 +133,7 @@ const Preview = () => {
                         top: `${200}px`,
                         left: "50%",
                       }}
-                      className=" userEmail w-[237px] text-center mb-4"
+                      className=" userEmail w-[237px] text-center mb-8"
                     >
                       {user?.profileEmail}
                     </p>

@@ -324,3 +324,7 @@ main {
   height: 46px;
   width: 158px;
 }
+.userNameP {
+  @include heading-m;
+  color: $color-dark;
+}
