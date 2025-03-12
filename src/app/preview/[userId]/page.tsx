@@ -106,7 +106,7 @@ const Preview = () => {
                     Share Link
                   </button>
                 </header>
-                <main className="absolute bg-white p-6 rounded-xl shadow-2xl top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col justify-center items-center bg-white p-8 rounded-lg shadow-xl">
+                <main className="min-h-[65vh] absolute bg-white p-6 rounded-xl shadow-2xl top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col justify-center items-center bg-white p-8 rounded-lg shadow-xl">
                   <div>
                     {user?.profilePicture && (
                       <Image
@@ -137,16 +137,13 @@ const Preview = () => {
                       className=" userEmail w-[237px] text-center"
                     >
                       {user?.profileEmail}
-                    </p>{" "}
+                    </p>
                     {user?.links.map((link, index) => (
                       <>
                         <div
                           key={index}
                           style={{
                             backgroundColor: link ? link.color : "white",
-                            top: `${272 + index * 60}px`,
-                            left: "50%",
-                            transform: "translateX(-50%)",
                           }}
                           className=" w-[237px] h-[44px] p-4 rounded-lg flex justify-between items-center"
                         >
