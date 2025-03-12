@@ -12,6 +12,7 @@ import {
 import mongoose from "mongoose";
 import AnimatedButton from "../animationBtn/AnimatedBtn";
 import { deleteProfile } from "../../services/services.js";
+import { platforms } from "../customselect/Customselect";
 type UserType = {
   _id: string;
   firstName: string;
@@ -52,7 +53,7 @@ export default function Home() {
 
   const [showIntro, setShowIntro] = useState(true);
   const [newLinks, setNewLinks] = useState<
-    { id: number; url: string; platform: string }[]
+    { id: number; url: string; platform: string; color: string }[]
   >([]);
   const [linkOrProfile, setLinksOrProfile] = useState<boolean>(false);
   const [selectedPlatform, setSelectedPlatform] = useState("");
@@ -134,9 +135,14 @@ export default function Home() {
   };
 
   const handlePlatformChange = (platform: string, id: number) => {
+    const platformColor =
+      platforms.find((p) => p.value === platform)?.color || "";
     setSelectedPlatform(platform);
+    setSelectedColor(platformColor);
     setNewLinks((prevLinks) =>
-      prevLinks.map((link) => (link.id === id ? { ...link, platform } : link))
+      prevLinks.map((link) =>
+        link.id === id ? { ...link, platform, color: platformColor } : link
+      )
     );
   };
 
