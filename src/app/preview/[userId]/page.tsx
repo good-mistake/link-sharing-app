@@ -219,11 +219,11 @@ const Preview = () => {
           )}
         </div>
       )}
-      <div className="relative min-h-[80vh] flex flex-col">
+      <div className="relative min-h-[40vh] flex flex-col">
         {success && (
           <div
-            className="fixed z-52 bottom-[20px] left-1/2 transform -translate-x-1/2 w-[400px] flex justify-center 
-    items-center bg-[#333333] text-[#737373] p-4 rounded-[12px] shadow-lg"
+            className="fixed  bottom-[20px] left-1/2 transform -translate-x-1/2 w-[400px] flex justify-center 
+    items-center bg-[#333333] text-[#737373] p-4 rounded-[12px] shadow-lg z-100"
           >
             <Image
               src="/images/icon-link-copied-to-clipboard.svg"
