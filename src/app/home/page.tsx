@@ -426,10 +426,16 @@ export default function Home() {
               onClick={handlePreviewBtn}
             >
               {isPending ? (
-                <span
-                  className="animate-spin rounded-full h-10 w-10 border-b-4 
-        border-[#633CFF]"
-                ></span>
+                <div className="absolute inset-0 flex justify-center items-center bg-[#633CFF] ">
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.5 }}
+                    className="bg-white p-6 rounded-xl shadow-2xl flex flex-col items-center"
+                  >
+                    <div className="animate-spin rounded-full h-10 w-10 border-b-4 border-[#633CFF]"></div>
+                  </motion.div>
+                </div>
               ) : (
                 "Preview"
               )}

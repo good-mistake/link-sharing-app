@@ -138,7 +138,7 @@ const Preview = () => {
                   </div>
                 </header>
                 <main
-                  className="min-h-[45vh] w-[340px] absolute bg-white rounded-[24px] 
+                  className="relative z-50 pointer-events-auto min-h-[45vh] w-[340px] absolute bg-white rounded-[24px] 
                   shadow-2xl top-[75%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 
                   flex flex-col justify-center items-center bg-white p-8 
                  shadow-xl"
@@ -174,6 +174,7 @@ const Preview = () => {
                     </p>
                     {user?.links.map((link, index) => (
                       <>
+                        {console.log(link.url)}
                         <div
                           key={index}
                           style={{
