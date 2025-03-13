@@ -126,11 +126,13 @@ header {
       background-color: transparent !important;
       color: $color-blue !important;
       border: 1px solid $color-blue !important;
-      cursor: default;
       pointer-events: none;
+      &:hover {
+        background-color: $color-blue;
+        color: transparent;
+      }
     }
     &.back {
-      padding: 0 10px;
       font-size: 14px;
     }
   }
