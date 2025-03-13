@@ -1,9 +1,9 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { getProfileById } from "../../../services/services";
 import { usePathname, useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-
+import AnimatedButton from "@/app/animationBtn/AnimatedBtn";
 import Image from "next/image.js";
 type UserType = {
   _id: string;
@@ -19,15 +19,23 @@ const Preview = () => {
   const [isMounted, setIsMounted] = useState(false);
   const [user, setUser] = useState<UserType | null>(null);
   const [error, setError] = useState(false);
+  const [isPending, startTransition] = useTransition();
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [copying, setCopying] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
   const userId = pathname?.split("/").pop();
   useEffect(() => {
     setIsMounted(true);
   }, []);
-
+  const handleBackBtn = () => {
+    const token = localStorage.getItem("token");
+    if (!token) return;
+    startTransition(() => {
+      router.push(`/home`);
+    });
+  };
   useEffect(() => {
     if (!isMounted || !userId) return;
     const fetchUser = async () => {
@@ -55,17 +63,14 @@ const Preview = () => {
     }
   }, [success]);
 
-  const handlePreviewBtn = () => {
-    const token = localStorage.getItem("token");
-    if (!token) return;
-    router.push(`/home`);
-  };
-
   const handleShare = () => {
     if (!user?._id) return;
+    setCopying(true);
     const url = `${window.location.origin}/preview/${user._id}`;
-    navigator.clipboard.writeText(url);
-    setSuccess(true);
+    navigator.clipboard.writeText(url).then(() => {
+      setSuccess(true);
+      setCopying(false);
+    });
   };
   if (!isMounted) return null;
   return (
@@ -102,15 +107,26 @@ const Preview = () => {
               <div>
                 <header className="bg-[#633CFF] p-4 rounded-bl-[1rem] rounded-br-[1rem] rounded-tl-[0rem] rounded-tr-[0rem] z-10 min-h-[60vh]">
                   <div className="w-[100%] p-2 shadow-lg shadow-[#633CFF]/50 flex mt-2 justify-between items-center bg-white  rounded-lg shadow-xl">
-                    <button className="backBtn" onClick={handlePreviewBtn}>
-                      Back to Editor
-                    </button>
-                    <button
+                    <AnimatedButton
+                      className="previewBtn"
+                      onClick={handleBackBtn}
+                    >
+                      {isPending ? (
+                        <span className="w-5 h-5 border-4 border-solid border-white border-t-transparent rounded-full animate-spin inline-block"></span>
+                      ) : (
+                        "Back to Editor"
+                      )}
+                    </AnimatedButton>{" "}
+                    <AnimatedButton
                       onClick={handleShare}
                       className="shareLink flex justify-center items-center gap-2 cursor-pointer "
                     >
-                      Share Link
-                    </button>
+                      {copying ? (
+                        <span className="w-5 h-5 border-4 border-solid border-white border-t-transparent rounded-full animate-spin inline-block"></span>
+                      ) : (
+                        "Share Link"
+                      )}
+                    </AnimatedButton>
                   </div>
                 </header>
                 <main

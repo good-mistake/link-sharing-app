@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import CustomSelect from "../customselect/Customselect";
@@ -60,6 +60,7 @@ export default function Home() {
   const [previewImage, setPreviewImage] = useState<string>("");
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [loading, setLoading] = useState(true);
+  const [isPending, startTransition] = useTransition();
   const [loadingLinks, setLoadingLinks] = useState(false);
   const [loadingProfile, setLoadingProfile] = useState(false);
   const [loadingRemoveLink, setLoadingRemoveLink] = useState(false);
@@ -76,10 +77,10 @@ export default function Home() {
 
   const handlePreviewBtn = () => {
     if (!user) return;
-
-    router.push(`preview/${user._id}`);
+    startTransition(() => {
+      router.push(`preview/${user._id}`);
+    });
   };
-
   const addNewLink = () => {
     setShowIntro(false);
 
@@ -420,9 +421,13 @@ export default function Home() {
                 </p>
               </div>
             </div>
-            <button className="previewBtn" onClick={handlePreviewBtn}>
-              Preview
-            </button>
+            <AnimatedButton className="previewBtn" onClick={handlePreviewBtn}>
+              {isPending ? (
+                <span className="w-5 h-5 border-4 border-solid border-white border-t-transparent rounded-full animate-spin inline-block"></span>
+              ) : (
+                "Remove"
+              )}
+            </AnimatedButton>
           </header>
           <main className="maincontent flex mb-8">
             <section className="preview ">
