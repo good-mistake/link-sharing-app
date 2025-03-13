@@ -74,7 +74,7 @@ const Preview = () => {
   };
   if (!isMounted) return null;
   return (
-    <div className="min-h-[140vh] flex flex-col">
+    <div className="min-h-screen flex flex-col">
       {error ? (
         <div className="h-screen flex items-center justify-center bg-red-100">
           <motion.div
@@ -114,7 +114,7 @@ const Preview = () => {
                       {isPending ? (
                         <span className="w-5 h-5 border-4 border-solid border-white border-t-transparent rounded-full animate-spin inline-block"></span>
                       ) : (
-                        "Back to Editor"
+                        <div className="w-[160px]">Back to Editor</div>
                       )}
                     </AnimatedButton>{" "}
                     <AnimatedButton
