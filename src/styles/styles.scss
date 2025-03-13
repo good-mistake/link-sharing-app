@@ -117,7 +117,13 @@ header {
     height: 46px;
     width: 114px;
     &:hover {
-      opacity: 0.8;
+      background-color: $color-blue;
+      color: $color-white-secondary;
+      border: 1px solid $color-white-secondary;
+    }
+    &:active {
+      background-color: $color-white-secondary;
+      color: $color-blue;
     }
   }
 }

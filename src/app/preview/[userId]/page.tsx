@@ -203,7 +203,7 @@ const Preview = () => {
           )}
         </div>
       )}
-      <div className="relative min-h-[140vh] flex flex-col">
+      <div className="relative  flex flex-col">
         {success && (
           <div
             className="fixed bottom-[20px] left-1/2 transform -translate-x-1/2 w-[400px] flex justify-center 
