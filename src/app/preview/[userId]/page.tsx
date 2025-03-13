@@ -63,7 +63,7 @@ const Preview = () => {
   };
   if (!isMounted) return null;
   return (
-    <div className="min-h-[140vh]">
+    <div className="min-h-screen flex flex-col">
       {error ? (
         <div className="h-screen flex items-center justify-center bg-red-100">
           <motion.div
@@ -149,7 +149,7 @@ const Preview = () => {
                           style={{
                             backgroundColor: link ? link.color : "white",
                           }}
-                          className="mb-4 w-[237px] h-[56px] p-4 rounded-lg flex justify-between items-center"
+                          className="shadow-xl mb-4 w-[237px] h-[56px] p-4 rounded-lg flex justify-between items-center"
                         >
                           <Image
                             src={`${
@@ -183,11 +183,11 @@ const Preview = () => {
       )}
       {success && (
         <div
-          className="w-[400px] mx-auto my-8 flex justify-center 
-        items-center bg-[#333333] text-[#737373] p-4 rounded-[12px] shadow-lg"
+          className="w-[400px] mx-auto mt-auto mb-6 flex justify-center 
+    items-center bg-[#333333] text-[#737373] p-4 rounded-[12px] shadow-lg"
         >
           <Image
-            src="icon-link-copied-to-clipboard.svg"
+            src="/images/icon-link-copied-to-clipboard.svg"
             alt="copied"
             width={15}
             height={15}
