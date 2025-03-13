@@ -107,7 +107,7 @@ const Preview = () => {
                     </button>
                   </div>
                 </header>
-                <main className="min-h-[45vh] w-[340px] absolute bg-white  rounded-xl shadow-2xl top-[80%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col justify-center items-center bg-white p-8 rounded-2xl shadow-xl">
+                <main className="min-h-[45vh] w-[340px] absolute bg-white  rounded-xl shadow-2xl top-[80%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col justify-center items-center bg-white p-8 rounded-3xl shadow-xl">
                   <div className="flex flex-col justify-center items-center">
                     {user?.profilePicture && (
                       <Image
@@ -177,20 +177,17 @@ const Preview = () => {
         </div>
       )}
       {success && (
-        <div className="w-[100%]">
-          {" "}
-          <div className="mb-8 flex justify-center align-center top-1/4 left-1/2 transform -translate-x-1/2 bg-[#333333] text-white p-4 rounded-lg shadow-lg">
-            <Image
-              src="icon-link-copied-to-clipboard.svg"
-              alt="copied"
-              width={15}
-              height={15}
-              className="rounded-full  aspect-square invert sepia brightness-0 hue-rotate-180"
-            />
-            <p className="text-white ">
-              The link has been copied to your clipboard!
-            </p>
-          </div>
+        <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 w-[400px] flex justify-center items-center bg-[#333333] text-[#737373] p-4 rounded-lg shadow-lg">
+          <Image
+            src="icon-link-copied-to-clipboard.svg"
+            alt="copied"
+            width={15}
+            height={15}
+            className="w-[15px] h-[15px] rounded-full aspect-square invert sepia brightness-0 hue-rotate-180"
+          />
+          <p className="text-center ml-2">
+            The link has been copied to your clipboard!
+          </p>
         </div>
       )}
     </div>
