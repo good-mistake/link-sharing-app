@@ -122,11 +122,6 @@ header {
       color: $color-blue !important;
       border: 1px solid $color-blue !important;
       pointer-events: none;
-
-      &:hover {
-        background-color: $color-blue;
-        color: transparent;
-      }
     }
     &.back {
       font-size: 14px;

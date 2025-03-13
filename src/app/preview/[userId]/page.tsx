@@ -192,17 +192,18 @@ const Preview = () => {
                             className="invert sepia brightness-0 hue-rotate-180"
                           />
                           <p className="text-white">{link.platform}</p>
-                          <Image
-                            src={`/images/icon-arrow-right.svg`}
+                          <button
                             onClick={() =>
                               link.url && window.open(link.url, "_blank")
                             }
-                            alt="arrow right"
-                            className="cursor-pointer"
-                            width={22}
-                            height={22}
-                            style={{ cursor: "pointer" }}
-                          />
+                          >
+                            <Image
+                              src={`/images/icon-arrow-right.svg`}
+                              alt="arrow right"
+                              width={22}
+                              height={22}
+                            />
+                          </button>
                         </div>
                       </>
                     ))}
