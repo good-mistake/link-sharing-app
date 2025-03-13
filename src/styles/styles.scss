@@ -121,12 +121,17 @@ header {
       color: $color-white-secondary;
       border: 1px solid $color-white-secondary;
     }
-    &:active,
-    &:focus,
-    &:focus-within {
-      background-color: $color-white-secondary;
-      color: $color-blue;
-      border: 1px solid $color-blue;
+
+    &.loading {
+      background-color: transparent !important;
+      color: $color-blue !important;
+      border: 1px solid $color-blue !important;
+      cursor: default;
+      pointer-events: none;
+    }
+    &.back {
+      padding: 0 10px;
+      font-size: 14px;
     }
   }
 }

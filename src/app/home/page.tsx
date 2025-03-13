@@ -421,7 +421,10 @@ export default function Home() {
                 </p>
               </div>
             </div>
-            <AnimatedButton className="previewBtn" onClick={handlePreviewBtn}>
+            <AnimatedButton
+              className={`previewBtn ${isPending ? "loading" : ""}`}
+              onClick={handlePreviewBtn}
+            >
               {isPending ? (
                 <span className="w-5 h-5 border-4 border-solid border-white border-t-transparent rounded-full animate-spin inline-block"></span>
               ) : (
