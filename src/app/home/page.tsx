@@ -424,7 +424,7 @@ export default function Home() {
               Preview
             </button>
           </header>
-          <main className="maincontent flex">
+          <main className="maincontent flex mb-8">
             <section className="preview ">
               {links.length > 0 || user?.profilePicture ? (
                 <div

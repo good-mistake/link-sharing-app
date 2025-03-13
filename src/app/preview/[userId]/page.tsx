@@ -63,7 +63,7 @@ const Preview = () => {
   };
   if (!isMounted) return null;
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-[140vh] flex flex-col">
       {error ? (
         <div className="h-screen flex items-center justify-center bg-red-100">
           <motion.div
@@ -183,7 +183,7 @@ const Preview = () => {
       )}
       {success && (
         <div
-          className="w-[400px] mx-auto mt-auto mb-6 flex justify-center 
+          className="absolute bottom-0 w-[400px] mx-auto my-8 flex justify-center 
     items-center bg-[#333333] text-[#737373] p-4 rounded-[12px] shadow-lg"
         >
           <Image
