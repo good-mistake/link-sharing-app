@@ -107,13 +107,13 @@ const Preview = () => {
                     </button>
                   </div>
                 </header>
-                <main
-                  className="min-h-[45vh] w-[340px] absolute bg-white rounded-[24px] 
+                <main className=" absolute ">
+                  <div
+                    className="min-h-[45vh] w-[340px] flex flex-col justify-center items-center bg-white rounded-[24px] 
                   shadow-2xl top-[75%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 
                   flex flex-col justify-center items-center bg-white p-8 
                  shadow-xl"
-                >
-                  <div className="flex flex-col justify-center items-center">
+                  >
                     {user?.profilePicture && (
                       <Image
                         src={user?.profilePicture || ""}
@@ -175,27 +175,27 @@ const Preview = () => {
                       </>
                     ))}
                   </div>
+                  {success && (
+                    <div
+                      className=" bottom-0 w-[340px] mx-auto my-10 flex justify-center 
+    items-center bg-[#333333] text-[#737373] p-4 rounded-[12px] shadow-lg"
+                    >
+                      <Image
+                        src="/images/icon-link-copied-to-clipboard.svg"
+                        alt="copied"
+                        width={15}
+                        height={15}
+                        className="w-[15px] h-[15px] mix-blend-multiply"
+                      />
+                      <p className="text-white text-center ml-2">
+                        The link has been copied to your clipboard!
+                      </p>
+                    </div>
+                  )}
                 </main>
               </div>
             </div>
           )}
-        </div>
-      )}
-      {success && (
-        <div
-          className="absolute bottom-0 w-[400px] mx-auto my-8 flex justify-center 
-    items-center bg-[#333333] text-[#737373] p-4 rounded-[12px] shadow-lg"
-        >
-          <Image
-            src="/images/icon-link-copied-to-clipboard.svg"
-            alt="copied"
-            width={15}
-            height={15}
-            className="w-[15px] h-[15px] mix-blend-multiply"
-          />
-          <p className="text-white text-center ml-2">
-            The link has been copied to your clipboard!
-          </p>
         </div>
       )}
     </div>
