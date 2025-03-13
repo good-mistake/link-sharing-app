@@ -127,6 +127,9 @@ header {
       color: $color-blue !important;
       border: 1px solid $color-blue !important;
       pointer-events: none;
+      span {
+        border-color: $color-blue !important ;
+      }
       &:hover {
         background-color: $color-blue;
         color: transparent;
