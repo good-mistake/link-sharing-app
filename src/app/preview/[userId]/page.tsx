@@ -144,7 +144,7 @@ const Preview = () => {
                         alt="profilePic"
                         width={105}
                         height={105}
-                        className="rounded-full mb-6 border-[4px] border-[#633CFF] aspect-square "
+                        className="rounded-full mb-4 border-[4px] border-[#633CFF] aspect-square "
                       />
                     )}
                     <p
