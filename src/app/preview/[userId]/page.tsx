@@ -142,7 +142,8 @@ const Preview = () => {
                   </div>
                 </header>
                 <main
-                  className="relative z-50 pointer-events-auto min-h-[45vh] w-[340px] absolute bg-white rounded-[24px] 
+                  className="relative z-50 pointer-events-auto min-h-[45vh] w-[340px] 
+                  absolute bg-white rounded-[24px] 
                   shadow-2xl top-[75%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 
                   flex flex-col justify-center items-center bg-white p-8 
                  shadow-xl"
@@ -221,7 +222,7 @@ const Preview = () => {
       <div className="relative min-h-[80vh] flex flex-col">
         {success && (
           <div
-            className="fixed bottom-[20px] left-1/2 transform -translate-x-1/2 w-[400px] flex justify-center 
+            className="fixed z-52 bottom-[20px] left-1/2 transform -translate-x-1/2 w-[400px] flex justify-center 
     items-center bg-[#333333] text-[#737373] p-4 rounded-[12px] shadow-lg"
           >
             <Image
