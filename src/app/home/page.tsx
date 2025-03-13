@@ -426,7 +426,7 @@ export default function Home() {
               onClick={handlePreviewBtn}
             >
               {isPending ? (
-                <span className="w-5 h-5 border-2 border-[rgb(99,60,255)] border-t-transparent rounded-full animate-spin"></span>
+                <span className="w-6 h-6 border-4 border-[rgb(99,60,255)] border-t-transparent border-solid rounded-full animate-spin"></span>
               ) : (
                 "Preview"
               )}

@@ -114,7 +114,7 @@ const Preview = () => {
                       onClick={handleBackBtn}
                     >
                       {isPending ? (
-                        <span className="w-5 h-5 border-2 border-[rgb(99,60,255)] border-t-transparent rounded-full animate-spin"></span>
+                        <span className="w-6 h-6 border-4 border-[rgb(99,60,255)] border-t-transparent border-solid rounded-full animate-spin"></span>
                       ) : (
                         "Back to Editor"
                       )}
@@ -196,7 +196,7 @@ const Preview = () => {
                             src={`/images/icon-arrow-right.svg`}
                             onClick={() => window.open(link.url, "_blank")}
                             alt="arrow right"
-                            className="cursor-pointer"
+                            className="cursor-pointer z-10 pointer-events-auto"
                             priority
                             unoptimized
                           />
