@@ -174,25 +174,23 @@ const Preview = () => {
               </div>
             </div>
           )}
-          {success ? (
-            <div className="w-[100%]">
-              {" "}
-              <div className="mb-8 flex justify-center align-center top-1/4 left-1/2 transform -translate-x-1/2 bg-[#333333] text-white p-4 rounded-lg shadow-lg">
-                <Image
-                  src="icon-link-copied-to-clipboard.svg"
-                  alt="copied"
-                  width={15}
-                  height={15}
-                  className="rounded-full  aspect-square invert sepia brightness-0 hue-rotate-180"
-                />
-                <p className="text-white ">
-                  The link has been copied to your clipboard!
-                </p>
-              </div>
-            </div>
-          ) : (
-            ""
-          )}
+        </div>
+      )}
+      {success && (
+        <div className="w-[100%]">
+          {" "}
+          <div className="mb-8 flex justify-center align-center top-1/4 left-1/2 transform -translate-x-1/2 bg-[#333333] text-white p-4 rounded-lg shadow-lg">
+            <Image
+              src="icon-link-copied-to-clipboard.svg"
+              alt="copied"
+              width={15}
+              height={15}
+              className="rounded-full  aspect-square invert sepia brightness-0 hue-rotate-180"
+            />
+            <p className="text-white ">
+              The link has been copied to your clipboard!
+            </p>
+          </div>
         </div>
       )}
     </div>
