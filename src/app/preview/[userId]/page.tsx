@@ -108,13 +108,13 @@ const Preview = () => {
                 <header className="bg-[#633CFF] p-4 rounded-bl-[1rem] rounded-br-[1rem] rounded-tl-[0rem] rounded-tr-[0rem] z-10 min-h-[60vh]">
                   <div className="w-[100%] p-2 shadow-lg shadow-[#633CFF]/50 flex mt-2 justify-between items-center bg-white  rounded-lg shadow-xl">
                     <AnimatedButton
-                      className="previewBtn"
+                      className="previewBtn w-[160px]"
                       onClick={handleBackBtn}
                     >
                       {isPending ? (
                         <span className="w-5 h-5 border-4 border-solid border-white border-t-transparent rounded-full animate-spin inline-block"></span>
                       ) : (
-                        <div className="w-[160px]">Back to Editor</div>
+                        "Back to Editor"
                       )}
                     </AnimatedButton>{" "}
                     <AnimatedButton
@@ -203,7 +203,7 @@ const Preview = () => {
           )}
         </div>
       )}
-      <div className="relative  flex flex-col">
+      <div className="relative min-h-screen flex flex-col">
         {success && (
           <div
             className="fixed bottom-[20px] left-1/2 transform -translate-x-1/2 w-[400px] flex justify-center 
