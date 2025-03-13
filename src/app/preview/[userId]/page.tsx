@@ -114,7 +114,10 @@ const Preview = () => {
                       onClick={handleBackBtn}
                     >
                       {isPending ? (
-                        <span className="w-6 h-6 border-4 border-[rgb(99,60,255)] border-t-transparent border-solid rounded-full animate-spin"></span>
+                        <span
+                          className="animate-spin rounded-full h-10 w-10 border-b-4 
+             border-[#633CFF]"
+                        ></span>
                       ) : (
                         "Back to Editor"
                       )}
