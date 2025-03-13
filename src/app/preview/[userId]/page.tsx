@@ -183,7 +183,7 @@ const Preview = () => {
       )}
       {success && (
         <div
-          className="w-[400px] mx-auto my-4 flex justify-center 
+          className="w-[400px] mx-auto my-8 flex justify-center 
         items-center bg-[#333333] text-[#737373] p-4 rounded-[12px] shadow-lg"
         >
           <Image
