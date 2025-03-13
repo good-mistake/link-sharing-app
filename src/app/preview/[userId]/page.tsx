@@ -63,7 +63,7 @@ const Preview = () => {
   };
   if (!isMounted) return null;
   return (
-    <div>
+    <div className="min-h-[120vh]">
       {error ? (
         <div className="h-screen flex items-center justify-center bg-red-100">
           <motion.div
@@ -94,7 +94,7 @@ const Preview = () => {
           ) : (
             <div className="">
               <div>
-                <header className="bg-[#633CFF] p-4 rounded-bl-[1rem] rounded-br-[1rem] rounded-tl-[0rem] rounded-tr-[0rem] z-10 min-h-[40vh]">
+                <header className="bg-[#633CFF] p-4 rounded-bl-[1rem] rounded-br-[1rem] rounded-tl-[0rem] rounded-tr-[0rem] z-10 min-h-[50vh]">
                   <div className="w-[100%] p-2 shadow-lg shadow-[#633CFF]/50 flex mt-2 justify-between items-center bg-white  rounded-lg shadow-xl">
                     <button className="backBtn" onClick={handlePreviewBtn}>
                       Back to Editor
@@ -107,7 +107,7 @@ const Preview = () => {
                     </button>
                   </div>
                 </header>
-                <main className="min-h-[70vh] w-[340px] absolute bg-white  rounded-xl shadow-2xl top-[60%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col justify-center items-center bg-white p-8 rounded-lg shadow-xl">
+                <main className="min-h-[45vh] w-[340px] absolute bg-white  rounded-xl shadow-2xl top-[80%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col justify-center items-center bg-white p-8 rounded-lg shadow-xl">
                   <div className="flex flex-col justify-center items-center">
                     {user?.profilePicture && (
                       <Image
@@ -144,7 +144,7 @@ const Preview = () => {
                           style={{
                             backgroundColor: link ? link.color : "white",
                           }}
-                          className="mb-4 w-[237px] h-[56px] p-4 rounded-lg flex justify-between items-center"
+                          className="mb-6 w-[237px] h-[56px] p-4 rounded-lg flex justify-between items-center"
                         >
                           <Image
                             src={`${
