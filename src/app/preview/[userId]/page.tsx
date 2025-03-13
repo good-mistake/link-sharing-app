@@ -124,7 +124,10 @@ const Preview = () => {
                       className="shareLink flex justify-center items-center gap-2 cursor-pointer "
                     >
                       {copying ? (
-                        <span className="w-5 h-5 border-4 border-solid border-white border-t-transparent rounded-full animate-spin inline-block"></span>
+                        <span
+                          className="w-5 h-5 border-4 border-solid border-[rgb(99, 60, 255)] 
+                        border-t-transparent rounded-full animate-spin inline-block"
+                        ></span>
                       ) : (
                         "Share Link"
                       )}
