@@ -133,7 +133,7 @@ const Preview = () => {
                         top: `${200}px`,
                         left: "50%",
                       }}
-                      className=" userEmail w-[237px] text-center mb-8"
+                      className=" userEmail w-[237px] text-center mb-[56px]"
                     >
                       {user?.profileEmail}
                     </p>
@@ -144,7 +144,7 @@ const Preview = () => {
                           style={{
                             backgroundColor: link ? link.color : "white",
                           }}
-                          className="mb-4 w-[237px] h-[44px] p-4 rounded-lg flex justify-between items-center"
+                          className="mb-4 w-[237px] h-[56px] p-4 rounded-lg flex justify-between items-center"
                         >
                           <Image
                             src={`${
