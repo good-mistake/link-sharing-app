@@ -126,7 +126,7 @@ const Preview = () => {
                       {copying ? (
                         <span
                           className="w-5 h-5 border-4 border-solid border-white 
-                        border-t-[rgb(255, 165, 0)] rounded-full animate-spin inline-block"
+                       border-t-transparent rounded-full animate-spin inline-block"
                         ></span>
                       ) : (
                         "Share Link"
@@ -194,9 +194,14 @@ const Preview = () => {
                           <p className="text-white">{link.platform}</p>
                           <Image
                             src={`/images/icon-arrow-right.svg`}
-                            onClick={() => window.open(link.url, "_blank")}
+                            onClick={() =>
+                              link.url && window.open(link.url, "_blank")
+                            }
                             alt="arrow right"
                             className="cursor-pointer"
+                            width={22}
+                            height={22}
+                            style={{ cursor: "pointer" }}
                           />
                         </div>
                       </>

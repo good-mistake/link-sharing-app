@@ -116,11 +116,6 @@ header {
     border-radius: 8px;
     height: 46px;
     width: 114px;
-    &:hover {
-      background-color: $color-blue;
-      color: $color-white-secondary;
-      border: 1px solid $color-white-secondary;
-    }
 
     &.loading {
       background-color: transparent !important;
