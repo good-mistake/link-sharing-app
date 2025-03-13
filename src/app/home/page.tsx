@@ -425,7 +425,7 @@ export default function Home() {
               {isPending ? (
                 <span className="w-5 h-5 border-4 border-solid border-white border-t-transparent rounded-full animate-spin inline-block"></span>
               ) : (
-                "Remove"
+                "Preview"
               )}
             </AnimatedButton>
           </header>
