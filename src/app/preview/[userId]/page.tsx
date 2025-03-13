@@ -114,7 +114,7 @@ const Preview = () => {
                       onClick={handleBackBtn}
                     >
                       {isPending ? (
-                        <span className="w-5 h-5 border-4 border-solid border-white border-t-transparent rounded-full animate-spin inline-block"></span>
+                        <span className="w-5 h-5 border-2 border-[rgb(99,60,255)] border-t-transparent rounded-full animate-spin"></span>
                       ) : (
                         "Back to Editor"
                       )}
@@ -192,18 +192,14 @@ const Preview = () => {
                             className="invert sepia brightness-0 hue-rotate-180"
                           />
                           <p className="text-white">{link.platform}</p>
-                          <button
-                            onClick={() =>
-                              link.url && window.open(link.url, "_blank")
-                            }
-                          >
-                            <Image
-                              src={`/images/icon-arrow-right.svg`}
-                              alt="arrow right"
-                              width={22}
-                              height={22}
-                            />
-                          </button>
+                          <Image
+                            src={`/images/icon-arrow-right.svg`}
+                            onClick={() => window.open(link.url, "_blank")}
+                            alt="arrow right"
+                            className="cursor-pointer"
+                            priority
+                            unoptimized
+                          />
                         </div>
                       </>
                     ))}
