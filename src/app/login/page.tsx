@@ -83,7 +83,7 @@ const Login = () => {
       variants={pageVariants}
       className="w-full flex justify-center flex-col loginContainer items-center"
     >
-      <div className="">
+      <div className="hidden sm:block">
         <Image
           src="/images/logo-devlinks-large.svg"
           alt="logo"
@@ -94,7 +94,8 @@ const Login = () => {
       </div>
 
       <form
-        className="w-full md:max-w-2xl md:scale-125 bg-white p-6 rounded-lg shadow-lg space-y-4"
+        className="w-full  md:scale-80 lg:scale-100 md:max-w-xl 
+        bg-white p-6 rounded-lg shadow-lg space-y-4"
         onSubmit={handleLogin}
       >
         <h1 className="header">Login</h1>
@@ -119,7 +120,7 @@ const Login = () => {
             type="email"
             id="email"
             placeholder="e.g. alex@email.com"
-            className="input"
+            className="input md:min-w-0"
             value={accountEmail}
             onChange={(e) => setAccountEmail(e.target.value)}
           />
@@ -144,7 +145,7 @@ const Login = () => {
             type={showPassword ? "text" : "password"}
             id="password"
             placeholder="Enter your password"
-            className="input"
+            className="input md:min-w-0"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
