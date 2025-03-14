@@ -94,7 +94,7 @@ const Login = () => {
       </div>
 
       <form
-        className="w-full  md:scale-70 lg:scale-100 sm:max-w-xl 
+        className="w-full  h-screen md:h-auto lg:scale-100 sm:max-w-xl 
         bg-white p-6 rounded-lg shadow-lg space-y-4"
         onSubmit={handleLogin}
       >
