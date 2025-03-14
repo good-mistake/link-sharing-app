@@ -94,7 +94,7 @@ const Login = () => {
       </div>
 
       <form
-        className=" bg-white p-6 rounded-lg shadow-lg space-y-4"
+        className="w-full md:max-w-2xl md:scale-125 bg-white p-6 rounded-lg shadow-lg space-y-4"
         onSubmit={handleLogin}
       >
         <h1 className="header">Login</h1>
