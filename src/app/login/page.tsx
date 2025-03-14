@@ -81,7 +81,7 @@ const Login = () => {
       animate="animate"
       exit="exit"
       variants={pageVariants}
-      className="w-full flex justify-center flex-col loginContainer items-center"
+      className="w-full max-sm:m-0 flex justify-center flex-col loginContainer items-center"
     >
       <div className="hidden sm:block">
         <Image
@@ -94,7 +94,7 @@ const Login = () => {
       </div>
 
       <form
-        className="w-full  h-screen md:h-auto lg:scale-100 sm:max-w-xl 
+        className="w-full  md:h-auto lg:scale-100 sm:max-w-xl 
         bg-white p-6 rounded-lg shadow-lg space-y-4"
         onSubmit={handleLogin}
       >
