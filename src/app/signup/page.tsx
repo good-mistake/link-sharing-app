@@ -123,7 +123,7 @@ export default function Signup() {
       variants={pageVariants}
       className="w-full flex justify-center flex-col loginContainer items-center"
     >
-      <div className="">
+      <div className="logoC">
         <Image
           src="/images/logo-devlinks-large.svg"
           alt="logo"
