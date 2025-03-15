@@ -16,8 +16,10 @@ body {
     background-color: $color-white-secondary;
   }
   .logoC {
-    align-self: baseline;
-    padding: 29px;
+    @media (max-width: 640px) {
+      align-self: baseline;
+      padding: 29px;
+    }
   }
   form {
     background-color: $color-white-secondary;
