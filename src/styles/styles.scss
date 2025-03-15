@@ -12,7 +12,13 @@ body {
 
 .loginContainer {
   margin-top: 5rem;
-
+  @media (max-width: 640px) {
+    background-color: $color-white-secondary;
+  }
+  .logoC {
+    align-self: baseline;
+    padding: 29px;
+  }
   form {
     background-color: $color-white-secondary;
     padding: 40px;
