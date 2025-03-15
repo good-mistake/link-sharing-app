@@ -83,7 +83,7 @@ const Login = () => {
       variants={pageVariants}
       className="w-full max-sm:m-0 flex justify-center flex-col loginContainer items-center"
     >
-      <div className="hidden sm:block">
+      <div className="">
         <Image
           src="/images/logo-devlinks-large.svg"
           alt="logo"

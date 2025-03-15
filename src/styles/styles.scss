@@ -19,6 +19,7 @@ body {
     margin: 50px 0;
     @media (max-width: 640px) {
       margin: 0;
+      padding: 30px;
     }
     .pass {
       @include body-s;
@@ -60,6 +61,9 @@ body {
       @include inputs;
       margin-bottom: 24px;
       padding-left: 45px;
+      @media (max-width: 640px) {
+        min-width: auto;
+      }
     }
   }
 }
