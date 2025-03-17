@@ -85,6 +85,7 @@ body {
     }
   }
 }
+
 header {
   background-color: $color-white-secondary;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
@@ -96,14 +97,16 @@ header {
   }
   @media (max-width: 624px) {
     .mainLogo {
-      background: url("/public/images/logo-devlinks-small.svg");
-      background-repeat: no-repeat;
-      width: 32px;
-      height: 32px;
+      // background: url("/images/logo-devlinks-small.svg");
+      // background-repeat: no-repeat;
+      // width: 32px;
+      // height: 32px;
       img {
         display: none;
       }
     }
+    border-radius: 0px;
+    margin-bottom: 14px;
   }
   .links,
   .profileDetail {
@@ -114,11 +117,15 @@ header {
     @media (max-width: 724px) {
       padding: 10px 15px;
     }
+    @media (max-width: 624px) {
+      width: 74px;
+      height: 42px;
+    }
     p {
       margin-left: 8px;
-    }
-    @media (max-width: 624px) {
-      display: none;
+      @media (max-width: 624px) {
+        display: none;
+      }
     }
   }
   .links {
@@ -129,6 +136,9 @@ header {
     margin-right: 16px;
     @media (max-width: 724px) {
       margin-right: 8px;
+    }
+    @media (max-width: 624px) {
+      margin-right: 0px;
     }
     .notActive {
       color: $color-gray-dark;
@@ -152,6 +162,9 @@ header {
     @media (max-width: 724px) {
       margin-right: 8px;
     }
+    @media (max-width: 624px) {
+      margin-right: 0px;
+    }
     .notActive {
       color: $color-gray-dark;
     }
@@ -168,9 +181,10 @@ header {
     height: 46px;
     width: 114px;
     @media (max-width: 624px) {
-      background: url("/public/images/icon-preview-header.svg");
+      background: url("/images/icon-preview-header.svg");
       background-repeat: no-repeat;
       width: 52px;
+      background-position: center;
       height: 42px;
       span {
         display: none;

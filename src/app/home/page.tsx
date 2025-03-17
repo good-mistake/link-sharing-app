@@ -355,7 +355,7 @@ export default function Home() {
   };
 
   return (
-    <div className="p-4">
+    <div className="p-0 sm:p-4 homeContainerPage">
       {loading ? (
         <div className="loading-overlay flex justify-center items-center w-full h-screen">
           <motion.div
@@ -370,6 +370,10 @@ export default function Home() {
         <>
           <header className="flex justify-between items-center">
             <div className="mainLogo">
+              <source
+                srcSet="/images/logo-devlinks-small.svg"
+                media="(min-width: 768px)"
+              />
               <Image
                 src="/images/logo-devlinks-large.svg"
                 alt="logo"
@@ -386,7 +390,7 @@ export default function Home() {
                 onClick={() => setLinksOrProfile(false)}
               >
                 <div
-                  className={`w-4 h-4 ${
+                  className={`w-6 h-6 sm:w-4 sm:h-4 ${
                     !linkOrProfile ? "bg-[#633CFF]" : "bg-[#737373]"
                   }`}
                   style={{
@@ -408,7 +412,7 @@ export default function Home() {
                 onClick={() => setLinksOrProfile(true)}
               >
                 <div
-                  className={`w-5 h-5 ${
+                  className={`w-7 h-7 sm:w-5 sm:h-5 ${
                     linkOrProfile ? "bg-[#633CFF]" : "bg-[#737373]"
                   }`}
                   style={{
