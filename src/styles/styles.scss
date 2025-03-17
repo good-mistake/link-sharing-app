@@ -493,7 +493,7 @@ main {
 
   @media (max-width: 1024px) {
     padding: 48px 56px;
-    top: 90px;
+    top: 150px;
   }
   @media (max-width: 624px) {
     background-color: white;
@@ -507,6 +507,9 @@ main {
   }
 }
 .headerPreview {
+  @media (max-width: 1024px) {
+    min-height: 65vh;
+  }
   @media (max-width: 624px) {
     background-color: white;
     box-shadow: none;
