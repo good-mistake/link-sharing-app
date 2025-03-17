@@ -370,10 +370,6 @@ export default function Home() {
         <>
           <header className="flex justify-between items-center">
             <div className="mainLogo">
-              <source
-                srcSet="/images/logo-devlinks-small.svg"
-                media="(min-width: 768px)"
-              />
               <Image
                 src="/images/logo-devlinks-large.svg"
                 alt="logo"
@@ -390,12 +386,16 @@ export default function Home() {
                 onClick={() => setLinksOrProfile(false)}
               >
                 <div
-                  className={`w-6 h-6 sm:w-4 sm:h-4 ${
+                  className={`w-6 h-6 sm:w-4 sm:h-4  ${
                     !linkOrProfile ? "bg-[#633CFF]" : "bg-[#737373]"
                   }`}
                   style={{
                     maskImage: `${"url(/images/icon-link.svg)"}`,
                     WebkitMaskImage: `${"url(/images/icon-link.svg)"}`,
+                    maskRepeat: "no-repeat",
+                    WebkitMaskRepeat: "no-repeat",
+                    maskSize: "contain",
+                    WebkitMaskSize: "contain",
                   }}
                 />
 
@@ -418,6 +418,10 @@ export default function Home() {
                   style={{
                     maskImage: `${"url(/images/icon-profile-details-header.svg)"}`,
                     WebkitMaskImage: `${"url(/images/icon-profile-details-header.svg)"}`,
+                    maskRepeat: "no-repeat",
+                    WebkitMaskRepeat: "no-repeat",
+                    maskSize: "contain",
+                    WebkitMaskSize: "contain",
                   }}
                 />
                 <p className={`${linkOrProfile ? "active" : "notActive"}`}>
