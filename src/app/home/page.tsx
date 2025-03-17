@@ -369,7 +369,7 @@ export default function Home() {
       ) : (
         <>
           <header className="flex justify-between items-center">
-            <div className="">
+            <div className="mainLogo">
               <Image
                 src="/images/logo-devlinks-large.svg"
                 alt="logo"
@@ -435,12 +435,12 @@ export default function Home() {
                   <div className="animate-spin rounded-full h-5 w-5 border-b-4 border-[#633CFF]"></div>
                 </motion.div>
               ) : (
-                "Preview"
+                <span>Preview</span>
               )}
             </AnimatedButton>
           </header>
           <main className="maincontent flex mb-8">
-            <section className="preview hidden lg:block">
+            <section className="preview ">
               {links.length > 0 || user?.profilePicture ? (
                 <div
                   style={{
