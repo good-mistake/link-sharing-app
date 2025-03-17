@@ -120,7 +120,7 @@ const Login = () => {
             type="email"
             id="email"
             placeholder="e.g. alex@email.com"
-            className="input sm:min-w-0"
+            className="input sm:min-w-0 overflow-hidden text-ellipsis whitespace-nowrap"
             value={accountEmail}
             onChange={(e) => setAccountEmail(e.target.value)}
           />
@@ -145,7 +145,7 @@ const Login = () => {
             type={showPassword ? "text" : "password"}
             id="password"
             placeholder="Enter your password"
-            className="input sm:min-w-0"
+            className="input sm:min-w-0 overflow-hidden text-ellipsis whitespace-nowrap"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />

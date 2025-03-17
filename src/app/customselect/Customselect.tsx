@@ -216,7 +216,7 @@ export default function CustomSelect({
                     maskSize: "contain",
                     WebkitMaskSize: "contain",
                   }}
-                  className="w-4 h-4 bg-[#737373] group-hover:bg-[#633CFF] mr-2"
+                  className="w-4 h-4 bg-white group-hover:bg-[#633CFF] mr-2 "
                 />
 
                 <span className="group-hover:text-[#633CFF] group-active:text-[#633CFF] dropdownName">

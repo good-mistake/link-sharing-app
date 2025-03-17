@@ -588,11 +588,10 @@ export default function Home() {
                             <Image
                               src="/images/illustration-empty.svg"
                               alt="logo"
-                              width={250}
-                              height={818}
+                              className="w-[125px] sm:w-[250px] h-[80px] sm:h-[818px]"
                             />
                             <h2>Let’s get you started</h2>
-                            <p className="text-center px-20">
+                            <p className="text-center p-0 sm:px-20">
                               Use the “Add new link” button to get started. Once
                               you have more than one link, you can reorder and
                               edit them. We’re here to help you share your
@@ -701,8 +700,8 @@ export default function Home() {
                                     />
                                     <input
                                       type="text"
-                                      className="flex-1 py-3 linkUrl"
-                                      placeholder="Enter URL"
+                                      className="flex-1 py-3 linkUrl overflow-hidden text-ellipsis whitespace-nowrap bg-white"
+                                      placeholder="e.g. https://www.github.com/johnappleseed"
                                       value={link.url}
                                       onChange={(e) => {
                                         const updatedLinks = newLinks.map((l) =>
@@ -767,7 +766,9 @@ export default function Home() {
                               {previewImage || user?.profilePicture ? (
                                 <div
                                   style={{
-                                    backgroundImage: `url(${previewImage})`,
+                                    backgroundImage: `url(${
+                                      previewImage || user?.profilePicture
+                                    })`,
                                     backgroundSize: "cover",
                                     backgroundPosition: "center",
                                     backgroundRepeat: "no-repeat",
@@ -810,7 +811,7 @@ export default function Home() {
                             id="profileImage"
                             accept="image/*"
                             onChange={handleImageChange}
-                            className="hidden"
+                            className="hidden "
                           />
                         </div>
                         <div className="descriptions">
@@ -820,6 +821,7 @@ export default function Home() {
                               type="text"
                               id="name"
                               placeholder="e.g. John"
+                              className="overflow-hidden text-ellipsis whitespace-nowrap"
                             />
                           </label>
                           <label htmlFor="lastName">
@@ -828,6 +830,7 @@ export default function Home() {
                               type="text"
                               id="lastName"
                               placeholder="e.g. Appleseed"
+                              className="overflow-hidden text-ellipsis whitespace-nowrap"
                             />
                           </label>
                           <label htmlFor="email">
@@ -836,6 +839,7 @@ export default function Home() {
                               type="email"
                               id="email"
                               placeholder="e.g. email@example.com"
+                              className="overflow-hidden text-ellipsis whitespace-nowrap"
                             />
                           </label>
                         </div>

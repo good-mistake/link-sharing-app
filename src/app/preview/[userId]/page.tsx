@@ -58,7 +58,7 @@ const Preview = () => {
   }, [userId, isMounted]);
   useEffect(() => {
     if (success) {
-      const timer = setTimeout(() => setSuccess(false), 2000);
+      const timer = setTimeout(() => setSuccess(false), 112000);
       return () => clearTimeout(timer);
     }
   }, [success]);
@@ -105,10 +105,14 @@ const Preview = () => {
           ) : (
             <div className="mb-6">
               <div>
-                <header className="bg-[#633CFF] p-4 rounded-bl-[1rem] rounded-br-[1rem] rounded-tl-[0rem] rounded-tr-[0rem] z-10 min-h-[60vh]">
-                  <div className="w-[100%] p-2 shadow-lg shadow-[#633CFF]/50 flex mt-2 justify-between items-center bg-white  rounded-lg shadow-xl">
+                <header className="headerPreview bg-[#633CFF] p-4 rounded-bl-[32px] rounded-br-[32px] rounded-tl-[0rem] rounded-tr-[0rem] z-10 min-h-[60vh]">
+                  <div
+                    className="w-[100%] p-2 shadow-lg 
+                  shadow-[#633CFF]/50 flex mt-2 justify-between 
+                  items-center bg-white  rounded-lg shadow-xl"
+                  >
                     <AnimatedButton
-                      className={`previewBtn w-[160px] ${
+                      className={`backToEditor w-[160px] ${
                         isPending ? "loading" : ""
                       } back`}
                       onClick={handleBackBtn}
@@ -142,7 +146,7 @@ const Preview = () => {
                   </div>
                 </header>
                 <main
-                  className="relative z-50 pointer-events-auto min-h-[45vh] w-[340px] 
+                  className="mainPreview relative z-50 pointer-events-auto min-h-[45vh] w-[340px] 
                   absolute bg-white rounded-[24px] 
                   shadow-2xl top-[75%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 
                   flex flex-col justify-center items-center bg-white p-8 
