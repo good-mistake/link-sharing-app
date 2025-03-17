@@ -700,7 +700,7 @@ export default function Home() {
                                     />
                                     <input
                                       type="text"
-                                      className="flex-1 py-3 linkUrl overflow-hidden text-ellipsis whitespace-nowrap bg-white"
+                                      className="flex-1 py-3 linkUrl overflow-hidden text-ellipsis whitespace-nowrap bg-white placeholder-opacity-50"
                                       placeholder="e.g. https://www.github.com/johnappleseed"
                                       value={link.url}
                                       onChange={(e) => {
@@ -821,7 +821,7 @@ export default function Home() {
                               type="text"
                               id="name"
                               placeholder="e.g. John"
-                              className="overflow-hidden text-ellipsis whitespace-nowrap"
+                              className="overflow-hidden text-ellipsis whitespace-nowrap placeholder-opacity-50"
                             />
                           </label>
                           <label htmlFor="lastName">
@@ -830,7 +830,7 @@ export default function Home() {
                               type="text"
                               id="lastName"
                               placeholder="e.g. Appleseed"
-                              className="overflow-hidden text-ellipsis whitespace-nowrap"
+                              className="overflow-hidden text-ellipsis whitespace-nowrap placeholder-opacity-50"
                             />
                           </label>
                           <label htmlFor="email">
@@ -839,7 +839,7 @@ export default function Home() {
                               type="email"
                               id="email"
                               placeholder="e.g. email@example.com"
-                              className="overflow-hidden text-ellipsis whitespace-nowrap"
+                              className="overflow-hidden text-ellipsis whitespace-nowrap placeholder-opacity-50"
                             />
                           </label>
                         </div>

@@ -161,7 +161,7 @@ export default function Signup() {
             type="email"
             id="email"
             placeholder="e.g. alex@email.com"
-            className="input overflow-hidden text-ellipsis whitespace-nowrap"
+            className="input overflow-hidden text-ellipsis whitespace-nowrap placeholder-opacity-50"
             onChange={handleChange}
             autoFocus
           />
@@ -186,7 +186,7 @@ export default function Signup() {
             type={showPassword ? "text" : "password"}
             id="password"
             placeholder="At least 8 characters"
-            className="input overflow-hidden text-ellipsis whitespace-nowrap"
+            className="input overflow-hidden text-ellipsis whitespace-nowrap placeholder-opacity-50"
             onChange={handleChange}
             autoFocus
           />
@@ -237,7 +237,7 @@ export default function Signup() {
             type={showPassword ? "text" : "password"}
             id="confirmPassword"
             placeholder="At least 8 characters"
-            className="input overflow-hidden text-ellipsis whitespace-nowrap"
+            className="input overflow-hidden text-ellipsis whitespace-nowrap placeholder-opacity-50"
             onChange={handleChange}
             autoFocus
           />{" "}

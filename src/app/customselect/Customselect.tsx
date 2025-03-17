@@ -73,7 +73,7 @@ export const platforms = [
     name: "Codepen",
     value: "Codepen",
     icon: "/images/icon-codepen.svg",
-    color: "#1A1A1A",
+    color: "#064635",
   },
   {
     name: "CodeWars",
@@ -155,7 +155,7 @@ export default function CustomSelect({
             <div
               key={"GitHub"}
               className={`flex items-center  cursor-pointer transition-colors 
-     hover:text-[#633CFF] active:text-[#633CFF] group `}
+              hover:text-[#633CFF] active:text-[#633CFF] group `}
               onClick={() => {
                 setSelected("GitHub");
                 setIsOpen(false);
@@ -198,9 +198,11 @@ export default function CustomSelect({
               <div
                 key={platform.value}
                 className={`flex items-center py-3 cursor-pointer transition-colors 
-     hover:text-[#633CFF] active:text-[#633CFF] group ${
-       index !== platforms.length - 1 ? "border-b border-[#D9D9D9]" : ""
-     }`}
+                hover:text-[#633CFF] active:text-[#633CFF] group ${
+                  index !== platforms.length - 1
+                    ? "border-b border-[#D9D9D9]"
+                    : ""
+                }`}
                 onClick={() => {
                   setSelected(platform.value);
                   setSelectedColor(platform.color);
@@ -215,6 +217,7 @@ export default function CustomSelect({
                     WebkitMaskRepeat: "no-repeat",
                     maskSize: "contain",
                     WebkitMaskSize: "contain",
+                    backgroundColor: "#737373",
                   }}
                   className="w-4 h-4 bg-white group-hover:bg-[#633CFF] mr-2 "
                 />
