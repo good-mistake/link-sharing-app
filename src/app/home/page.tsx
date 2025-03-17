@@ -325,9 +325,9 @@ export default function Home() {
     }, 3000);
   };
   const showSuccessProfile = () => {
-    setSuccessLinks(true);
+    setSuccessProfile(true);
     setTimeout(() => {
-      setSuccessLinks(false);
+      setSuccessProfile(false);
     }, 3000);
   };
   const removeLink = async (id: number | string) => {

@@ -148,6 +148,7 @@ const Login = () => {
             className="input sm:min-w-0 overflow-hidden text-ellipsis whitespace-nowrap placeholder-opacity-50"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            autoComplete="current-password"
           />
           <span
             onClick={() => setShowPassword(!showPassword)}
