@@ -449,7 +449,8 @@ main {
 }
 .shareLink {
   margin-top: 0;
-  width: 133px;
+  width: 114px;
+  height: 46px;
 }
 .backBtn {
   color: $color-blue;
@@ -475,10 +476,7 @@ main {
   border-radius: 8px;
   height: 46px;
   width: 114px;
-  @media (max-width: 624px) {
-    width: 52px;
-    height: 42px;
-  }
+
   &.loading {
     background-color: transparent !important;
     color: $color-blue !important;
@@ -523,6 +521,13 @@ main {
       padding: 0;
       background-color: inherit;
       margin-top: 0;
+    }
+  }
+}
+.successPreview {
+  > div {
+    @media (max-width: 624px) {
+      width: 80%;
     }
   }
 }

@@ -58,7 +58,7 @@ const Preview = () => {
   }, [userId, isMounted]);
   useEffect(() => {
     if (success) {
-      const timer = setTimeout(() => setSuccess(false), 112000);
+      const timer = setTimeout(() => setSuccess(false), 2000);
       return () => clearTimeout(timer);
     }
   }, [success]);
@@ -223,11 +223,12 @@ const Preview = () => {
           )}
         </div>
       )}
-      <div className="relative min-h-[40vh] flex flex-col">
+      <div className="relative min-h-[40vh] flex flex-col successPreview">
         {success && (
           <div
-            className="fixed  bottom-[20px] left-1/2 transform -translate-x-1/2 w-[400px] flex justify-center 
-    items-center bg-[#333333] text-[#737373] p-4 rounded-[12px] shadow-lg z-100"
+            className="fixed  bottom-[20px] left-1/2 transform -translate-x-1/2 
+            w-[400px] flex justify-center 
+            items-center bg-[#333333] text-[#737373] p-4 rounded-[12px] shadow-lg z-[100]"
           >
             <Image
               src="/images/icon-link-copied-to-clipboard.svg"
@@ -236,7 +237,7 @@ const Preview = () => {
               height={15}
               className="w-[15px] h-[15px] invert brightness-50"
             />
-            <p className="text-white text-center ml-2">
+            <p className="text-white text-center ml-2 overflow-hidden text-ellipsis whitespace-nowrap">
               The link has been copied to your clipboard!
             </p>
           </div>
