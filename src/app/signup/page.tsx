@@ -121,7 +121,7 @@ export default function Signup() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
       variants={pageVariants}
-      className="w-full flex justify-center flex-col loginContainer items-center"
+      className="w-full max-sm:m-0 flex justify-center flex-col loginContainer items-center"
     >
       <div className="logoC">
         <Image

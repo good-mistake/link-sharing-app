@@ -440,7 +440,7 @@ export default function Home() {
             </AnimatedButton>
           </header>
           <main className="maincontent flex mb-8">
-            <section className="preview ">
+            <section className="preview hidden lg:block">
               {links.length > 0 || user?.profilePicture ? (
                 <div
                   style={{
